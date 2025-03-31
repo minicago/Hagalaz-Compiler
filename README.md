@@ -28,3 +28,9 @@ qemu-arm-static 00_main
 echo $?
 # 3
 ```
+
+### 数据集获取
+```bash
+git clone https://gitlab.eduxiji.net/csc1/nscscc/compiler2023.git
+# 将其中公开样例与运行时库复制到test目录下
+```
