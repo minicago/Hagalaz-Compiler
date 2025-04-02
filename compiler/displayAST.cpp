@@ -55,6 +55,10 @@ void DisplayASTVisitor::visit(CompUnitNode &node) {
 void DisplayASTVisitor::visit(BlockGroupNode &node) {
     std::cout << "BlockGroupNode: blocks=" << std::endl;
     for (auto &block : node.blocklist) {
+        if (block == nullptr) {
+            std::cout << "BlockGroupNode: block is null" << std::endl;
+            continue;
+        }
         block->accept(*this);
     }
 }

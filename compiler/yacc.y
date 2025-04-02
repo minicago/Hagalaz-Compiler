@@ -79,9 +79,11 @@ Decl: ConstDecl
      |VarDecl
 
 ConstDecl: CONST BType {
-            decl_type = std::dynamic_pointer_cast<SimpleTokenNode>($2)->getType();
+            decl_type = std::dynamic_pointer_cast<SimpleTokenNode>($1)->getType();
+        } ConstDef ";" {
             $$ = std::make_shared<CompUnitNode>();
-        } ConstDef ";" 
+            std::dynamic_pointer_cast<CompUnitNode>($$)->addDef($4);
+        }
           |ConstDecl "," ConstDef {
             $$ = $1;
             std::dynamic_pointer_cast<CompUnitNode>($$)->addDef($3);
@@ -89,8 +91,8 @@ ConstDecl: CONST BType {
 
  
 BType: INT 
-     | FLOAT
-     | VOID
+     | FLOAT 
+     | VOID 
 
 ConstDef: Ident ArrayList ASSIGN InitVal {
             $$ = std::make_shared<DeclNode>(true, decl_type, std::dynamic_pointer_cast<IdentifierNode>($1)->id, $2, $4);
@@ -113,9 +115,10 @@ InitValGroup: InitVal {
     std::dynamic_pointer_cast<VectorNode> ($$)->addNode($3);    
 }
 
-VarDecl : BType VarDefGroup ";" {
-    decl_type = std::dynamic_pointer_cast<SimpleTokenNode>($1)->getType();
-    $$ = $2;
+VarDecl : BType {
+        decl_type = std::dynamic_pointer_cast<SimpleTokenNode>($1)->getType();
+    } VarDefGroup ";"{std::cout<<"ok"<<std::endl;
+        $$ = $3; 
 }
 
 VarDefGroup: VarDef {
@@ -133,6 +136,7 @@ VarDef : Ident {
 }| Ident ArrayList {
     $$ = std::make_shared<DeclNode>(false, decl_type, std::dynamic_pointer_cast<IdentifierNode>($1)->id, $2, nullptr);
 }| Ident ArrayList ASSIGN InitVal {
+    
     $$ = std::make_shared<DeclNode>(false, decl_type, std::dynamic_pointer_cast<IdentifierNode>($1)->id, $2, $4);
 }
 
