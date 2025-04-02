@@ -1,7 +1,7 @@
 
 %locations
 %{ 
-    #include<stdio.h>
+    #include <iostream>
     #include<ctype.h>
     #include "def.h"
     #include "AST.h"
@@ -55,6 +55,7 @@
 
 %%
 CompUnit: FuncDef { 
+            
             $$ = std::make_shared<CompUnitNode>();
             AST_root = $$;
             std::dynamic_pointer_cast<CompUnitNode>($$)->addDef($1);
@@ -114,11 +115,12 @@ InitValGroup: InitVal {
 
 VarDecl : BType VarDefGroup ";" {
     decl_type = std::dynamic_pointer_cast<SimpleTokenNode>($1)->getType();
-    $$ = $1;
+    $$ = $2;
 }
 
 VarDefGroup: VarDef {
     $$ = std::make_shared<CompUnitNode>();
+    std::dynamic_pointer_cast<CompUnitNode>($$)->addDef($1);
 }| VarDefGroup "," VarDef{
     $$ = $1;
     std::dynamic_pointer_cast<CompUnitNode>($$)->addDef($3);
@@ -280,7 +282,10 @@ LOrExp : LAndExp | LOrExp OR LAndExp {
 
 %%
 
+#include "displayAST.h"
+
 int main(int argc, char** argv){
+    
     extern FILE* yyin;
     if(argc == 2){
 	if((yyin = fopen(argv[1], "r")) == NULL){
@@ -289,8 +294,10 @@ int main(int argc, char** argv){
 	}
     }
     yyparse();
- 
+    
 	fclose(yyin);
+    DisplayASTVisitor display;
+    AST_root->accept(display);
     return 0;
 }
 

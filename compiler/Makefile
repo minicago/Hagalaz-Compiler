@@ -10,7 +10,7 @@ lex.yy.c: lex.l
 y.tab.c: yacc.y
 	$(YACC) -o $@ -d $<
 
-AST: y.tab.c lex.yy.c AST.cpp def.h AST.h
+AST: y.tab.c lex.yy.c AST.cpp displayAST.cpp def.h AST.h
 	$(CC) -o $@ $^ -lfl
 
 clean:
