@@ -169,12 +169,12 @@ public:
     virtual void accept(Visitor &v) override ;
 };
 
-class VectorNode: public Node
+class vectorNode: public Node
 {
 public:
     std::vector<std::shared_ptr<Node>> list;
-    VectorNode(){}
-    VectorNode(std::vector<std::shared_ptr<Node>> list):list(list){}
+    vectorNode(){}
+    vectorNode(std::vector<std::shared_ptr<Node>> list):list(list){}
     void addNode(std::shared_ptr<Node> node)
     {
         list.push_back(node);
@@ -301,7 +301,7 @@ public:
     virtual void visit(CompUnitNode &node) = 0;
     virtual void visit(StmtListNode &node) = 0;
     virtual void visit(AssignNode &node) = 0;
-    virtual void visit(VectorNode &node) = 0;
+    virtual void visit(vectorNode &node) = 0;
     virtual void visit(DeclNode &node) = 0;
     virtual void visit(ConstIntNode &node) = 0;
     virtual void visit(ConstFloatNode &node) = 0;

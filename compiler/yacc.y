@@ -108,16 +108,16 @@ InitVal : Exp
         }
 
 InitValGroup: InitVal {
-    $$ = std::make_shared<VectorNode> ();
-    std::dynamic_pointer_cast<VectorNode> ($$)->addNode($1);
+    $$ = std::make_shared<vectorNode> ();
+    std::dynamic_pointer_cast<vectorNode> ($$)->addNode($1);
 }| InitValGroup "," InitVal {
     $$ = $1;
-    std::dynamic_pointer_cast<VectorNode> ($$)->addNode($3);    
+    std::dynamic_pointer_cast<vectorNode> ($$)->addNode($3);    
 }
 
 VarDecl : BType {
         decl_type = std::dynamic_pointer_cast<SimpleTokenNode>($1)->getType();
-    } VarDefGroup ";"{std::cout<<"ok"<<std::endl;
+    } VarDefGroup ";"{*output.log<<"ok"<<std::endl;
         $$ = $3; 
 }
 
@@ -141,11 +141,11 @@ VarDef : Ident {
 }
 
 ArrayList: "[" Exp "]"{
-    $$ = std::make_shared<VectorNode> ();
-    std::dynamic_pointer_cast<VectorNode> ($$)->addNode($2);
+    $$ = std::make_shared<vectorNode> ();
+    std::dynamic_pointer_cast<vectorNode> ($$)->addNode($2);
 } | ArrayList "[" Exp "]" {
     $$ = $1;
-    std::dynamic_pointer_cast<VectorNode> ($$)->addNode($3);  
+    std::dynamic_pointer_cast<vectorNode> ($$)->addNode($3);  
 }
 
 FuncDef : BType Ident "(" ")" Block{

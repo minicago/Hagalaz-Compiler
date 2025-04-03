@@ -4,15 +4,26 @@
 #include <map>
 #include <string>
 #include <memory>
+#include <variant>
+#include <vector>
+#include <optional>
+
+
 
 class Decl{
 public:
     yytokentype type;
     std::string id;
     bool isptr;
-    bool isfunc;
-    std::shared_ptr<Node> arraySize;
+    std::optional<std::shared_ptr<ConstChunk> >initval;
+    std::optional<std::shared_ptr<IntList> >arraySize;
+    std::optional<Var> var;
+    std::optional<std::vector<Decl> > param;
 
+    Decl(std::string id, yytokentype type, bool isptr = false) 
+        : id(id), type(type), isptr(isptr){}
+
+    virtual ~Decl() = default;
 
 };
 

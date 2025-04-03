@@ -1,5 +1,5 @@
 CC = g++
-CFLAGS = -g -Wall -std=c++11
+CFLAGS = -g -Wall -std=c++17
 
 LEX = flex
 YACC = bison
@@ -10,7 +10,7 @@ lex.yy.c: lex.l
 y.tab.c: yacc.y
 	$(YACC) -o $@ -d $<
 
-AST: y.tab.c lex.yy.c AST.cpp displayAST.cpp def.h AST.h
+AST: y.tab.c lex.yy.c AST.cpp displayAST.cpp output.cpp
 	$(CC) -o $@ $^ -lfl
 
 clean:

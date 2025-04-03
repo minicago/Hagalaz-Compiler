@@ -77,7 +77,7 @@ void AssignNode::accept(Visitor &v)
 {
     v.visit(*this);
 }
-void VectorNode::accept(Visitor &v)
+void vectorNode::accept(Visitor &v)
 {
     v.visit(*this);
 }

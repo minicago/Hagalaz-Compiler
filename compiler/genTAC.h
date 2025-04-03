@@ -1,14 +1,51 @@
-#ifndef DISPLAYAST_H
-#define DISPLAYAST_H
+#ifndef GENTAC_H
+#define GENTAC_H
+
 #include "def.h"
-#include <iostream>
+#include "AST.h"
+#include "scope.h"
+#include <variant>
+#include <vector>
+#include <memory>
 
-class DisplayASTVisitor: public Visitor
-{
+class TAC {
 public:
-    DisplayASTVisitor() = default;
+    std::string op;
+    std::string arg1, arg2, result;
+};
 
-    // Override all virtual functions from Visitor
+class TACList {
+private:
+    TAC tac;
+    TACList* nextTAC;
+public:
+    TACList(TAC tac) {
+        this->tac = tac;
+        this->nextTAC = this;
+    }
+    void merge(std::shared_ptr<TACList> other) {
+        std::swap(nextTAC, other->nextTAC);
+    }
+};
+
+class SemaChunck{
+public:
+    std::optional<std::shared_ptr<ConstChunk> > initval;
+    std::optional<std::shared_ptr<Var> > var;
+    std::shared_ptr<TACList> truelist, falselist, nextlist;
+
+    SemaChunck() : initval(std::nullopt), truelist(nullptr), falselist(nullptr), nextlist(nullptr) {}
+};
+
+
+class GenTACVisitor : public Visitor {
+private:
+    std::shared_ptr<SemaChunck> semaChunk;
+    bool Assign;
+
+public:
+    GenTACVisitor() = default;
+
     void visit(ExprNode &node) override;
     void visit(IfElseNode &node) override;
     void visit(WhileNode &node) override;
