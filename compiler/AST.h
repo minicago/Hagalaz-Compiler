@@ -6,6 +6,20 @@
 #include <string>
 #include <memory>
 
+class StmtListNode: public Node
+{
+public:
+    std::vector<std::shared_ptr<Node>> stmtlist;
+
+    StmtListNode(){}
+    StmtListNode(std::vector<std::shared_ptr<Node>> stmtlist):stmtlist(stmtlist){}
+    void addStmt(std::shared_ptr<Node> stmt)
+    {
+        stmtlist.push_back(stmt);
+    }
+    virtual void accept(Visitor &v) override ;
+};
+
 class ExprNode: public Node
 {
 public:
@@ -133,26 +147,14 @@ public:
     CompUnitNode(std::vector<std::shared_ptr<Node>> deflist):deflist(deflist){}
     void addDef(std::shared_ptr<Node>& def)
     {
-        deflist.push_back(def);
-    }
-    void addDecl(std::shared_ptr<Node>& decl)
-    {
-        for (auto &d: std::dynamic_pointer_cast<CompUnitNode>(decl) ->deflist)
-            deflist.push_back(d);
-    }
-    virtual void accept(Visitor &v) override ;
-};
-
-class StmtListNode: public Node
-{
-public:
-    std::vector<std::shared_ptr<Node>> stmtlist;
-
-    StmtListNode(){}
-    StmtListNode(std::vector<std::shared_ptr<Node>> stmtlist):stmtlist(stmtlist){}
-    void addStmt(std::shared_ptr<Node> stmt)
-    {
-        stmtlist.push_back(stmt);
+        if (typeid(*def) == typeid(StmtListNode))
+        {
+            auto stmtlist = std::dynamic_pointer_cast<StmtListNode>(def);
+            for (auto &stmt: stmtlist->stmtlist)
+                deflist.push_back(stmt);
+            return;
+        }
+        else deflist.push_back(def);
     }
     virtual void accept(Visitor &v) override ;
 };
@@ -256,7 +258,14 @@ public:
     BlockGroupNode(std::vector<std::shared_ptr<Node>> blocklist):blocklist(blocklist){}
     void addBlock(std::shared_ptr<Node> block)
     {
-        blocklist.push_back(block);
+        if (typeid(*block) == typeid(StmtListNode))
+        {
+            auto stmtlist = std::dynamic_pointer_cast<StmtListNode>(block);
+            for (auto &stmt: stmtlist->stmtlist)
+                blocklist.push_back(stmt);
+            return;
+        }
+        else blocklist.push_back(block);
     }
     virtual void accept(Visitor &v) override ;
 };

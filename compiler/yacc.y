@@ -68,11 +68,11 @@ CompUnit: FuncDef {
         Decl {
             $$ = std::make_shared<CompUnitNode>();
             AST_root = $$;
-            std::dynamic_pointer_cast<CompUnitNode>($$)->addDecl(($1));
+            std::dynamic_pointer_cast<CompUnitNode>($$)->addDef(($1));
         }
         | CompUnit Decl {
             $$ = $1;
-            std::dynamic_pointer_cast<CompUnitNode>($$)->addDecl($2);
+            std::dynamic_pointer_cast<CompUnitNode>($$)->addDef($2);
         }
 
 Decl: ConstDecl
@@ -81,12 +81,12 @@ Decl: ConstDecl
 ConstDecl: CONST BType {
             decl_type = std::dynamic_pointer_cast<SimpleTokenNode>($1)->getType();
         } ConstDef ";" {
-            $$ = std::make_shared<CompUnitNode>();
-            std::dynamic_pointer_cast<CompUnitNode>($$)->addDef($4);
+            $$ = std::make_shared<StmtListNode>();
+            std::dynamic_pointer_cast<StmtListNode>($$)->addStmt($4);
         }
           |ConstDecl "," ConstDef {
             $$ = $1;
-            std::dynamic_pointer_cast<CompUnitNode>($$)->addDef($3);
+            std::dynamic_pointer_cast<StmtListNode>($$)->addStmt($3);
           }
 
  
@@ -122,11 +122,11 @@ VarDecl : BType {
 }
 
 VarDefGroup: VarDef {
-    $$ = std::make_shared<CompUnitNode>();
-    std::dynamic_pointer_cast<CompUnitNode>($$)->addDef($1);
+    $$ = std::make_shared<StmtListNode>();
+    std::dynamic_pointer_cast<StmtListNode>($$)->addStmt($1);
 }| VarDefGroup "," VarDef{
     $$ = $1;
-    std::dynamic_pointer_cast<CompUnitNode>($$)->addDef($3);
+    std::dynamic_pointer_cast<StmtListNode>($$)->addStmt($3);
 }
 
 VarDef : Ident {
