@@ -41,7 +41,6 @@ void Scope::addVar(std::string id, std::shared_ptr<VarDecl> var) {
 }
 
 void Scope::addFunc(std::string id, std::shared_ptr<FuncDecl> func) {
-    funcTable[id] = func;
     if (funcTable.find(id) != funcTable.end()) {
         
         *output.err << "Error: Function " << id << " already declared." << std::endl;

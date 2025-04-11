@@ -199,6 +199,8 @@ void Checker::visit(FuncDefNode &node) {
             }
         }
     }
+
+
     if (node.stmt) {
         node.stmt->accept(*this);
         funcDecl->stmt = node.stmt;
@@ -306,6 +308,7 @@ void Checker::visit(AssignNode &node) {
 void Checker::visit(VectorNode &node) {
     *output.log << "Visiting vectorNode" << std::endl;
     if (constructingType){
+        *output.log << "Constructing type: " << constructingType->toString() << std::endl;
         for (auto element = node.list.rbegin(); element != node.list.rend(); ++element) {
             (*element)->accept(*this);
             if (!result[*element].value) {
@@ -315,17 +318,17 @@ void Checker::visit(VectorNode &node) {
             auto elementResult = result[*element];
             int length = elementResult.value->getInt();
             constructingType = std::make_shared<ArrayType>(constructingType, length);
+            *output.log << "Constructing type: " << constructingType->toString() << std::endl;
         }
-        constructingType = nullptr;
     }
     if (constructingValue){
         bool init = false;
         int initIndex = 0;
         if (!constructingValue->isConst()){
             init = true;
-             
             
-            constructingValue->value = new char[constructingValue->type->size]();
+            constructingValue->data = std::shared_ptr<char[]>(new char[constructingValue->type->size]);
+            constructingValue->value = &(constructingValue->data[0]);
             // constructingValue->value = std::make_shared<void>(std::get<void*> (constructingValue->value));
             memset(std::get<void*> (constructingValue->value), 0, constructingValue->type->size);
             constructingIndex = 0;
@@ -363,12 +366,12 @@ void Checker::visit(VectorNode &node) {
             }
         }
         if (init) {
-            if (constructingIndex >= constructingValue->type->size) {
-                REPORT_ERROR("Vector initialization size mismatch.");
+            if (constructingIndex > constructingValue->type->size) {
+                REPORT_ERROR("Vector initialization size mismatch. Expected " + std::to_string(constructingValue->type->size) + " but got " + std::to_string(constructingIndex) + ".");
                 return;
             }
             constructingIndex = 0;
-            constructingValue = nullptr;            
+            // constructingValue = nullptr;            
             
         } else {
             if (constructingIndex == initIndex) {
@@ -386,25 +389,33 @@ void Checker::visit(VectorNode &node) {
 void Checker::visit(DeclNode &node) {
     *output.log << "Visiting DeclNode" << std::endl;
     
-    auto type = std::make_shared<SimpleType>(node.type);
+    std::shared_ptr<SysyType> type = std::make_shared<SimpleType>(node.type);
     
 
-    if (node.isConst) {
-        constructingType = type;
-    }
+    constructingType = type;
+
     if (node.arraySize) {
         node.arraySize->accept(*this);
+        type = constructingType;
+        *output.log << "type " << type->toString() << std::endl;
     }
+
+    constructingType = nullptr;
+
     auto value = std::make_shared<TypeValue>(type);
     
-    if (node.isConst) {
-        constructingValue = value;
-    }   
+
+    constructingValue = value;
+
         
     if (node.initval) {
         node.initval->accept(*this);
+
     }
+
+    constructingValue = nullptr;
     
+
     auto decl = std::make_shared<VarDecl>(node.id, *value);
 
     scope.addVar(node.id, decl);
@@ -476,15 +487,17 @@ void Checker::visit(LvalNode &node) {
             }
             auto typeValue = var->typeValue;
             if(indexResult.value->isConst()){
+                *output.log << "Array index is constant." << std::endl;
                 auto indexValue = indexResult.value->getInt();
-                if (indexValue < 0 || indexValue >= typeValue.get_index(indexValue
-                ).get_index(0).getInt()) {
+                *output.log << typeValue.type->toString() << std::endl;
+                if (indexValue < 0 || indexValue >= std::dynamic_pointer_cast<ArrayType>(typeValue.type)->length) {
                     REPORT_ERROR("Array index out of bounds.");
                     return;
                 } else {
                     typeValue = typeValue.get_index(indexValue);
                 }
             } else {
+                *output.log << "Array index is not constant." << std::endl;
                 typeValue = typeValue.get_index(0);
                 allConst = false;
             }

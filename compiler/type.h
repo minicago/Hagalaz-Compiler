@@ -84,6 +84,7 @@ typedef std::variant<std::monostate, int, float, void* > ConstType;
 class TypeValue {
 public:
     std::shared_ptr<SysyType> type;
+    std::shared_ptr<char[]> data;
     ConstType value;
 
     TypeValue(std::shared_ptr<SysyType> type, ConstType value)
@@ -92,11 +93,7 @@ public:
     TypeValue(std::shared_ptr<SysyType> type)
         : type(type), value() {}
 
-    ~TypeValue() {
-        if (std::holds_alternative<void*>(value)) {
-            delete static_cast<void*>(std::get<void*>(value));
-        }
-    }
+    ~TypeValue() = default;
     
     bool isConst() const {
         return not std::holds_alternative<std::monostate>(value);
@@ -123,6 +120,9 @@ public:
     }
 
     TypeValue get_index(int index){
+        *output.log << "get_index" << std::endl;
+        *output.log << "index: " << index << std::endl;
+        *output.log << "type: " << type->toString() << std::endl;
         if (type->isArrayType()){
             auto arrayType = std::dynamic_pointer_cast<ArrayType>(type);
             if (arrayType->length > index){
@@ -144,7 +144,7 @@ public:
                 throw std::out_of_range("Index out of range");
             }
         } else {
-            throw "Not an array type";
+            throw std::invalid_argument("Type is not an array");
         }
     } 
     
