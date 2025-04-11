@@ -1,0 +1,624 @@
+g++ -o AST y.tab.c lex.yy.c AST.cpp displayAST.cpp output.cpp main.cpp checker.cpp tool.cpp -lfl
+y.tab.c: In function ‘int yyparse()’:
+y.tab.c:2063:20: warning: ISO C++ forbids converting a string constant to ‘char*’ [-Wwrite-strings]
+ 2063 |       yyerror (YY_("syntax error"));
+      |                    ^~~~~~~~~~~~~~
+y.tab.c:412:22: note: in definition of macro ‘YY_’
+  412 | #  define YY_(Msgid) Msgid
+      |                      ^~~~~
+y.tab.c:2178:16: warning: ISO C++ forbids converting a string constant to ‘char*’ [-Wwrite-strings]
+ 2178 |   yyerror (YY_("memory exhausted"));
+      |                ^~~~~~~~~~~~~~~~~~
+y.tab.c:412:22: note: in definition of macro ‘YY_’
+  412 | #  define YY_(Msgid) Msgid
+      |                      ^~~~~
+y.tab.c:2207:18: warning: ‘void free(void*)’ called on unallocated object ‘yyssa’ [-Wfree-nonheap-object]
+ 2207 |     YYSTACK_FREE (yyss);
+y.tab.c:1233:16: note: declared here
+ 1233 |     yy_state_t yyssa[YYINITDEPTH];
+      |                ^~~~~
+In file included from def.h:6,
+                 from checker.h:4,
+                 from checker.cpp:1:
+/usr/include/c++/13/variant: In instantiation of ‘constexpr _Tp& std::get(variant<_Types ...>&) [with _Tp = int; _Types = {variant<int, float>, vector<ConstChunk, allocator<ConstChunk> >}]’:
+checker.cpp:26:54:   required from here
+/usr/include/c++/13/variant:1152:42: error: static assertion failed: T must occur exactly once in alternatives
+ 1152 |       static_assert(__detail::__variant::__exactly_once<_Tp, _Types...>,
+      |                     ~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/include/c++/13/variant:1152:42: note: ‘std::__detail::__variant::__exactly_once<int, std::variant<int, float>, std::vector<ConstChunk, std::allocator<ConstChunk> > >’ evaluates to false
+/usr/include/c++/13/variant: In instantiation of ‘struct std::variant_alternative<2, std::variant<std::variant<int, float>, std::vector<ConstChunk, std::allocator<ConstChunk> > > >’:
+/usr/include/c++/13/variant:105:11:   required by substitution of ‘template<long unsigned int _Np, class _Variant> using std::variant_alternative_t = typename std::variant_alternative::type [with long unsigned int _Np = 2; _Variant = std::variant<std::variant<int, float>, std::vector<ConstChunk, std::allocator<ConstChunk> > >]’
+/usr/include/c++/13/variant:1744:5:   required by substitution of ‘template<long unsigned int _Np, class ... _Types> constexpr std::variant_alternative_t<_Np, std::variant<_Types ...> >&& std::get(const variant<_Types ...>&&) [with long unsigned int _Np = 2; _Types = {std::variant<int, float>, std::vector<ConstChunk, std::allocator<ConstChunk> >}]’
+/usr/include/c++/13/variant:1155:27:   required from ‘constexpr _Tp& std::get(variant<_Types ...>&) [with _Tp = int; _Types = {variant<int, float>, vector<ConstChunk, allocator<ConstChunk> >}]’
+checker.cpp:26:54:   required from here
+/usr/include/c++/13/variant:99:25: error: static assertion failed
+   99 |       static_assert(_Np < sizeof...(_Types));
+      |                     ~~~~^~~~~~~~~~~~~~~~~~~
+/usr/include/c++/13/variant:99:25: note: the comparison reduces to ‘(2 < 2)’
+/usr/include/c++/13/variant:101:13: error: no type named ‘type’ in ‘struct std::_Nth_type<2, std::variant<int, float>, std::vector<ConstChunk, std::allocator<ConstChunk> > >’
+  101 |       using type = typename _Nth_type<_Np, _Types...>::type;
+      |             ^~~~
+/usr/include/c++/13/variant: In instantiation of ‘constexpr _Tp& std::get(variant<_Types ...>&) [with _Tp = int; _Types = {variant<int, float>, vector<ConstChunk, allocator<ConstChunk> >}]’:
+checker.cpp:26:54:   required from here
+/usr/include/c++/13/variant:1155:27: error: no matching function for call to ‘get<__n>(std::variant<std::variant<int, float>, std::vector<ConstChunk, std::allocator<ConstChunk> > >&)’
+ 1155 |       return std::get<__n>(__v);
+      |              ~~~~~~~~~~~~~^~~~~
+In file included from /usr/include/c++/13/bits/stl_algobase.h:64,
+                 from /usr/include/c++/13/string:51,
+                 from /usr/include/c++/13/bits/locale_classes.h:40,
+                 from /usr/include/c++/13/bits/ios_base.h:41,
+                 from /usr/include/c++/13/ios:44,
+                 from /usr/include/c++/13/istream:40,
+                 from /usr/include/c++/13/fstream:40,
+                 from output.h:4,
+                 from def.h:5:
+/usr/include/c++/13/bits/stl_pair.h:1035:5: note: candidate: ‘template<long unsigned int _Int, class _Tp1, class _Tp2> constexpr typename std::tuple_element<_Int, std::pair<_Tp1, _Tp2> >::type& std::get(pair<_Tp1, _Tp2>&)’
+ 1035 |     get(pair<_Tp1, _Tp2>& __in) noexcept
+      |     ^~~
+/usr/include/c++/13/bits/stl_pair.h:1035:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13/variant:1155:27: note:   ‘std::variant<std::variant<int, float>, std::vector<ConstChunk, std::allocator<ConstChunk> > >’ is not derived from ‘std::pair<_Tp1, _Tp2>’
+ 1155 |       return std::get<__n>(__v);
+      |              ~~~~~~~~~~~~~^~~~~
+/usr/include/c++/13/bits/stl_pair.h:1040:5: note: candidate: ‘template<long unsigned int _Int, class _Tp1, class _Tp2> constexpr typename std::tuple_element<_Int, std::pair<_Tp1, _Tp2> >::type&& std::get(pair<_Tp1, _Tp2>&&)’
+ 1040 |     get(pair<_Tp1, _Tp2>&& __in) noexcept
+      |     ^~~
+/usr/include/c++/13/bits/stl_pair.h:1040:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13/variant:1155:27: note:   ‘std::variant<std::variant<int, float>, std::vector<ConstChunk, std::allocator<ConstChunk> > >’ is not derived from ‘std::pair<_Tp1, _Tp2>’
+ 1155 |       return std::get<__n>(__v);
+      |              ~~~~~~~~~~~~~^~~~~
+/usr/include/c++/13/bits/stl_pair.h:1045:5: note: candidate: ‘template<long unsigned int _Int, class _Tp1, class _Tp2> constexpr const typename std::tuple_element<_Int, std::pair<_Tp1, _Tp2> >::type& std::get(const pair<_Tp1, _Tp2>&)’
+ 1045 |     get(const pair<_Tp1, _Tp2>& __in) noexcept
+      |     ^~~
+/usr/include/c++/13/bits/stl_pair.h:1045:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13/variant:1155:27: note:   ‘std::variant<std::variant<int, float>, std::vector<ConstChunk, std::allocator<ConstChunk> > >’ is not derived from ‘const std::pair<_Tp1, _Tp2>’
+ 1155 |       return std::get<__n>(__v);
+      |              ~~~~~~~~~~~~~^~~~~
+/usr/include/c++/13/bits/stl_pair.h:1050:5: note: candidate: ‘template<long unsigned int _Int, class _Tp1, class _Tp2> constexpr const typename std::tuple_element<_Int, std::pair<_Tp1, _Tp2> >::type&& std::get(const pair<_Tp1, _Tp2>&&)’
+ 1050 |     get(const pair<_Tp1, _Tp2>&& __in) noexcept
+      |     ^~~
+/usr/include/c++/13/bits/stl_pair.h:1050:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13/variant:1155:27: note:   ‘std::variant<std::variant<int, float>, std::vector<ConstChunk, std::allocator<ConstChunk> > >’ is not derived from ‘const std::pair<_Tp1, _Tp2>’
+ 1155 |       return std::get<__n>(__v);
+      |              ~~~~~~~~~~~~~^~~~~
+/usr/include/c++/13/bits/stl_pair.h:1059:5: note: candidate: ‘template<class _Tp, class _Up> constexpr _Tp& std::get(pair<_T1, _T2>&)’
+ 1059 |     get(pair<_Tp, _Up>& __p) noexcept
+      |     ^~~
+/usr/include/c++/13/bits/stl_pair.h:1059:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13/variant:1155:27: error: type/value mismatch at argument 1 in template parameter list for ‘template<class _Tp, class _Up> constexpr _Tp& std::get(pair<_T1, _T2>&)’
+ 1155 |       return std::get<__n>(__v);
+      |              ~~~~~~~~~~~~~^~~~~
+/usr/include/c++/13/variant:1155:27: note:   expected a type, got ‘__n’
+/usr/include/c++/13/bits/stl_pair.h:1064:5: note: candidate: ‘template<class _Tp, class _Up> constexpr const _Tp& std::get(const pair<_T1, _T2>&)’
+ 1064 |     get(const pair<_Tp, _Up>& __p) noexcept
+      |     ^~~
+/usr/include/c++/13/bits/stl_pair.h:1064:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13/variant:1155:27: error: type/value mismatch at argument 1 in template parameter list for ‘template<class _Tp, class _Up> constexpr const _Tp& std::get(const pair<_T1, _T2>&)’
+ 1155 |       return std::get<__n>(__v);
+      |              ~~~~~~~~~~~~~^~~~~
+/usr/include/c++/13/variant:1155:27: note:   expected a type, got ‘__n’
+/usr/include/c++/13/bits/stl_pair.h:1069:5: note: candidate: ‘template<class _Tp, class _Up> constexpr _Tp&& std::get(pair<_T1, _T2>&&)’
+ 1069 |     get(pair<_Tp, _Up>&& __p) noexcept
+      |     ^~~
+/usr/include/c++/13/bits/stl_pair.h:1069:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13/variant:1155:27: error: type/value mismatch at argument 1 in template parameter list for ‘template<class _Tp, class _Up> constexpr _Tp&& std::get(pair<_T1, _T2>&&)’
+ 1155 |       return std::get<__n>(__v);
+      |              ~~~~~~~~~~~~~^~~~~
+/usr/include/c++/13/variant:1155:27: note:   expected a type, got ‘__n’
+/usr/include/c++/13/bits/stl_pair.h:1074:5: note: candidate: ‘template<class _Tp, class _Up> constexpr const _Tp&& std::get(const pair<_T1, _T2>&&)’
+ 1074 |     get(const pair<_Tp, _Up>&& __p) noexcept
+      |     ^~~
+/usr/include/c++/13/bits/stl_pair.h:1074:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13/variant:1155:27: error: type/value mismatch at argument 1 in template parameter list for ‘template<class _Tp, class _Up> constexpr const _Tp&& std::get(const pair<_T1, _T2>&&)’
+ 1155 |       return std::get<__n>(__v);
+      |              ~~~~~~~~~~~~~^~~~~
+/usr/include/c++/13/variant:1155:27: note:   expected a type, got ‘__n’
+/usr/include/c++/13/bits/stl_pair.h:1079:5: note: candidate: ‘template<class _Tp, class _Up> constexpr _Tp& std::get(pair<_Up, _Tp>&)’
+ 1079 |     get(pair<_Up, _Tp>& __p) noexcept
+      |     ^~~
+/usr/include/c++/13/bits/stl_pair.h:1079:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13/variant:1155:27: error: type/value mismatch at argument 1 in template parameter list for ‘template<class _Tp, class _Up> constexpr _Tp& std::get(pair<_Up, _Tp>&)’
+ 1155 |       return std::get<__n>(__v);
+      |              ~~~~~~~~~~~~~^~~~~
+/usr/include/c++/13/variant:1155:27: note:   expected a type, got ‘__n’
+/usr/include/c++/13/bits/stl_pair.h:1084:5: note: candidate: ‘template<class _Tp, class _Up> constexpr const _Tp& std::get(const pair<_Up, _Tp>&)’
+ 1084 |     get(const pair<_Up, _Tp>& __p) noexcept
+      |     ^~~
+/usr/include/c++/13/bits/stl_pair.h:1084:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13/variant:1155:27: error: type/value mismatch at argument 1 in template parameter list for ‘template<class _Tp, class _Up> constexpr const _Tp& std::get(const pair<_Up, _Tp>&)’
+ 1155 |       return std::get<__n>(__v);
+      |              ~~~~~~~~~~~~~^~~~~
+/usr/include/c++/13/variant:1155:27: note:   expected a type, got ‘__n’
+/usr/include/c++/13/bits/stl_pair.h:1089:5: note: candidate: ‘template<class _Tp, class _Up> constexpr _Tp&& std::get(pair<_Up, _Tp>&&)’
+ 1089 |     get(pair<_Up, _Tp>&& __p) noexcept
+      |     ^~~
+/usr/include/c++/13/bits/stl_pair.h:1089:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13/variant:1155:27: error: type/value mismatch at argument 1 in template parameter list for ‘template<class _Tp, class _Up> constexpr _Tp&& std::get(pair<_Up, _Tp>&&)’
+ 1155 |       return std::get<__n>(__v);
+      |              ~~~~~~~~~~~~~^~~~~
+/usr/include/c++/13/variant:1155:27: note:   expected a type, got ‘__n’
+/usr/include/c++/13/bits/stl_pair.h:1094:5: note: candidate: ‘template<class _Tp, class _Up> constexpr const _Tp&& std::get(const pair<_Up, _Tp>&&)’
+ 1094 |     get(const pair<_Up, _Tp>&& __p) noexcept
+      |     ^~~
+/usr/include/c++/13/bits/stl_pair.h:1094:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13/variant:1155:27: error: type/value mismatch at argument 1 in template parameter list for ‘template<class _Tp, class _Up> constexpr const _Tp&& std::get(const pair<_Up, _Tp>&&)’
+ 1155 |       return std::get<__n>(__v);
+      |              ~~~~~~~~~~~~~^~~~~
+/usr/include/c++/13/variant:1155:27: note:   expected a type, got ‘__n’
+In file included from /usr/include/c++/13/bits/memory_resource.h:47,
+                 from /usr/include/c++/13/string:58:
+/usr/include/c++/13/tuple:1803:5: note: candidate: ‘template<long unsigned int __i, class ... _Elements> constexpr std::__tuple_element_t<__i, std::tuple<_UTypes ...> >& std::get(tuple<_UTypes ...>&)’
+ 1803 |     get(tuple<_Elements...>& __t) noexcept
+      |     ^~~
+/usr/include/c++/13/tuple:1803:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13/variant:1155:27: note:   ‘std::variant<std::variant<int, float>, std::vector<ConstChunk, std::allocator<ConstChunk> > >’ is not derived from ‘std::tuple<_UTypes ...>’
+ 1155 |       return std::get<__n>(__v);
+      |              ~~~~~~~~~~~~~^~~~~
+/usr/include/c++/13/tuple:1809:5: note: candidate: ‘template<long unsigned int __i, class ... _Elements> constexpr std::__tuple_element_t<__i, std::tuple<_UTypes ...> >& std::get(const tuple<_UTypes ...>&)’
+ 1809 |     get(const tuple<_Elements...>& __t) noexcept
+      |     ^~~
+/usr/include/c++/13/tuple:1809:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13/variant:1155:27: note:   ‘std::variant<std::variant<int, float>, std::vector<ConstChunk, std::allocator<ConstChunk> > >’ is not derived from ‘const std::tuple<_UTypes ...>’
+ 1155 |       return std::get<__n>(__v);
+      |              ~~~~~~~~~~~~~^~~~~
+/usr/include/c++/13/tuple:1815:5: note: candidate: ‘template<long unsigned int __i, class ... _Elements> constexpr std::__tuple_element_t<__i, std::tuple<_UTypes ...> >&& std::get(tuple<_UTypes ...>&&)’
+ 1815 |     get(tuple<_Elements...>&& __t) noexcept
+      |     ^~~
+/usr/include/c++/13/tuple:1815:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13/variant:1155:27: note:   ‘std::variant<std::variant<int, float>, std::vector<ConstChunk, std::allocator<ConstChunk> > >’ is not derived from ‘std::tuple<_UTypes ...>’
+ 1155 |       return std::get<__n>(__v);
+      |              ~~~~~~~~~~~~~^~~~~
+/usr/include/c++/13/tuple:1824:5: note: candidate: ‘template<long unsigned int __i, class ... _Elements> constexpr std::__tuple_element_t<__i, std::tuple<_UTypes ...> >&& std::get(const tuple<_UTypes ...>&&)’
+ 1824 |     get(const tuple<_Elements...>&& __t) noexcept
+      |     ^~~
+/usr/include/c++/13/tuple:1824:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13/variant:1155:27: note:   ‘std::variant<std::variant<int, float>, std::vector<ConstChunk, std::allocator<ConstChunk> > >’ is not derived from ‘const std::tuple<_UTypes ...>’
+ 1155 |       return std::get<__n>(__v);
+      |              ~~~~~~~~~~~~~^~~~~
+/usr/include/c++/13/tuple:1834:5: note: candidate: ‘template<long unsigned int __i, class ... _Elements> constexpr std::__enable_if_t<(__i >= sizeof... (_Types))> std::get(const tuple<_UTypes ...>&)’ (deleted)
+ 1834 |     get(const tuple<_Elements...>&) = delete;
+      |     ^~~
+/usr/include/c++/13/tuple:1834:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13/variant:1155:27: note:   ‘std::variant<std::variant<int, float>, std::vector<ConstChunk, std::allocator<ConstChunk> > >’ is not derived from ‘const std::tuple<_UTypes ...>’
+ 1155 |       return std::get<__n>(__v);
+      |              ~~~~~~~~~~~~~^~~~~
+/usr/include/c++/13/tuple:1844:5: note: candidate: ‘template<class _Tp, class ... _Types> constexpr _Tp& std::get(tuple<_UTypes ...>&)’
+ 1844 |     get(tuple<_Types...>& __t) noexcept
+      |     ^~~
+/usr/include/c++/13/tuple:1844:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13/variant:1155:27: error: type/value mismatch at argument 1 in template parameter list for ‘template<class _Tp, class ... _Types> constexpr _Tp& std::get(tuple<_UTypes ...>&)’
+ 1155 |       return std::get<__n>(__v);
+      |              ~~~~~~~~~~~~~^~~~~
+/usr/include/c++/13/variant:1155:27: note:   expected a type, got ‘__n’
+/usr/include/c++/13/tuple:1855:5: note: candidate: ‘template<class _Tp, class ... _Types> constexpr _Tp&& std::get(tuple<_UTypes ...>&&)’
+ 1855 |     get(tuple<_Types...>&& __t) noexcept
+      |     ^~~
+/usr/include/c++/13/tuple:1855:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13/variant:1155:27: error: type/value mismatch at argument 1 in template parameter list for ‘template<class _Tp, class ... _Types> constexpr _Tp&& std::get(tuple<_UTypes ...>&&)’
+ 1155 |       return std::get<__n>(__v);
+      |              ~~~~~~~~~~~~~^~~~~
+/usr/include/c++/13/variant:1155:27: note:   expected a type, got ‘__n’
+/usr/include/c++/13/tuple:1866:5: note: candidate: ‘template<class _Tp, class ... _Types> constexpr const _Tp& std::get(const tuple<_UTypes ...>&)’
+ 1866 |     get(const tuple<_Types...>& __t) noexcept
+      |     ^~~
+/usr/include/c++/13/tuple:1866:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13/variant:1155:27: error: type/value mismatch at argument 1 in template parameter list for ‘template<class _Tp, class ... _Types> constexpr const _Tp& std::get(const tuple<_UTypes ...>&)’
+ 1155 |       return std::get<__n>(__v);
+      |              ~~~~~~~~~~~~~^~~~~
+/usr/include/c++/13/variant:1155:27: note:   expected a type, got ‘__n’
+/usr/include/c++/13/tuple:1878:5: note: candidate: ‘template<class _Tp, class ... _Types> constexpr const _Tp&& std::get(const tuple<_UTypes ...>&&)’
+ 1878 |     get(const tuple<_Types...>&& __t) noexcept
+      |     ^~~
+/usr/include/c++/13/tuple:1878:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13/variant:1155:27: error: type/value mismatch at argument 1 in template parameter list for ‘template<class _Tp, class ... _Types> constexpr const _Tp&& std::get(const tuple<_UTypes ...>&&)’
+ 1155 |       return std::get<__n>(__v);
+      |              ~~~~~~~~~~~~~^~~~~
+/usr/include/c++/13/variant:1155:27: note:   expected a type, got ‘__n’
+/usr/include/c++/13/tuple:2023:5: note: candidate: ‘template<long unsigned int _Int, class _Tp, long unsigned int _Nm> constexpr _Tp& std::get(array<_Tp, _Nm>&)’
+ 2023 |     get(array<_Tp, _Nm>&) noexcept;
+      |     ^~~
+/usr/include/c++/13/tuple:2023:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13/variant:1155:27: note:   ‘std::variant<std::variant<int, float>, std::vector<ConstChunk, std::allocator<ConstChunk> > >’ is not derived from ‘std::array<_Tp, _Nm>’
+ 1155 |       return std::get<__n>(__v);
+      |              ~~~~~~~~~~~~~^~~~~
+/usr/include/c++/13/tuple:2027:5: note: candidate: ‘template<long unsigned int _Int, class _Tp, long unsigned int _Nm> constexpr _Tp&& std::get(array<_Tp, _Nm>&&)’
+ 2027 |     get(array<_Tp, _Nm>&&) noexcept;
+      |     ^~~
+/usr/include/c++/13/tuple:2027:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13/variant:1155:27: note:   ‘std::variant<std::variant<int, float>, std::vector<ConstChunk, std::allocator<ConstChunk> > >’ is not derived from ‘std::array<_Tp, _Nm>’
+ 1155 |       return std::get<__n>(__v);
+      |              ~~~~~~~~~~~~~^~~~~
+/usr/include/c++/13/tuple:2031:5: note: candidate: ‘template<long unsigned int _Int, class _Tp, long unsigned int _Nm> constexpr const _Tp& std::get(const array<_Tp, _Nm>&)’
+ 2031 |     get(const array<_Tp, _Nm>&) noexcept;
+      |     ^~~
+/usr/include/c++/13/tuple:2031:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13/variant:1155:27: note:   ‘std::variant<std::variant<int, float>, std::vector<ConstChunk, std::allocator<ConstChunk> > >’ is not derived from ‘const std::array<_Tp, _Nm>’
+ 1155 |       return std::get<__n>(__v);
+      |              ~~~~~~~~~~~~~^~~~~
+/usr/include/c++/13/tuple:2035:5: note: candidate: ‘template<long unsigned int _Int, class _Tp, long unsigned int _Nm> constexpr const _Tp&& std::get(const array<_Tp, _Nm>&&)’
+ 2035 |     get(const array<_Tp, _Nm>&&) noexcept;
+      |     ^~~
+/usr/include/c++/13/tuple:2035:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13/variant:1155:27: note:   ‘std::variant<std::variant<int, float>, std::vector<ConstChunk, std::allocator<ConstChunk> > >’ is not derived from ‘const std::array<_Tp, _Nm>’
+ 1155 |       return std::get<__n>(__v);
+      |              ~~~~~~~~~~~~~^~~~~
+/usr/include/c++/13/variant:1711:5: note: candidate: ‘template<long unsigned int _Np, class ... _Types> constexpr std::variant_alternative_t<_Np, std::variant<_Types ...> >& std::get(variant<_Types ...>&)’
+ 1711 |     get(variant<_Types...>& __v)
+      |     ^~~
+/usr/include/c++/13/variant:1711:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13/variant:1722:5: note: candidate: ‘template<long unsigned int _Np, class ... _Types> constexpr std::variant_alternative_t<_Np, std::variant<_Types ...> >&& std::get(variant<_Types ...>&&)’
+ 1722 |     get(variant<_Types...>&& __v)
+      |     ^~~
+/usr/include/c++/13/variant:1722:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13/variant:1733:5: note: candidate: ‘template<long unsigned int _Np, class ... _Types> constexpr std::variant_alternative_t<_Np, std::variant<_Types ...> >& std::get(const variant<_Types ...>&)’
+ 1733 |     get(const variant<_Types...>& __v)
+      |     ^~~
+/usr/include/c++/13/variant:1733:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13/variant:1744:5: note: candidate: ‘template<long unsigned int _Np, class ... _Types> constexpr std::variant_alternative_t<_Np, std::variant<_Types ...> >&& std::get(const variant<_Types ...>&&)’
+ 1744 |     get(const variant<_Types...>&& __v)
+      |     ^~~
+/usr/include/c++/13/variant:1744:5: note:   substitution of deduced template arguments resulted in errors seen above
+/usr/include/c++/13/variant:1150:5: note: candidate: ‘template<class _Tp, class ... _Types> constexpr _Tp& std::get(variant<_Types ...>&)’
+ 1150 |     get(variant<_Types...>& __v)
+      |     ^~~
+/usr/include/c++/13/variant:1150:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13/variant:1155:27: error: type/value mismatch at argument 1 in template parameter list for ‘template<class _Tp, class ... _Types> constexpr _Tp& std::get(variant<_Types ...>&)’
+ 1155 |       return std::get<__n>(__v);
+      |              ~~~~~~~~~~~~~^~~~~
+/usr/include/c++/13/variant:1155:27: note:   expected a type, got ‘__n’
+/usr/include/c++/13/variant: In instantiation of ‘constexpr _Tp& std::get(variant<_Types ...>&) [with _Tp = float; _Types = {variant<int, float>, vector<ConstChunk, allocator<ConstChunk> >}]’:
+checker.cpp:58:117:   required from here
+/usr/include/c++/13/variant:1152:42: error: static assertion failed: T must occur exactly once in alternatives
+ 1152 |       static_assert(__detail::__variant::__exactly_once<_Tp, _Types...>,
+      |                     ~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/include/c++/13/variant:1152:42: note: ‘std::__detail::__variant::__exactly_once<float, std::variant<int, float>, std::vector<ConstChunk, std::allocator<ConstChunk> > >’ evaluates to false
+/usr/include/c++/13/variant:1155:27: error: no matching function for call to ‘get<__n>(std::variant<std::variant<int, float>, std::vector<ConstChunk, std::allocator<ConstChunk> > >&)’
+ 1155 |       return std::get<__n>(__v);
+      |              ~~~~~~~~~~~~~^~~~~
+/usr/include/c++/13/bits/stl_pair.h:1035:5: note: candidate: ‘template<long unsigned int _Int, class _Tp1, class _Tp2> constexpr typename std::tuple_element<_Int, std::pair<_Tp1, _Tp2> >::type& std::get(pair<_Tp1, _Tp2>&)’
+ 1035 |     get(pair<_Tp1, _Tp2>& __in) noexcept
+      |     ^~~
+/usr/include/c++/13/bits/stl_pair.h:1035:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13/variant:1155:27: note:   ‘std::variant<std::variant<int, float>, std::vector<ConstChunk, std::allocator<ConstChunk> > >’ is not derived from ‘std::pair<_Tp1, _Tp2>’
+ 1155 |       return std::get<__n>(__v);
+      |              ~~~~~~~~~~~~~^~~~~
+/usr/include/c++/13/bits/stl_pair.h:1040:5: note: candidate: ‘template<long unsigned int _Int, class _Tp1, class _Tp2> constexpr typename std::tuple_element<_Int, std::pair<_Tp1, _Tp2> >::type&& std::get(pair<_Tp1, _Tp2>&&)’
+ 1040 |     get(pair<_Tp1, _Tp2>&& __in) noexcept
+      |     ^~~
+/usr/include/c++/13/bits/stl_pair.h:1040:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13/variant:1155:27: note:   ‘std::variant<std::variant<int, float>, std::vector<ConstChunk, std::allocator<ConstChunk> > >’ is not derived from ‘std::pair<_Tp1, _Tp2>’
+ 1155 |       return std::get<__n>(__v);
+      |              ~~~~~~~~~~~~~^~~~~
+/usr/include/c++/13/bits/stl_pair.h:1045:5: note: candidate: ‘template<long unsigned int _Int, class _Tp1, class _Tp2> constexpr const typename std::tuple_element<_Int, std::pair<_Tp1, _Tp2> >::type& std::get(const pair<_Tp1, _Tp2>&)’
+ 1045 |     get(const pair<_Tp1, _Tp2>& __in) noexcept
+      |     ^~~
+/usr/include/c++/13/bits/stl_pair.h:1045:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13/variant:1155:27: note:   ‘std::variant<std::variant<int, float>, std::vector<ConstChunk, std::allocator<ConstChunk> > >’ is not derived from ‘const std::pair<_Tp1, _Tp2>’
+ 1155 |       return std::get<__n>(__v);
+      |              ~~~~~~~~~~~~~^~~~~
+/usr/include/c++/13/bits/stl_pair.h:1050:5: note: candidate: ‘template<long unsigned int _Int, class _Tp1, class _Tp2> constexpr const typename std::tuple_element<_Int, std::pair<_Tp1, _Tp2> >::type&& std::get(const pair<_Tp1, _Tp2>&&)’
+ 1050 |     get(const pair<_Tp1, _Tp2>&& __in) noexcept
+      |     ^~~
+/usr/include/c++/13/bits/stl_pair.h:1050:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13/variant:1155:27: note:   ‘std::variant<std::variant<int, float>, std::vector<ConstChunk, std::allocator<ConstChunk> > >’ is not derived from ‘const std::pair<_Tp1, _Tp2>’
+ 1155 |       return std::get<__n>(__v);
+      |              ~~~~~~~~~~~~~^~~~~
+/usr/include/c++/13/bits/stl_pair.h:1059:5: note: candidate: ‘template<class _Tp, class _Up> constexpr _Tp& std::get(pair<_T1, _T2>&)’
+ 1059 |     get(pair<_Tp, _Up>& __p) noexcept
+      |     ^~~
+/usr/include/c++/13/bits/stl_pair.h:1059:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13/variant:1155:27: error: type/value mismatch at argument 1 in template parameter list for ‘template<class _Tp, class _Up> constexpr _Tp& std::get(pair<_T1, _T2>&)’
+ 1155 |       return std::get<__n>(__v);
+      |              ~~~~~~~~~~~~~^~~~~
+/usr/include/c++/13/variant:1155:27: note:   expected a type, got ‘__n’
+/usr/include/c++/13/bits/stl_pair.h:1064:5: note: candidate: ‘template<class _Tp, class _Up> constexpr const _Tp& std::get(const pair<_T1, _T2>&)’
+ 1064 |     get(const pair<_Tp, _Up>& __p) noexcept
+      |     ^~~
+/usr/include/c++/13/bits/stl_pair.h:1064:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13/variant:1155:27: error: type/value mismatch at argument 1 in template parameter list for ‘template<class _Tp, class _Up> constexpr const _Tp& std::get(const pair<_T1, _T2>&)’
+ 1155 |       return std::get<__n>(__v);
+      |              ~~~~~~~~~~~~~^~~~~
+/usr/include/c++/13/variant:1155:27: note:   expected a type, got ‘__n’
+/usr/include/c++/13/bits/stl_pair.h:1069:5: note: candidate: ‘template<class _Tp, class _Up> constexpr _Tp&& std::get(pair<_T1, _T2>&&)’
+ 1069 |     get(pair<_Tp, _Up>&& __p) noexcept
+      |     ^~~
+/usr/include/c++/13/bits/stl_pair.h:1069:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13/variant:1155:27: error: type/value mismatch at argument 1 in template parameter list for ‘template<class _Tp, class _Up> constexpr _Tp&& std::get(pair<_T1, _T2>&&)’
+ 1155 |       return std::get<__n>(__v);
+      |              ~~~~~~~~~~~~~^~~~~
+/usr/include/c++/13/variant:1155:27: note:   expected a type, got ‘__n’
+/usr/include/c++/13/bits/stl_pair.h:1074:5: note: candidate: ‘template<class _Tp, class _Up> constexpr const _Tp&& std::get(const pair<_T1, _T2>&&)’
+ 1074 |     get(const pair<_Tp, _Up>&& __p) noexcept
+      |     ^~~
+/usr/include/c++/13/bits/stl_pair.h:1074:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13/variant:1155:27: error: type/value mismatch at argument 1 in template parameter list for ‘template<class _Tp, class _Up> constexpr const _Tp&& std::get(const pair<_T1, _T2>&&)’
+ 1155 |       return std::get<__n>(__v);
+      |              ~~~~~~~~~~~~~^~~~~
+/usr/include/c++/13/variant:1155:27: note:   expected a type, got ‘__n’
+/usr/include/c++/13/bits/stl_pair.h:1079:5: note: candidate: ‘template<class _Tp, class _Up> constexpr _Tp& std::get(pair<_Up, _Tp>&)’
+ 1079 |     get(pair<_Up, _Tp>& __p) noexcept
+      |     ^~~
+/usr/include/c++/13/bits/stl_pair.h:1079:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13/variant:1155:27: error: type/value mismatch at argument 1 in template parameter list for ‘template<class _Tp, class _Up> constexpr _Tp& std::get(pair<_Up, _Tp>&)’
+ 1155 |       return std::get<__n>(__v);
+      |              ~~~~~~~~~~~~~^~~~~
+/usr/include/c++/13/variant:1155:27: note:   expected a type, got ‘__n’
+/usr/include/c++/13/bits/stl_pair.h:1084:5: note: candidate: ‘template<class _Tp, class _Up> constexpr const _Tp& std::get(const pair<_Up, _Tp>&)’
+ 1084 |     get(const pair<_Up, _Tp>& __p) noexcept
+      |     ^~~
+/usr/include/c++/13/bits/stl_pair.h:1084:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13/variant:1155:27: error: type/value mismatch at argument 1 in template parameter list for ‘template<class _Tp, class _Up> constexpr const _Tp& std::get(const pair<_Up, _Tp>&)’
+ 1155 |       return std::get<__n>(__v);
+      |              ~~~~~~~~~~~~~^~~~~
+/usr/include/c++/13/variant:1155:27: note:   expected a type, got ‘__n’
+/usr/include/c++/13/bits/stl_pair.h:1089:5: note: candidate: ‘template<class _Tp, class _Up> constexpr _Tp&& std::get(pair<_Up, _Tp>&&)’
+ 1089 |     get(pair<_Up, _Tp>&& __p) noexcept
+      |     ^~~
+/usr/include/c++/13/bits/stl_pair.h:1089:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13/variant:1155:27: error: type/value mismatch at argument 1 in template parameter list for ‘template<class _Tp, class _Up> constexpr _Tp&& std::get(pair<_Up, _Tp>&&)’
+ 1155 |       return std::get<__n>(__v);
+      |              ~~~~~~~~~~~~~^~~~~
+/usr/include/c++/13/variant:1155:27: note:   expected a type, got ‘__n’
+/usr/include/c++/13/bits/stl_pair.h:1094:5: note: candidate: ‘template<class _Tp, class _Up> constexpr const _Tp&& std::get(const pair<_Up, _Tp>&&)’
+ 1094 |     get(const pair<_Up, _Tp>&& __p) noexcept
+      |     ^~~
+/usr/include/c++/13/bits/stl_pair.h:1094:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13/variant:1155:27: error: type/value mismatch at argument 1 in template parameter list for ‘template<class _Tp, class _Up> constexpr const _Tp&& std::get(const pair<_Up, _Tp>&&)’
+ 1155 |       return std::get<__n>(__v);
+      |              ~~~~~~~~~~~~~^~~~~
+/usr/include/c++/13/variant:1155:27: note:   expected a type, got ‘__n’
+/usr/include/c++/13/tuple:1803:5: note: candidate: ‘template<long unsigned int __i, class ... _Elements> constexpr std::__tuple_element_t<__i, std::tuple<_UTypes ...> >& std::get(tuple<_UTypes ...>&)’
+ 1803 |     get(tuple<_Elements...>& __t) noexcept
+      |     ^~~
+/usr/include/c++/13/tuple:1803:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13/variant:1155:27: note:   ‘std::variant<std::variant<int, float>, std::vector<ConstChunk, std::allocator<ConstChunk> > >’ is not derived from ‘std::tuple<_UTypes ...>’
+ 1155 |       return std::get<__n>(__v);
+      |              ~~~~~~~~~~~~~^~~~~
+/usr/include/c++/13/tuple:1809:5: note: candidate: ‘template<long unsigned int __i, class ... _Elements> constexpr std::__tuple_element_t<__i, std::tuple<_UTypes ...> >& std::get(const tuple<_UTypes ...>&)’
+ 1809 |     get(const tuple<_Elements...>& __t) noexcept
+      |     ^~~
+/usr/include/c++/13/tuple:1809:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13/variant:1155:27: note:   ‘std::variant<std::variant<int, float>, std::vector<ConstChunk, std::allocator<ConstChunk> > >’ is not derived from ‘const std::tuple<_UTypes ...>’
+ 1155 |       return std::get<__n>(__v);
+      |              ~~~~~~~~~~~~~^~~~~
+/usr/include/c++/13/tuple:1815:5: note: candidate: ‘template<long unsigned int __i, class ... _Elements> constexpr std::__tuple_element_t<__i, std::tuple<_UTypes ...> >&& std::get(tuple<_UTypes ...>&&)’
+ 1815 |     get(tuple<_Elements...>&& __t) noexcept
+      |     ^~~
+/usr/include/c++/13/tuple:1815:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13/variant:1155:27: note:   ‘std::variant<std::variant<int, float>, std::vector<ConstChunk, std::allocator<ConstChunk> > >’ is not derived from ‘std::tuple<_UTypes ...>’
+ 1155 |       return std::get<__n>(__v);
+      |              ~~~~~~~~~~~~~^~~~~
+/usr/include/c++/13/tuple:1824:5: note: candidate: ‘template<long unsigned int __i, class ... _Elements> constexpr std::__tuple_element_t<__i, std::tuple<_UTypes ...> >&& std::get(const tuple<_UTypes ...>&&)’
+ 1824 |     get(const tuple<_Elements...>&& __t) noexcept
+      |     ^~~
+/usr/include/c++/13/tuple:1824:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13/variant:1155:27: note:   ‘std::variant<std::variant<int, float>, std::vector<ConstChunk, std::allocator<ConstChunk> > >’ is not derived from ‘const std::tuple<_UTypes ...>’
+ 1155 |       return std::get<__n>(__v);
+      |              ~~~~~~~~~~~~~^~~~~
+/usr/include/c++/13/tuple:1834:5: note: candidate: ‘template<long unsigned int __i, class ... _Elements> constexpr std::__enable_if_t<(__i >= sizeof... (_Types))> std::get(const tuple<_UTypes ...>&)’ (deleted)
+ 1834 |     get(const tuple<_Elements...>&) = delete;
+      |     ^~~
+/usr/include/c++/13/tuple:1834:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13/variant:1155:27: note:   ‘std::variant<std::variant<int, float>, std::vector<ConstChunk, std::allocator<ConstChunk> > >’ is not derived from ‘const std::tuple<_UTypes ...>’
+ 1155 |       return std::get<__n>(__v);
+      |              ~~~~~~~~~~~~~^~~~~
+/usr/include/c++/13/tuple:1844:5: note: candidate: ‘template<class _Tp, class ... _Types> constexpr _Tp& std::get(tuple<_UTypes ...>&)’
+ 1844 |     get(tuple<_Types...>& __t) noexcept
+      |     ^~~
+/usr/include/c++/13/tuple:1844:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13/variant:1155:27: error: type/value mismatch at argument 1 in template parameter list for ‘template<class _Tp, class ... _Types> constexpr _Tp& std::get(tuple<_UTypes ...>&)’
+ 1155 |       return std::get<__n>(__v);
+      |              ~~~~~~~~~~~~~^~~~~
+/usr/include/c++/13/variant:1155:27: note:   expected a type, got ‘__n’
+/usr/include/c++/13/tuple:1855:5: note: candidate: ‘template<class _Tp, class ... _Types> constexpr _Tp&& std::get(tuple<_UTypes ...>&&)’
+ 1855 |     get(tuple<_Types...>&& __t) noexcept
+      |     ^~~
+/usr/include/c++/13/tuple:1855:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13/variant:1155:27: error: type/value mismatch at argument 1 in template parameter list for ‘template<class _Tp, class ... _Types> constexpr _Tp&& std::get(tuple<_UTypes ...>&&)’
+ 1155 |       return std::get<__n>(__v);
+      |              ~~~~~~~~~~~~~^~~~~
+/usr/include/c++/13/variant:1155:27: note:   expected a type, got ‘__n’
+/usr/include/c++/13/tuple:1866:5: note: candidate: ‘template<class _Tp, class ... _Types> constexpr const _Tp& std::get(const tuple<_UTypes ...>&)’
+ 1866 |     get(const tuple<_Types...>& __t) noexcept
+      |     ^~~
+/usr/include/c++/13/tuple:1866:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13/variant:1155:27: error: type/value mismatch at argument 1 in template parameter list for ‘template<class _Tp, class ... _Types> constexpr const _Tp& std::get(const tuple<_UTypes ...>&)’
+ 1155 |       return std::get<__n>(__v);
+      |              ~~~~~~~~~~~~~^~~~~
+/usr/include/c++/13/variant:1155:27: note:   expected a type, got ‘__n’
+/usr/include/c++/13/tuple:1878:5: note: candidate: ‘template<class _Tp, class ... _Types> constexpr const _Tp&& std::get(const tuple<_UTypes ...>&&)’
+ 1878 |     get(const tuple<_Types...>&& __t) noexcept
+      |     ^~~
+/usr/include/c++/13/tuple:1878:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13/variant:1155:27: error: type/value mismatch at argument 1 in template parameter list for ‘template<class _Tp, class ... _Types> constexpr const _Tp&& std::get(const tuple<_UTypes ...>&&)’
+ 1155 |       return std::get<__n>(__v);
+      |              ~~~~~~~~~~~~~^~~~~
+/usr/include/c++/13/variant:1155:27: note:   expected a type, got ‘__n’
+/usr/include/c++/13/tuple:2023:5: note: candidate: ‘template<long unsigned int _Int, class _Tp, long unsigned int _Nm> constexpr _Tp& std::get(array<_Tp, _Nm>&)’
+ 2023 |     get(array<_Tp, _Nm>&) noexcept;
+      |     ^~~
+/usr/include/c++/13/tuple:2023:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13/variant:1155:27: note:   ‘std::variant<std::variant<int, float>, std::vector<ConstChunk, std::allocator<ConstChunk> > >’ is not derived from ‘std::array<_Tp, _Nm>’
+ 1155 |       return std::get<__n>(__v);
+      |              ~~~~~~~~~~~~~^~~~~
+/usr/include/c++/13/tuple:2027:5: note: candidate: ‘template<long unsigned int _Int, class _Tp, long unsigned int _Nm> constexpr _Tp&& std::get(array<_Tp, _Nm>&&)’
+ 2027 |     get(array<_Tp, _Nm>&&) noexcept;
+      |     ^~~
+/usr/include/c++/13/tuple:2027:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13/variant:1155:27: note:   ‘std::variant<std::variant<int, float>, std::vector<ConstChunk, std::allocator<ConstChunk> > >’ is not derived from ‘std::array<_Tp, _Nm>’
+ 1155 |       return std::get<__n>(__v);
+      |              ~~~~~~~~~~~~~^~~~~
+/usr/include/c++/13/tuple:2031:5: note: candidate: ‘template<long unsigned int _Int, class _Tp, long unsigned int _Nm> constexpr const _Tp& std::get(const array<_Tp, _Nm>&)’
+ 2031 |     get(const array<_Tp, _Nm>&) noexcept;
+      |     ^~~
+/usr/include/c++/13/tuple:2031:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13/variant:1155:27: note:   ‘std::variant<std::variant<int, float>, std::vector<ConstChunk, std::allocator<ConstChunk> > >’ is not derived from ‘const std::array<_Tp, _Nm>’
+ 1155 |       return std::get<__n>(__v);
+      |              ~~~~~~~~~~~~~^~~~~
+/usr/include/c++/13/tuple:2035:5: note: candidate: ‘template<long unsigned int _Int, class _Tp, long unsigned int _Nm> constexpr const _Tp&& std::get(const array<_Tp, _Nm>&&)’
+ 2035 |     get(const array<_Tp, _Nm>&&) noexcept;
+      |     ^~~
+/usr/include/c++/13/tuple:2035:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13/variant:1155:27: note:   ‘std::variant<std::variant<int, float>, std::vector<ConstChunk, std::allocator<ConstChunk> > >’ is not derived from ‘const std::array<_Tp, _Nm>’
+ 1155 |       return std::get<__n>(__v);
+      |              ~~~~~~~~~~~~~^~~~~
+/usr/include/c++/13/variant:1711:5: note: candidate: ‘template<long unsigned int _Np, class ... _Types> constexpr std::variant_alternative_t<_Np, std::variant<_Types ...> >& std::get(variant<_Types ...>&)’
+ 1711 |     get(variant<_Types...>& __v)
+      |     ^~~
+/usr/include/c++/13/variant:1711:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13/variant:1722:5: note: candidate: ‘template<long unsigned int _Np, class ... _Types> constexpr std::variant_alternative_t<_Np, std::variant<_Types ...> >&& std::get(variant<_Types ...>&&)’
+ 1722 |     get(variant<_Types...>&& __v)
+      |     ^~~
+/usr/include/c++/13/variant:1722:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13/variant:1733:5: note: candidate: ‘template<long unsigned int _Np, class ... _Types> constexpr std::variant_alternative_t<_Np, std::variant<_Types ...> >& std::get(const variant<_Types ...>&)’
+ 1733 |     get(const variant<_Types...>& __v)
+      |     ^~~
+/usr/include/c++/13/variant:1733:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13/variant:1744:5: note: candidate: ‘template<long unsigned int _Np, class ... _Types> constexpr std::variant_alternative_t<_Np, std::variant<_Types ...> >&& std::get(const variant<_Types ...>&&)’
+ 1744 |     get(const variant<_Types...>&& __v)
+      |     ^~~
+/usr/include/c++/13/variant:1744:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13/variant:1150:5: note: candidate: ‘template<class _Tp, class ... _Types> constexpr _Tp& std::get(variant<_Types ...>&)’
+ 1150 |     get(variant<_Types...>& __v)
+      |     ^~~
+/usr/include/c++/13/variant:1150:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13/variant:1155:27: error: type/value mismatch at argument 1 in template parameter list for ‘template<class _Tp, class ... _Types> constexpr _Tp& std::get(variant<_Types ...>&)’
+ 1155 |       return std::get<__n>(__v);
+      |              ~~~~~~~~~~~~~^~~~~
+/usr/include/c++/13/variant:1155:27: note:   expected a type, got ‘__n’
+In file included from /usr/include/c++/13/bits/alloc_traits.h:33,
+                 from /usr/include/c++/13/ext/alloc_traits.h:34,
+                 from /usr/include/c++/13/bits/basic_string.h:39,
+                 from /usr/include/c++/13/string:54:
+/usr/include/c++/13/bits/stl_construct.h: In instantiation of ‘void std::_Construct(_Tp*, _Args&& ...) [with _Tp = Node; _Args = {}]’:
+/usr/include/c++/13/bits/alloc_traits.h:661:19:   required from ‘static void std::allocator_traits<std::allocator<void> >::construct(allocator_type&, _Up*, _Args&& ...) [with _Up = Node; _Args = {}; allocator_type = std::allocator<void>]’
+/usr/include/c++/13/bits/shared_ptr_base.h:604:39:   required from ‘std::_Sp_counted_ptr_inplace<_Tp, _Alloc, _Lp>::_Sp_counted_ptr_inplace(_Alloc, _Args&& ...) [with _Args = {}; _Tp = Node; _Alloc = std::allocator<void>; __gnu_cxx::_Lock_policy _Lp = __gnu_cxx::_S_atomic]’
+/usr/include/c++/13/bits/shared_ptr_base.h:971:16:   required from ‘std::__shared_count<_Lp>::__shared_count(_Tp*&, std::_Sp_alloc_shared_tag<_Alloc>, _Args&& ...) [with _Tp = Node; _Alloc = std::allocator<void>; _Args = {}; __gnu_cxx::_Lock_policy _Lp = __gnu_cxx::_S_atomic]’
+/usr/include/c++/13/bits/shared_ptr_base.h:1712:14:   required from ‘std::__shared_ptr<_Tp, _Lp>::__shared_ptr(std::_Sp_alloc_shared_tag<_Tp>, _Args&& ...) [with _Alloc = std::allocator<void>; _Args = {}; _Tp = Node; __gnu_cxx::_Lock_policy _Lp = __gnu_cxx::_S_atomic]’
+/usr/include/c++/13/bits/shared_ptr.h:464:59:   required from ‘std::shared_ptr<_Tp>::shared_ptr(std::_Sp_alloc_shared_tag<_Tp>, _Args&& ...) [with _Alloc = std::allocator<void>; _Args = {}; _Tp = Node]’
+/usr/include/c++/13/bits/shared_ptr.h:1009:14:   required from ‘std::shared_ptr<typename std::enable_if<(! std::is_array< <template-parameter-1-1> >::value), _Tp>::type> std::make_shared(_Args&& ...) [with _Tp = Node; _Args = {}; typename enable_if<(! is_array< <template-parameter-1-1> >::value), _Tp>::type = Node]’
+checker.cpp:75:44:   required from here
+/usr/include/c++/13/bits/stl_construct.h:119:7: error: invalid new-expression of abstract class type ‘Node’
+  119 |       ::new((void*)__p) _Tp(std::forward<_Args>(__args)...);
+      |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from checker.h:5:
+AST.h:10:7: note:   because the following virtual functions are pure within ‘Node’:
+   10 | class Node{
+      |       ^~~~
+AST.h:25:22: note:     ‘virtual void Node::accept(Visitor&)’
+   25 |         virtual void accept(Visitor &v) = 0;
+      |                      ^~~~~~
+/usr/include/c++/13/bits/stl_construct.h: In instantiation of ‘void std::_Construct(_Tp*, _Args&& ...) [with _Tp = Node; _Args = {FuncDefNode&}]’:
+/usr/include/c++/13/bits/alloc_traits.h:661:19:   required from ‘static void std::allocator_traits<std::allocator<void> >::construct(allocator_type&, _Up*, _Args&& ...) [with _Up = Node; _Args = {FuncDefNode&}; allocator_type = std::allocator<void>]’
+/usr/include/c++/13/bits/shared_ptr_base.h:604:39:   required from ‘std::_Sp_counted_ptr_inplace<_Tp, _Alloc, _Lp>::_Sp_counted_ptr_inplace(_Alloc, _Args&& ...) [with _Args = {FuncDefNode&}; _Tp = Node; _Alloc = std::allocator<void>; __gnu_cxx::_Lock_policy _Lp = __gnu_cxx::_S_atomic]’
+/usr/include/c++/13/bits/shared_ptr_base.h:971:16:   required from ‘std::__shared_count<_Lp>::__shared_count(_Tp*&, std::_Sp_alloc_shared_tag<_Alloc>, _Args&& ...) [with _Tp = Node; _Alloc = std::allocator<void>; _Args = {FuncDefNode&}; __gnu_cxx::_Lock_policy _Lp = __gnu_cxx::_S_atomic]’
+/usr/include/c++/13/bits/shared_ptr_base.h:1712:14:   required from ‘std::__shared_ptr<_Tp, _Lp>::__shared_ptr(std::_Sp_alloc_shared_tag<_Tp>, _Args&& ...) [with _Alloc = std::allocator<void>; _Args = {FuncDefNode&}; _Tp = Node; __gnu_cxx::_Lock_policy _Lp = __gnu_cxx::_S_atomic]’
+/usr/include/c++/13/bits/shared_ptr.h:464:59:   required from ‘std::shared_ptr<_Tp>::shared_ptr(std::_Sp_alloc_shared_tag<_Tp>, _Args&& ...) [with _Alloc = std::allocator<void>; _Args = {FuncDefNode&}; _Tp = Node]’
+/usr/include/c++/13/bits/shared_ptr.h:1009:14:   required from ‘std::shared_ptr<typename std::enable_if<(! std::is_array< <template-parameter-1-1> >::value), _Tp>::type> std::make_shared(_Args&& ...) [with _Tp = Node; _Args = {FuncDefNode&}; typename enable_if<(! is_array< <template-parameter-1-1> >::value), _Tp>::type = Node]’
+checker.cpp:119:45:   required from here
+/usr/include/c++/13/bits/stl_construct.h:119:7: error: invalid new-expression of abstract class type ‘Node’
+  119 |       ::new((void*)__p) _Tp(std::forward<_Args>(__args)...);
+      |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/include/c++/13/bits/stl_construct.h: In instantiation of ‘void std::_Construct(_Tp*, _Args&& ...) [with _Tp = FuncDecl; _Args = {yytokentype&, __cxx11::basic_string<char, char_traits<char>, allocator<char> >&}]’:
+/usr/include/c++/13/bits/alloc_traits.h:661:19:   required from ‘static void std::allocator_traits<std::allocator<void> >::construct(allocator_type&, _Up*, _Args&& ...) [with _Up = FuncDecl; _Args = {yytokentype&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&}; allocator_type = std::allocator<void>]’
+/usr/include/c++/13/bits/shared_ptr_base.h:604:39:   required from ‘std::_Sp_counted_ptr_inplace<_Tp, _Alloc, _Lp>::_Sp_counted_ptr_inplace(_Alloc, _Args&& ...) [with _Args = {yytokentype&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&}; _Tp = FuncDecl; _Alloc = std::allocator<void>; __gnu_cxx::_Lock_policy _Lp = __gnu_cxx::_S_atomic]’
+/usr/include/c++/13/bits/shared_ptr_base.h:971:16:   required from ‘std::__shared_count<_Lp>::__shared_count(_Tp*&, std::_Sp_alloc_shared_tag<_Alloc>, _Args&& ...) [with _Tp = FuncDecl; _Alloc = std::allocator<void>; _Args = {yytokentype&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&}; __gnu_cxx::_Lock_policy _Lp = __gnu_cxx::_S_atomic]’
+/usr/include/c++/13/bits/shared_ptr_base.h:1712:14:   required from ‘std::__shared_ptr<_Tp, _Lp>::__shared_ptr(std::_Sp_alloc_shared_tag<_Tp>, _Args&& ...) [with _Alloc = std::allocator<void>; _Args = {yytokentype&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&}; _Tp = FuncDecl; __gnu_cxx::_Lock_policy _Lp = __gnu_cxx::_S_atomic]’
+/usr/include/c++/13/bits/shared_ptr.h:464:59:   required from ‘std::shared_ptr<_Tp>::shared_ptr(std::_Sp_alloc_shared_tag<_Tp>, _Args&& ...) [with _Alloc = std::allocator<void>; _Args = {yytokentype&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&}; _Tp = FuncDecl]’
+/usr/include/c++/13/bits/shared_ptr.h:1009:14:   required from ‘std::shared_ptr<typename std::enable_if<(! std::is_array< <template-parameter-1-1> >::value), _Tp>::type> std::make_shared(_Args&& ...) [with _Tp = FuncDecl; _Args = {yytokentype&, __cxx11::basic_string<char, char_traits<char>, allocator<char> >&}; typename enable_if<(! is_array< <template-parameter-1-1> >::value), _Tp>::type = FuncDecl]’
+checker.cpp:120:47:   required from here
+/usr/include/c++/13/bits/stl_construct.h:119:7: error: no matching function for call to ‘FuncDecl::FuncDecl(yytokentype&, std::__cxx11::basic_string<char>&)’
+In file included from AST.h:250:
+scope.h:29:7: note: candidate: ‘FuncDecl::FuncDecl()’
+   29 | class FuncDecl{
+      |       ^~~~~~~~
+scope.h:29:7: note:   candidate expects 0 arguments, 2 provided
+scope.h:29:7: note: candidate: ‘FuncDecl::FuncDecl(const FuncDecl&)’
+scope.h:29:7: note:   candidate expects 1 argument, 2 provided
+scope.h:29:7: note: candidate: ‘FuncDecl::FuncDecl(FuncDecl&&)’
+scope.h:29:7: note:   candidate expects 1 argument, 2 provided
+/usr/include/c++/13/bits/stl_construct.h: In instantiation of ‘void std::_Construct(_Tp*, _Args&& ...) [with _Tp = ConstChunk; _Args = {shared_ptr<ConstChunk>&}]’:
+/usr/include/c++/13/bits/alloc_traits.h:661:19:   required from ‘static void std::allocator_traits<std::allocator<void> >::construct(allocator_type&, _Up*, _Args&& ...) [with _Up = ConstChunk; _Args = {std::shared_ptr<ConstChunk>&}; allocator_type = std::allocator<void>]’
+/usr/include/c++/13/bits/shared_ptr_base.h:604:39:   required from ‘std::_Sp_counted_ptr_inplace<_Tp, _Alloc, _Lp>::_Sp_counted_ptr_inplace(_Alloc, _Args&& ...) [with _Args = {std::shared_ptr<ConstChunk>&}; _Tp = ConstChunk; _Alloc = std::allocator<void>; __gnu_cxx::_Lock_policy _Lp = __gnu_cxx::_S_atomic]’
+/usr/include/c++/13/bits/shared_ptr_base.h:971:16:   required from ‘std::__shared_count<_Lp>::__shared_count(_Tp*&, std::_Sp_alloc_shared_tag<_Alloc>, _Args&& ...) [with _Tp = ConstChunk; _Alloc = std::allocator<void>; _Args = {std::shared_ptr<ConstChunk>&}; __gnu_cxx::_Lock_policy _Lp = __gnu_cxx::_S_atomic]’
+/usr/include/c++/13/bits/shared_ptr_base.h:1712:14:   required from ‘std::__shared_ptr<_Tp, _Lp>::__shared_ptr(std::_Sp_alloc_shared_tag<_Tp>, _Args&& ...) [with _Alloc = std::allocator<void>; _Args = {std::shared_ptr<ConstChunk>&}; _Tp = ConstChunk; __gnu_cxx::_Lock_policy _Lp = __gnu_cxx::_S_atomic]’
+/usr/include/c++/13/bits/shared_ptr.h:464:59:   required from ‘std::shared_ptr<_Tp>::shared_ptr(std::_Sp_alloc_shared_tag<_Tp>, _Args&& ...) [with _Alloc = std::allocator<void>; _Args = {std::shared_ptr<ConstChunk>&}; _Tp = ConstChunk]’
+/usr/include/c++/13/bits/shared_ptr.h:1009:14:   required from ‘std::shared_ptr<typename std::enable_if<(! std::is_array< <template-parameter-1-1> >::value), _Tp>::type> std::make_shared(_Args&& ...) [with _Tp = ConstChunk; _Args = {shared_ptr<ConstChunk>&}; typename enable_if<(! is_array< <template-parameter-1-1> >::value), _Tp>::type = ConstChunk]’
+checker.cpp:266:127:   required from here
+/usr/include/c++/13/bits/stl_construct.h:119:7: error: no matching function for call to ‘ConstChunk::ConstChunk(std::shared_ptr<ConstChunk>&)’
+  119 |       ::new((void*)__p) _Tp(std::forward<_Args>(__args)...);
+      |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+def.h:25:5: note: candidate: ‘ConstChunk::ConstChunk(std::variant<std::variant<int, float>, std::vector<ConstChunk, std::allocator<ConstChunk> > >)’
+   25 |     ConstChunk(std::variant<Const, std::vector<ConstChunk> > value):value(value){}
+      |     ^~~~~~~~~~
+def.h:25:62: note:   no known conversion for argument 1 from ‘std::shared_ptr<ConstChunk>’ to ‘std::variant<std::variant<int, float>, std::vector<ConstChunk, std::allocator<ConstChunk> > >’
+   25 |     ConstChunk(std::variant<Const, std::vector<ConstChunk> > value):value(value){}
+      |                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~
+def.h:24:5: note: candidate: ‘ConstChunk::ConstChunk()’
+   24 |     ConstChunk(){ value = std::vector<ConstChunk>(); }
+      |     ^~~~~~~~~~
+def.h:24:5: note:   candidate expects 0 arguments, 1 provided
+def.h:20:7: note: candidate: ‘ConstChunk::ConstChunk(const ConstChunk&)’
+   20 | class ConstChunk{
+      |       ^~~~~~~~~~
+def.h:20:7: note:   no known conversion for argument 1 from ‘std::shared_ptr<ConstChunk>’ to ‘const ConstChunk&’
+def.h:20:7: note: candidate: ‘ConstChunk::ConstChunk(ConstChunk&&)’
+def.h:20:7: note:   no known conversion for argument 1 from ‘std::shared_ptr<ConstChunk>’ to ‘ConstChunk&&’
+/usr/include/c++/13/tuple: In instantiation of ‘std::pair<_T1, _T2>::pair(std::tuple<_Args1 ...>&, std::tuple<_Args2 ...>&, std::_Index_tuple<_Indexes1 ...>, std::_Index_tuple<_Indexes2 ...>) [with _Args1 = {const std::shared_ptr<Node>&}; long unsigned int ..._Indexes1 = {0}; _Args2 = {}; long unsigned int ..._Indexes2 = {}; _T1 = const std::shared_ptr<Node>; _T2 = checkerResult]’:
+/usr/include/c++/13/tuple:2257:63:   required from ‘std::pair<_T1, _T2>::pair(std::piecewise_construct_t, std::tuple<_Args1 ...>, std::tuple<_Args2 ...>) [with _Args1 = {const std::shared_ptr<Node>&}; _Args2 = {}; _T1 = const std::shared_ptr<Node>; _T2 = checkerResult]’
+/usr/include/c++/13/bits/new_allocator.h:191:4:   required from ‘void std::__new_allocator<_Tp>::construct(_Up*, _Args&& ...) [with _Up = std::pair<const std::shared_ptr<Node>, checkerResult>; _Args = {const std::piecewise_construct_t&, std::tuple<const std::shared_ptr<Node>&>, std::tuple<>}; _Tp = std::_Rb_tree_node<std::pair<const std::shared_ptr<Node>, checkerResult> >]’
+/usr/include/c++/13/bits/alloc_traits.h:538:17:   required from ‘static void std::allocator_traits<std::allocator<_CharT> >::construct(allocator_type&, _Up*, _Args&& ...) [with _Up = std::pair<const std::shared_ptr<Node>, checkerResult>; _Args = {const std::piecewise_construct_t&, std::tuple<const std::shared_ptr<Node>&>, std::tuple<>}; _Tp = std::_Rb_tree_node<std::pair<const std::shared_ptr<Node>, checkerResult> >; allocator_type = std::allocator<std::_Rb_tree_node<std::pair<const std::shared_ptr<Node>, checkerResult> > >]’
+/usr/include/c++/13/bits/stl_tree.h:597:32:   required from ‘void std::_Rb_tree<_Key, _Val, _KeyOfValue, _Compare, _Alloc>::_M_construct_node(_Link_type, _Args&& ...) [with _Args = {const std::piecewise_construct_t&, std::tuple<const std::shared_ptr<Node>&>, std::tuple<>}; _Key = std::shared_ptr<Node>; _Val = std::pair<const std::shared_ptr<Node>, checkerResult>; _KeyOfValue = std::_Select1st<std::pair<const std::shared_ptr<Node>, checkerResult> >; _Compare = Node::NodeCompare; _Alloc = std::allocator<std::pair<const std::shared_ptr<Node>, checkerResult> >; _Link_type = std::_Rb_tree_node<std::pair<const std::shared_ptr<Node>, checkerResult> >*]’
+/usr/include/c++/13/bits/stl_tree.h:614:21:   required from ‘std::_Rb_tree_node<_Val>* std::_Rb_tree<_Key, _Val, _KeyOfValue, _Compare, _Alloc>::_M_create_node(_Args&& ...) [with _Args = {const std::piecewise_construct_t&, std::tuple<const std::shared_ptr<Node>&>, std::tuple<>}; _Key = std::shared_ptr<Node>; _Val = std::pair<const std::shared_ptr<Node>, checkerResult>; _KeyOfValue = std::_Select1st<std::pair<const std::shared_ptr<Node>, checkerResult> >; _Compare = Node::NodeCompare; _Alloc = std::allocator<std::pair<const std::shared_ptr<Node>, checkerResult> >; _Link_type = std::_Rb_tree_node<std::pair<const std::shared_ptr<Node>, checkerResult> >*]’
+/usr/include/c++/13/bits/stl_tree.h:1637:32:   required from ‘std::_Rb_tree<_Key, _Val, _KeyOfValue, _Compare, _Alloc>::_Auto_node::_Auto_node(std::_Rb_tree<_Key, _Val, _KeyOfValue, _Compare, _Alloc>&, _Args&& ...) [with _Args = {const std::piecewise_construct_t&, std::tuple<const std::shared_ptr<Node>&>, std::tuple<>}; _Key = std::shared_ptr<Node>; _Val = std::pair<const std::shared_ptr<Node>, checkerResult>; _KeyOfValue = std::_Select1st<std::pair<const std::shared_ptr<Node>, checkerResult> >; _Compare = Node::NodeCompare; _Alloc = std::allocator<std::pair<const std::shared_ptr<Node>, checkerResult> >]’
+/usr/include/c++/13/bits/stl_tree.h:2462:13:   required from ‘std::_Rb_tree<_Key, _Val, _KeyOfValue, _Compare, _Alloc>::iterator std::_Rb_tree<_Key, _Val, _KeyOfValue, _Compare, _Alloc>::_M_emplace_hint_unique(const_iterator, _Args&& ...) [with _Args = {const std::piecewise_construct_t&, std::tuple<const std::shared_ptr<Node>&>, std::tuple<>}; _Key = std::shared_ptr<Node>; _Val = std::pair<const std::shared_ptr<Node>, checkerResult>; _KeyOfValue = std::_Select1st<std::pair<const std::shared_ptr<Node>, checkerResult> >; _Compare = Node::NodeCompare; _Alloc = std::allocator<std::pair<const std::shared_ptr<Node>, checkerResult> >; iterator = std::_Rb_tree<std::shared_ptr<Node>, std::pair<const std::shared_ptr<Node>, checkerResult>, std::_Select1st<std::pair<const std::shared_ptr<Node>, checkerResult> >, Node::NodeCompare, std::allocator<std::pair<const std::shared_ptr<Node>, checkerResult> > >::iterator; const_iterator = std::_Rb_tree<std::shared_ptr<Node>, std::pair<const std::shared_ptr<Node>, checkerResult>, std::_Select1st<std::pair<const std::shared_ptr<Node>, checkerResult> >, Node::NodeCompare, std::allocator<std::pair<const std::shared_ptr<Node>, checkerResult> > >::const_iterator]’
+/usr/include/c++/13/bits/stl_map.h:513:37:   required from ‘std::map<_Key, _Tp, _Compare, _Alloc>::mapped_type& std::map<_Key, _Tp, _Compare, _Alloc>::operator[](const key_type&) [with _Key = std::shared_ptr<Node>; _Tp = checkerResult; _Compare = Node::NodeCompare; _Alloc = std::allocator<std::pair<const std::shared_ptr<Node>, checkerResult> >; mapped_type = checkerResult; key_type = std::shared_ptr<Node>]’
+checker.cpp:9:39:   required from here
+/usr/include/c++/13/tuple:2268:9: error: no matching function for call to ‘checkerResult::checkerResult()’
+ 2268 |         second(std::forward<_Args2>(std::get<_Indexes2>(__tuple2))...)
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+checker.h:18:5: note: candidate: ‘checkerResult::checkerResult(yytokentype, std::variant<std::shared_ptr<FuncDecl>, std::shared_ptr<VarDecl> >, std::optional<std::shared_ptr<ConstChunk> >)’
+   18 |     checkerResult(yytokentype type,
+      |     ^~~~~~~~~~~~~
+checker.h:18:5: note:   candidate expects 3 arguments, 0 provided
+checker.h:10:7: note: candidate: ‘checkerResult::checkerResult(const checkerResult&)’
+   10 | class checkerResult {
+      |       ^~~~~~~~~~~~~
+checker.h:10:7: note:   candidate expects 1 argument, 0 provided
+checker.h:10:7: note: candidate: ‘checkerResult::checkerResult(checkerResult&&)’
+checker.h:10:7: note:   candidate expects 1 argument, 0 provided
+/usr/include/c++/13/tuple: In instantiation of ‘std::pair<_T1, _T2>::pair(std::tuple<_Args1 ...>&, std::tuple<_Args2 ...>&, std::_Index_tuple<_Indexes1 ...>, std::_Index_tuple<_Indexes2 ...>) [with _Args1 = {std::shared_ptr<Node>&&}; long unsigned int ..._Indexes1 = {0}; _Args2 = {}; long unsigned int ..._Indexes2 = {}; _T1 = const std::shared_ptr<Node>; _T2 = checkerResult]’:
+/usr/include/c++/13/tuple:2257:63:   required from ‘std::pair<_T1, _T2>::pair(std::piecewise_construct_t, std::tuple<_Args1 ...>, std::tuple<_Args2 ...>) [with _Args1 = {std::shared_ptr<Node>&&}; _Args2 = {}; _T1 = const std::shared_ptr<Node>; _T2 = checkerResult]’
+/usr/include/c++/13/bits/new_allocator.h:191:4:   required from ‘void std::__new_allocator<_Tp>::construct(_Up*, _Args&& ...) [with _Up = std::pair<const std::shared_ptr<Node>, checkerResult>; _Args = {const std::piecewise_construct_t&, std::tuple<std::shared_ptr<Node>&&>, std::tuple<>}; _Tp = std::_Rb_tree_node<std::pair<const std::shared_ptr<Node>, checkerResult> >]’
+/usr/include/c++/13/bits/alloc_traits.h:538:17:   required from ‘static void std::allocator_traits<std::allocator<_CharT> >::construct(allocator_type&, _Up*, _Args&& ...) [with _Up = std::pair<const std::shared_ptr<Node>, checkerResult>; _Args = {const std::piecewise_construct_t&, std::tuple<std::shared_ptr<Node>&&>, std::tuple<>}; _Tp = std::_Rb_tree_node<std::pair<const std::shared_ptr<Node>, checkerResult> >; allocator_type = std::allocator<std::_Rb_tree_node<std::pair<const std::shared_ptr<Node>, checkerResult> > >]’
+/usr/include/c++/13/bits/stl_tree.h:597:32:   required from ‘void std::_Rb_tree<_Key, _Val, _KeyOfValue, _Compare, _Alloc>::_M_construct_node(_Link_type, _Args&& ...) [with _Args = {const std::piecewise_construct_t&, std::tuple<std::shared_ptr<Node>&&>, std::tuple<>}; _Key = std::shared_ptr<Node>; _Val = std::pair<const std::shared_ptr<Node>, checkerResult>; _KeyOfValue = std::_Select1st<std::pair<const std::shared_ptr<Node>, checkerResult> >; _Compare = Node::NodeCompare; _Alloc = std::allocator<std::pair<const std::shared_ptr<Node>, checkerResult> >; _Link_type = std::_Rb_tree_node<std::pair<const std::shared_ptr<Node>, checkerResult> >*]’
+/usr/include/c++/13/bits/stl_tree.h:614:21:   required from ‘std::_Rb_tree_node<_Val>* std::_Rb_tree<_Key, _Val, _KeyOfValue, _Compare, _Alloc>::_M_create_node(_Args&& ...) [with _Args = {const std::piecewise_construct_t&, std::tuple<std::shared_ptr<Node>&&>, std::tuple<>}; _Key = std::shared_ptr<Node>; _Val = std::pair<const std::shared_ptr<Node>, checkerResult>; _KeyOfValue = std::_Select1st<std::pair<const std::shared_ptr<Node>, checkerResult> >; _Compare = Node::NodeCompare; _Alloc = std::allocator<std::pair<const std::shared_ptr<Node>, checkerResult> >; _Link_type = std::_Rb_tree_node<std::pair<const std::shared_ptr<Node>, checkerResult> >*]’
+/usr/include/c++/13/bits/stl_tree.h:1637:32:   required from ‘std::_Rb_tree<_Key, _Val, _KeyOfValue, _Compare, _Alloc>::_Auto_node::_Auto_node(std::_Rb_tree<_Key, _Val, _KeyOfValue, _Compare, _Alloc>&, _Args&& ...) [with _Args = {const std::piecewise_construct_t&, std::tuple<std::shared_ptr<Node>&&>, std::tuple<>}; _Key = std::shared_ptr<Node>; _Val = std::pair<const std::shared_ptr<Node>, checkerResult>; _KeyOfValue = std::_Select1st<std::pair<const std::shared_ptr<Node>, checkerResult> >; _Compare = Node::NodeCompare; _Alloc = std::allocator<std::pair<const std::shared_ptr<Node>, checkerResult> >]’
+/usr/include/c++/13/bits/stl_tree.h:2462:13:   required from ‘std::_Rb_tree<_Key, _Val, _KeyOfValue, _Compare, _Alloc>::iterator std::_Rb_tree<_Key, _Val, _KeyOfValue, _Compare, _Alloc>::_M_emplace_hint_unique(const_iterator, _Args&& ...) [with _Args = {const std::piecewise_construct_t&, std::tuple<std::shared_ptr<Node>&&>, std::tuple<>}; _Key = std::shared_ptr<Node>; _Val = std::pair<const std::shared_ptr<Node>, checkerResult>; _KeyOfValue = std::_Select1st<std::pair<const std::shared_ptr<Node>, checkerResult> >; _Compare = Node::NodeCompare; _Alloc = std::allocator<std::pair<const std::shared_ptr<Node>, checkerResult> >; iterator = std::_Rb_tree<std::shared_ptr<Node>, std::pair<const std::shared_ptr<Node>, checkerResult>, std::_Select1st<std::pair<const std::shared_ptr<Node>, checkerResult> >, Node::NodeCompare, std::allocator<std::pair<const std::shared_ptr<Node>, checkerResult> > >::iterator; const_iterator = std::_Rb_tree<std::shared_ptr<Node>, std::pair<const std::shared_ptr<Node>, checkerResult>, std::_Select1st<std::pair<const std::shared_ptr<Node>, checkerResult> >, Node::NodeCompare, std::allocator<std::pair<const std::shared_ptr<Node>, checkerResult> > >::const_iterator]’
+/usr/include/c++/13/bits/stl_map.h:532:37:   required from ‘std::map<_Key, _Tp, _Compare, _Alloc>::mapped_type& std::map<_Key, _Tp, _Compare, _Alloc>::operator[](key_type&&) [with _Key = std::shared_ptr<Node>; _Tp = checkerResult; _Compare = Node::NodeCompare; _Alloc = std::allocator<std::pair<const std::shared_ptr<Node>, checkerResult> >; mapped_type = checkerResult; key_type = std::shared_ptr<Node>]’
+checker.cpp:14:48:   required from here
+/usr/include/c++/13/tuple:2268:9: error: no matching function for call to ‘checkerResult::checkerResult()’
+ 2268 |         second(std::forward<_Args2>(std::get<_Indexes2>(__tuple2))...)
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+checker.h:18:5: note: candidate: ‘checkerResult::checkerResult(yytokentype, std::variant<std::shared_ptr<FuncDecl>, std::shared_ptr<VarDecl> >, std::optional<std::shared_ptr<ConstChunk> >)’
+   18 |     checkerResult(yytokentype type,
+      |     ^~~~~~~~~~~~~
+checker.h:18:5: note:   candidate expects 3 arguments, 0 provided
+checker.h:10:7: note: candidate: ‘checkerResult::checkerResult(const checkerResult&)’
+   10 | class checkerResult {
+      |       ^~~~~~~~~~~~~
+checker.h:10:7: note:   candidate expects 1 argument, 0 provided
+checker.h:10:7: note: candidate: ‘checkerResult::checkerResult(checkerResult&&)’
+checker.h:10:7: note:   candidate expects 1 argument, 0 provided
+tool.cpp: In function ‘bool tool::matchArraysize(IntList&, ConstChunk&)’:
+tool.cpp:72:1: warning: no return statement in function returning non-void [-Wreturn-type]
+   72 | }
+      | ^
+tool.cpp: At global scope:
+tool.cpp:74:7: error: default argument given for parameter 3 of ‘Const tool::getConst(IntList&, ConstChunk&, int)’ [-fpermissive]
+   74 | Const tool::getConst(IntList& arrayIndex, ConstChunk& initval, int index = 0) {
+      |       ^~~~
+In file included from tool.cpp:1:
+tool.h:8:11: note: previous specification in ‘Const tool::getConst(IntList&, ConstChunk&, int)’ here
+    8 |     Const getConst(IntList& arrayIndex, ConstChunk& initval, int index = 0) ;
+      |           ^~~~~~~~
+make: *** [Makefile:14: AST] Error 1

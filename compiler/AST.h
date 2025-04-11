@@ -5,6 +5,30 @@
 #include <vector>
 #include <string>
 #include <memory>
+extern std::shared_ptr<Node> AST_root;
+
+class Node{
+    private:
+        static int count;
+        int index;
+    
+    public:
+        class NodeCompare
+        {
+        public:
+            bool operator()(const std::shared_ptr<Node>& lhs, const std::shared_ptr<Node>& rhs) const
+            {
+                return lhs->index < rhs->index;
+            }
+        };
+    
+        virtual void accept(Visitor &v) = 0;
+        Node(){
+            index = count++;
+        }
+        virtual ~Node() = default;
+};
+
 
 class StmtListNode: public Node
 {
@@ -169,12 +193,12 @@ public:
     virtual void accept(Visitor &v) override ;
 };
 
-class vectorNode: public Node
+class VectorNode: public Node
 {
 public:
     std::vector<std::shared_ptr<Node>> list;
-    vectorNode(){}
-    vectorNode(std::vector<std::shared_ptr<Node>> list):list(list){}
+    VectorNode(){}
+    VectorNode(std::vector<std::shared_ptr<Node>> list):list(list){}
     void addNode(std::shared_ptr<Node> node)
     {
         list.push_back(node);
@@ -222,6 +246,8 @@ public:
     }
     virtual void accept(Visitor &v) override ;
 };
+
+#include "scope.h"
 
 class IdentifierNode: public Node
 {
@@ -301,7 +327,7 @@ public:
     virtual void visit(CompUnitNode &node) = 0;
     virtual void visit(StmtListNode &node) = 0;
     virtual void visit(AssignNode &node) = 0;
-    virtual void visit(vectorNode &node) = 0;
+    virtual void visit(VectorNode &node) = 0;
     virtual void visit(DeclNode &node) = 0;
     virtual void visit(ConstIntNode &node) = 0;
     virtual void visit(ConstFloatNode &node) = 0;

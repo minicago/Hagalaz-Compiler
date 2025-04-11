@@ -4,6 +4,7 @@
 yytokentype decl_type;
 std::shared_ptr<Node> AST_root;
 
+int Node::count = 0;
 
 void ExprNode::accept(Visitor &v)
 {
@@ -77,7 +78,7 @@ void AssignNode::accept(Visitor &v)
 {
     v.visit(*this);
 }
-void vectorNode::accept(Visitor &v)
+void VectorNode::accept(Visitor &v)
 {
     v.visit(*this);
 }

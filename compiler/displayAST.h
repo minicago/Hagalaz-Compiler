@@ -1,6 +1,7 @@
 #ifndef DISPLAYAST_H
 #define DISPLAYAST_H
 #include "def.h"
+#include "AST.h"
 #include <iostream>
 
 class DisplayASTVisitor: public Visitor
@@ -23,7 +24,7 @@ public:
     void visit(CompUnitNode &node) override;
     void visit(StmtListNode &node) override;
     void visit(AssignNode &node) override;
-    void visit(vectorNode &node) override;
+    void visit(VectorNode &node) override;
     void visit(DeclNode &node) override;
     void visit(ConstIntNode &node) override;
     void visit(ConstFloatNode &node) override;

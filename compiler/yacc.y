@@ -108,11 +108,11 @@ InitVal : Exp
         }
 
 InitValGroup: InitVal {
-    $$ = std::make_shared<vectorNode> ();
-    std::dynamic_pointer_cast<vectorNode> ($$)->addNode($1);
+    $$ = std::make_shared<VectorNode> ();
+    std::dynamic_pointer_cast<VectorNode> ($$)->addNode($1);
 }| InitValGroup "," InitVal {
     $$ = $1;
-    std::dynamic_pointer_cast<vectorNode> ($$)->addNode($3);    
+    std::dynamic_pointer_cast<VectorNode> ($$)->addNode($3);    
 }
 
 VarDecl : BType {
@@ -141,11 +141,11 @@ VarDef : Ident {
 }
 
 ArrayList: "[" Exp "]"{
-    $$ = std::make_shared<vectorNode> ();
-    std::dynamic_pointer_cast<vectorNode> ($$)->addNode($2);
+    $$ = std::make_shared<VectorNode> ();
+    std::dynamic_pointer_cast<VectorNode> ($$)->addNode($2);
 } | ArrayList "[" Exp "]" {
     $$ = $1;
-    std::dynamic_pointer_cast<vectorNode> ($$)->addNode($3);  
+    std::dynamic_pointer_cast<VectorNode> ($$)->addNode($3);  
 }
 
 FuncDef : BType Ident "(" ")" Block{
@@ -158,7 +158,7 @@ FuncDef : BType Ident "(" ")" Block{
     $$ = std::make_shared<FuncDefNode> (
         std::dynamic_pointer_cast<SimpleTokenNode>($1)->type,
         std::dynamic_pointer_cast<IdentifierNode>($2)->id,
-        $5,
+        $4,
         $6 );    
 }
 
@@ -222,7 +222,7 @@ PrimaryExp : "(" Exp ")" {$$ = $2;}
 UnaryExp : PrimaryExp
          | Ident "(" ")" {$$ = std::make_shared<FuncCallNode> (std::dynamic_pointer_cast<IdentifierNode>($1)->id, nullptr);} 
          | Ident "(" FuncParamsGroup ")"  {$$ = std::make_shared<FuncCallNode> (std::dynamic_pointer_cast<IdentifierNode>($1)->id, $3);}
-         | UnaryOp UnaryExp {$$ =  std::make_shared<ExprNode> (std::dynamic_pointer_cast<SimpleTokenNode>($1)->type, $2, nullptr);}
+         | UnaryOp UnaryExp {$$ =  std::make_shared<ExprNode> (std::dynamic_pointer_cast<SimpleTokenNode>($1)->type, nullptr, $2);}
 
 UnaryOp : ADD
         | SUB 
@@ -286,7 +286,6 @@ LOrExp : LAndExp | LOrExp OR LAndExp {
 
 %%
 
-#include "displayAST.h"
 
 int main(int argc, char** argv){
     
@@ -300,8 +299,10 @@ int main(int argc, char** argv){
     yyparse();
     
 	fclose(yyin);
-    DisplayASTVisitor display;
-    AST_root->accept(display);
+
+    __main();
+
+    
     return 0;
 }
 

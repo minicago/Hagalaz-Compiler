@@ -7,39 +7,62 @@
 #include <vector>
 
 
-bool Scope::addDecl(std::shared_ptr<Decl> decl) {
-    if (currentScope->historyTable.find(decl->id) != currentScope->historyTable.end()) {
-        std::cerr << "Error: Variable " << decl->id << " already declared in the current scope." << std::endl;
-        return false;
-    }
-    if (currentTable.find(decl->id) != currentTable.end()) {
-        currentScope->historyTable[decl->id] = currentTable[decl->id];
-    } else {
-        currentScope->historyTable[decl->id] = nullptr;
-    }
-    currentTable[decl->id] = decl;
-    return true;
+
+Scope::Scope() {}
+
+Scope::~Scope() {}
+
+void Scope::enterBlock() {
+    currentTable.push(std::set<std::string>());
 }
 
-std::shared_ptr<Decl> Scope::getScope(std::string id) {
-    if (currentTable.find(id) != currentTable.end()) {
-        return currentTable[id];
+void Scope::exitBlock() {
+    for (const auto& id : currentTable.top()) {
+        localTable.erase(id);
+    }
+    currentTable.pop();
+}
+
+void Scope::addGlobalVar(std::string id, std::shared_ptr<VarDecl> var) {
+    if (globalTable.find(id) != globalTable.end()) {
+        *output.err << "Error: Variable " << id << " already declared globally." << std::endl;
+        return;
+    }
+    globalTable[id] = var;
+}
+
+void Scope::addVar(std::string id, std::shared_ptr<VarDecl> var) {
+    if (localTable.find(id) != localTable.end()) {
+        *output.err << "Error: Variable " << id << " already declared in this scope." << std::endl;
+        return;
+    }
+    currentTable.top().insert(id);
+    localTable[id] = var;
+}
+
+void Scope::addFunc(std::string id, std::shared_ptr<FuncDecl> func) {
+    funcTable[id] = func;
+    if (funcTable.find(id) != funcTable.end()) {
+        
+        *output.err << "Error: Function " << id << " already declared." << std::endl;
+        return;
+    }
+    funcTable[id] = func;
+}
+
+std::shared_ptr<VarDecl> Scope::findVar(std::string id) {
+    if (localTable.find(id) != localTable.end()) {
+        return localTable[id];
+    }
+    if (globalTable.find(id) != globalTable.end()) {
+        return globalTable[id];
     }
     return nullptr;
 }
 
-void Scope::enterScope() {
-    currentScope = std::make_shared<Scope> (currentScope);
-}
-
-void Scope::exitScope() {
-    for (auto &decl : currentScope->historyTable) {
-        if (decl.second != nullptr) {
-            currentTable[decl.first] = decl.second;
-        } else {
-            currentTable.erase(decl.first);
-        }
+std::shared_ptr<FuncDecl> Scope::findFunc(std::string id) {
+    if (funcTable.find(id) != funcTable.end()) {
+        return funcTable[id];
     }
-    currentScope = currentScope->parentScope;
+    return nullptr;
 }
-

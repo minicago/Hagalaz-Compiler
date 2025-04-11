@@ -6,43 +6,55 @@
 #include <memory>
 #include <variant>
 #include <vector>
+#include <set>
 #include <optional>
+#include <stack>
 
+#include "type.h"
 
-
-class Decl{
+class VarDecl{
 public:
-    yytokentype type;
     std::string id;
-    bool isptr;
-    std::optional<std::shared_ptr<ConstChunk> >initval;
-    std::optional<std::shared_ptr<IntList> >arraySize;
-    std::optional<Var> var;
-    std::optional<std::vector<Decl> > param;
+    
+    TypeValue typeValue;
 
-    Decl(std::string id, yytokentype type, bool isptr = false) 
-        : id(id), type(type), isptr(isptr){}
+    VarDecl(std::string id, TypeValue typeValue)
+        : id(id), typeValue(typeValue) {}
 
-    virtual ~Decl() = default;
 
 };
 
+class FuncDecl{
+public:
+    SimpleType returnType;
+    std::string id;
+    std::shared_ptr<std::vector<std::shared_ptr<VarDecl> > > paramList;
+    std::shared_ptr<Node> stmt;
+    FuncDecl(yytokentype returnType, std::string id)
+        : returnType(returnType), id(id), paramList(std::make_shared<std::vector<std::shared_ptr<VarDecl> > >()), stmt(nullptr) {}
+};
 
 class Scope{
-private:
-    static std::map<std::string, std::shared_ptr<Decl> > currentTable;
-    static std::shared_ptr<Scope> currentScope;
-    std::map<std::string, std::shared_ptr<Decl> > historyTable;
-    std::shared_ptr<Scope> parentScope;
-
 public:
-    Scope() = default;
-    Scope(std::shared_ptr<Scope> parentScope) : parentScope(parentScope) {}
 
-    static bool addDecl(std::shared_ptr<Decl> decl);
-    static std::shared_ptr<Decl> getScope(std::string id);
-    static void enterScope() ;
-    static void exitScope() ;
+    std::map<std::string, std::shared_ptr<FuncDecl> > funcTable;
+    std::map<std::string, std::shared_ptr<VarDecl> > globalTable;
+    std::map<std::string, std::shared_ptr<VarDecl> > localTable;
+
+    std::stack<std::set<std::string> > currentTable;
+    
+    void enterBlock();
+    void exitBlock();
+    void addGlobalVar(std::string id, std::shared_ptr<VarDecl> var);
+    void addVar(std::string id, std::shared_ptr<VarDecl> var);
+    void addFunc(std::string id, std::shared_ptr<FuncDecl> func);
+    std::shared_ptr<VarDecl> findVar(std::string id);
+    std::shared_ptr<FuncDecl> findFunc(std::string id);
+
+    Scope();
+    ~Scope();
 };
+
+
 
 #endif

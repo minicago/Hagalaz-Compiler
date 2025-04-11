@@ -121,7 +121,7 @@ void DisplayASTVisitor::visit(AssignNode &node) {
     if (node.expr) node.expr->accept(*this);
 }
 
-void DisplayASTVisitor::visit(vectorNode &node) {
+void DisplayASTVisitor::visit(VectorNode &node) {
     *output.log << "vectorNode: elements=" << std::endl;
     for (auto &element : node.list) {
         element->accept(*this);

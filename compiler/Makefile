@@ -10,7 +10,7 @@ lex.yy.c: lex.l
 y.tab.c: yacc.y
 	$(YACC) -o $@ -d $<
 
-AST: y.tab.c lex.yy.c AST.cpp displayAST.cpp output.cpp
+AST: y.tab.c lex.yy.c AST.cpp displayAST.cpp output.cpp main.cpp checker.cpp tool.cpp scope.cpp type.cpp
 	$(CC) -o $@ $^ -lfl
 
 clean:

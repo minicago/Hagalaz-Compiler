@@ -1,11 +1,10 @@
 #ifndef TOOL_H
 #define TOOL_H
 #include "def.h"
+#include "scope.h"
 
-bool matchArraysize(IntList& arraySize, ConstChunk& initval) ;
+namespace tool{
 
-Const getConst(IntList& arrayIndex, ConstChunk& initval, int index = 0) ;
-
-std::shared_ptr<IntList> makeIntList(ConstChunk& initval);
+}
 
 #endif
