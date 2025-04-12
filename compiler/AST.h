@@ -23,6 +23,7 @@ class Node{
         };
     
         virtual void accept(Visitor &v) = 0;
+        virtual std::string toString() const = 0;
         Node(){
             index = count++;
         }
@@ -42,6 +43,9 @@ public:
         stmtlist.push_back(stmt);
     }
     virtual void accept(Visitor &v) override ;
+    std::string toString() const override {
+        return "StmtListNode";
+    }
 };
 
 class ExprNode: public Node
@@ -53,6 +57,9 @@ public:
 
     ExprNode(yytokentype op, std::shared_ptr<Node> val1, std::shared_ptr<Node> val2):op(op),val1(val1),val2(val2){}
     virtual void accept(Visitor &v) override ;
+    std::string toString() const override {
+        return "ExprNode: op=" + std::to_string(op);
+    }
 };
 
 class IfElseNode: public Node
@@ -64,6 +71,9 @@ public:
 
     IfElseNode(std::shared_ptr<Node> cond, std::shared_ptr<Node> ifstmt, std::shared_ptr<Node> elsestmt):cond(cond),ifstmt(ifstmt),elsestmt(elsestmt){}
     virtual void accept(Visitor &v) override ;
+    std::string toString() const override {
+        return "IfElseNode";
+    }
 };
 
 class WhileNode: public Node
@@ -74,6 +84,9 @@ public:
 
     WhileNode(std::shared_ptr<Node> cond, std::shared_ptr<Node> stmt):cond(cond),stmt(stmt){}
     virtual void accept(Visitor &v) override ;
+    std::string toString() const override {
+        return "WhileNode";
+    }
 };
 
 class BreakNode: public Node
@@ -81,6 +94,9 @@ class BreakNode: public Node
 public:
     BreakNode(){}
     virtual void accept(Visitor &v) override ;
+    std::string toString() const override {
+        return "BreakNode";
+    }
 };
 
 class ContinueNode: public Node
@@ -88,6 +104,9 @@ class ContinueNode: public Node
 public:
     ContinueNode(){}
     virtual void accept(Visitor &v) override ;
+    std::string toString() const override {
+        return "ContinueNode";
+    }
 };
 
 class ReturnNode: public Node
@@ -97,6 +116,9 @@ public:
 
     ReturnNode(std::shared_ptr<Node> expr):expr(expr){}
     virtual void accept(Visitor &v) override ;
+    std::string toString() const override {
+        return "ReturnNode";
+    }
 };
 
 class FuncDefNode: public Node
@@ -109,6 +131,9 @@ public:
 
     FuncDefNode(yytokentype type, const std::string &id, std::shared_ptr<Node> param, std::shared_ptr<Node> stmt):type(type),id(id),param(param),stmt(stmt){}
     virtual void accept(Visitor &v) override ;
+    std::string toString() const override {
+        return "FuncDefNode: type=" + std::to_string(type) + ", id=" + id;
+    }
 };
 
 class FuncCallNode: public Node
@@ -119,6 +144,9 @@ public:
 
     FuncCallNode(const std::string &id, std::shared_ptr<Node> param):id(id),param(param){}
     virtual void accept(Visitor &v) override ;
+    std::string toString() const override {
+        return "FuncCallNode: id=" + id;
+    }
 };
 
 class ParamNode: public Node
@@ -131,6 +159,9 @@ public:
     
     ParamNode(yytokentype type, const std::string &id, bool isptr, std::shared_ptr<Node> arraySize):type(type),id(id),isptr(isptr),arraySize(arraySize){}
     virtual void accept(Visitor &v) override ;
+    std::string toString() const override {
+        return "ParamNode: type=" + std::to_string(type) + ", id=" + id + ", isptr=" + std::to_string(isptr);
+    }
 };
     
 class ParamListNode: public Node
@@ -145,6 +176,9 @@ public:
         paramlist.push_back(param);
     }
     virtual void accept(Visitor &v) override ;
+    std::string toString() const override {
+        return "ParamListNode";
+    }
 };
 
 class FuncCallParamNode: public Node
@@ -159,6 +193,9 @@ public:
         paramlist.push_back(param);
     }
     virtual void accept(Visitor &v) override ;
+    std::string toString() const override {
+        return "FuncCallParamNode";
+    }
 };
 
 
@@ -181,6 +218,9 @@ public:
         else deflist.push_back(def);
     }
     virtual void accept(Visitor &v) override ;
+    std::string toString() const override {
+        return "CompUnitNode";
+    }
 };
 
 class AssignNode: public Node
@@ -191,6 +231,9 @@ public:
 
     AssignNode(std::shared_ptr<Node> left, std::shared_ptr<Node> expr):left(left),expr(expr){}
     virtual void accept(Visitor &v) override ;
+    std::string toString() const override {
+        return "AssignNode";
+    }
 };
 
 class VectorNode: public Node
@@ -204,6 +247,9 @@ public:
         list.push_back(node);
     }
     virtual void accept(Visitor &v) override ;
+    std::string toString() const override {
+        return "VectorNode";
+    }
 };
 
 
@@ -219,6 +265,9 @@ public:
     DeclNode(bool isConst, yytokentype type, const std::string &id, std::shared_ptr<Node> arraySize, std::shared_ptr<Node> initval):
         isConst(isConst),type(type),id(id),arraySize(arraySize),initval(initval){}
     virtual void accept(Visitor &v) override ;
+    std::string toString() const override {
+        return "DeclNode: isConst=" + std::to_string(isConst) + ", type=" + std::to_string(type) + ", id=" + id;
+    }
 };
 
 class ConstIntNode: public Node
@@ -232,6 +281,9 @@ public:
         return val;
     }
     virtual void accept(Visitor &v) override ;
+    std::string toString() const override {
+        return "ConstIntNode: val=" + std::to_string(val);
+    }
 };
 
 class ConstFloatNode: public Node
@@ -245,6 +297,9 @@ public:
         return val;
     }
     virtual void accept(Visitor &v) override ;
+    std::string toString() const override {
+        return "ConstFloatNode: val=" + std::to_string(val);
+    }
 };
 
 #include "scope.h"
@@ -260,6 +315,9 @@ public:
         return id;
     }
     virtual void accept(Visitor &v) override ;
+    std::string toString() const override {
+        return "IdentifierNode: id=" + id;
+    }
 };
 
 class SimpleTokenNode: public Node
@@ -273,6 +331,9 @@ public:
         return type;
     }
     virtual void accept(Visitor &v) override ;
+    std::string toString() const override {
+        return "SimpleTokenNode: type=" + std::to_string(type);
+    }
 };
 
 class BlockGroupNode: public Node
@@ -294,6 +355,9 @@ public:
         else blocklist.push_back(block);
     }
     virtual void accept(Visitor &v) override ;
+    std::string toString() const override {
+        return "BlockGroupNode";
+    }
 };
 
 class LvalNode: public Node
@@ -308,6 +372,9 @@ public:
         return id;
     }
     virtual void accept(Visitor &v) override ;
+    std::string toString() const override {
+        return "LvalNode: id=" + id;
+    }
 };
 
 class Visitor

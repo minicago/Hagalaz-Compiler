@@ -234,7 +234,7 @@ void Checker::visit(FuncCallNode &node) {
             REPORT_ERROR("Function " + node.id + " argument type mismatch.");
             return;
         }
-        if (paramDecl->typeValue.type->matchType(*argType->type)) {
+        if (!paramDecl->typeValue.type->matchType(*argType->type)) {
             REPORT_ERROR("Function " + node.id + " parameter type mismatch.");
             return;
         }
@@ -246,10 +246,18 @@ void Checker::visit(FuncCallNode &node) {
 
 void Checker::visit(ParamNode &node) {   
     *output.log << "Visiting ParamNode" << std::endl;
-    auto type = std::make_shared<SimpleType>(node.type);
-    constructingType = type;
+    std::shared_ptr<SysyType> type = std::make_shared<SimpleType>(node.type);
+    
     if (node.arraySize) {
+        constructingType = type;
         node.arraySize->accept(*this);
+        type = constructingType;
+        constructingType = nullptr;
+    }
+
+    
+    if (node.isptr) {
+        type = std::make_shared<ArrayType>(type);
     }
     auto varDecl = std::make_shared<VarDecl>(node.id, TypeValue(type));
 
@@ -474,6 +482,7 @@ void Checker::visit(LvalNode &node) {
     }
     bool allConst = var->typeValue.isConst();
     if (node.arrayIndex) {
+        auto typeValue = var->typeValue;
         for(auto &index : std::dynamic_pointer_cast<VectorNode> (node.arrayIndex)->list) {
             index->accept(*this);
             auto indexResult = result[index];
@@ -485,7 +494,7 @@ void Checker::visit(LvalNode &node) {
                 REPORT_ERROR("Array index must be an integer.");
                 return;
             }
-            auto typeValue = var->typeValue;
+            
             if(indexResult.value->isConst()){
                 *output.log << "Array index is constant." << std::endl;
                 auto indexValue = indexResult.value->getInt();
@@ -501,13 +510,19 @@ void Checker::visit(LvalNode &node) {
                 typeValue = typeValue.get_index(0);
                 allConst = false;
             }
-            if(allConst) {
-                result[std::make_shared<LvalNode>(node)] = checkerResult({}, typeValue);
-            } else {
-                result[std::make_shared<LvalNode>(node)] = checkerResult({}, TypeValue(typeValue.type));
-            }
+
+            *output.log << typeValue.type->toString() << std::endl;
+             
+
         }
+        if(allConst) {
+            result[std::make_shared<LvalNode>(node)] = checkerResult({}, typeValue);
+        } else {
+            result[std::make_shared<LvalNode>(node)] = checkerResult({}, TypeValue(typeValue.type));
+        }
+        return ;
     }
+    else result[std::make_shared<LvalNode>(node)] = checkerResult({}, var->typeValue);
     
     *output.log << "Finished visiting LvalNode" << std::endl;
 }

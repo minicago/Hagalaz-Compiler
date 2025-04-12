@@ -73,13 +73,19 @@
     #include<ctype.h>
     #include "def.h"
     #include "AST.h"
+    #define __SHOW__BISON__ACTION__
+    #ifdef __SHOW__BISON__ACTION__ 
+        #define BISON_LOG(X) printf(X)
+    #else
+        #define BISON_LOG(X)  
+    #endif
     int yylex();			//调用词法分析器，每次返回一个TOKEN
     int yyerror(char* s);   
     extern int line_no;
     extern yytokentype decl_type;
     extern std::shared_ptr<Node> AST_root;
 
-#line 83 "y.tab.c"
+#line 89 "y.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -243,43 +249,41 @@ enum yysymbol_kind_t
   YYSYMBOL_INTNUM = 40,                    /* INTNUM  */
   YYSYMBOL_const_Float_Val = 41,           /* const_Float_Val  */
   YYSYMBOL_FLOATNUM = 42,                  /* FLOATNUM  */
-  YYSYMBOL_43_ = 43,                       /* '['  */
-  YYSYMBOL_44_ = 44,                       /* ']'  */
-  YYSYMBOL_YYACCEPT = 45,                  /* $accept  */
-  YYSYMBOL_CompUnit = 46,                  /* CompUnit  */
-  YYSYMBOL_Decl = 47,                      /* Decl  */
-  YYSYMBOL_ConstDecl = 48,                 /* ConstDecl  */
-  YYSYMBOL_49_1 = 49,                      /* $@1  */
-  YYSYMBOL_BType = 50,                     /* BType  */
-  YYSYMBOL_ConstDef = 51,                  /* ConstDef  */
-  YYSYMBOL_InitVal = 52,                   /* InitVal  */
-  YYSYMBOL_InitValGroup = 53,              /* InitValGroup  */
-  YYSYMBOL_VarDecl = 54,                   /* VarDecl  */
-  YYSYMBOL_55_2 = 55,                      /* $@2  */
-  YYSYMBOL_VarDefGroup = 56,               /* VarDefGroup  */
-  YYSYMBOL_VarDef = 57,                    /* VarDef  */
-  YYSYMBOL_ArrayList = 58,                 /* ArrayList  */
-  YYSYMBOL_FuncDef = 59,                   /* FuncDef  */
-  YYSYMBOL_FuncFParams = 60,               /* FuncFParams  */
-  YYSYMBOL_FuncFParam = 61,                /* FuncFParam  */
-  YYSYMBOL_Block = 62,                     /* Block  */
-  YYSYMBOL_BlockGroup = 63,                /* BlockGroup  */
-  YYSYMBOL_BlockItem = 64,                 /* BlockItem  */
-  YYSYMBOL_Stmt = 65,                      /* Stmt  */
-  YYSYMBOL_Exp = 66,                       /* Exp  */
-  YYSYMBOL_Cond = 67,                      /* Cond  */
-  YYSYMBOL_LVal = 68,                      /* LVal  */
-  YYSYMBOL_Number = 69,                    /* Number  */
-  YYSYMBOL_PrimaryExp = 70,                /* PrimaryExp  */
-  YYSYMBOL_UnaryExp = 71,                  /* UnaryExp  */
-  YYSYMBOL_UnaryOp = 72,                   /* UnaryOp  */
-  YYSYMBOL_FuncParamsGroup = 73,           /* FuncParamsGroup  */
-  YYSYMBOL_MulExp = 74,                    /* MulExp  */
-  YYSYMBOL_AddExp = 75,                    /* AddExp  */
-  YYSYMBOL_RelExp = 76,                    /* RelExp  */
-  YYSYMBOL_EqExp = 77,                     /* EqExp  */
-  YYSYMBOL_LAndExp = 78,                   /* LAndExp  */
-  YYSYMBOL_LOrExp = 79                     /* LOrExp  */
+  YYSYMBOL_YYACCEPT = 43,                  /* $accept  */
+  YYSYMBOL_CompUnit = 44,                  /* CompUnit  */
+  YYSYMBOL_Decl = 45,                      /* Decl  */
+  YYSYMBOL_ConstDecl = 46,                 /* ConstDecl  */
+  YYSYMBOL_47_1 = 47,                      /* $@1  */
+  YYSYMBOL_BType = 48,                     /* BType  */
+  YYSYMBOL_ConstDef = 49,                  /* ConstDef  */
+  YYSYMBOL_InitVal = 50,                   /* InitVal  */
+  YYSYMBOL_InitValGroup = 51,              /* InitValGroup  */
+  YYSYMBOL_VarDecl = 52,                   /* VarDecl  */
+  YYSYMBOL_53_2 = 53,                      /* $@2  */
+  YYSYMBOL_VarDefGroup = 54,               /* VarDefGroup  */
+  YYSYMBOL_VarDef = 55,                    /* VarDef  */
+  YYSYMBOL_ArrayList = 56,                 /* ArrayList  */
+  YYSYMBOL_FuncDef = 57,                   /* FuncDef  */
+  YYSYMBOL_FuncFParams = 58,               /* FuncFParams  */
+  YYSYMBOL_FuncFParam = 59,                /* FuncFParam  */
+  YYSYMBOL_Block = 60,                     /* Block  */
+  YYSYMBOL_BlockGroup = 61,                /* BlockGroup  */
+  YYSYMBOL_BlockItem = 62,                 /* BlockItem  */
+  YYSYMBOL_Stmt = 63,                      /* Stmt  */
+  YYSYMBOL_Exp = 64,                       /* Exp  */
+  YYSYMBOL_Cond = 65,                      /* Cond  */
+  YYSYMBOL_LVal = 66,                      /* LVal  */
+  YYSYMBOL_Number = 67,                    /* Number  */
+  YYSYMBOL_PrimaryExp = 68,                /* PrimaryExp  */
+  YYSYMBOL_UnaryExp = 69,                  /* UnaryExp  */
+  YYSYMBOL_UnaryOp = 70,                   /* UnaryOp  */
+  YYSYMBOL_FuncParamsGroup = 71,           /* FuncParamsGroup  */
+  YYSYMBOL_MulExp = 72,                    /* MulExp  */
+  YYSYMBOL_AddExp = 73,                    /* AddExp  */
+  YYSYMBOL_RelExp = 74,                    /* RelExp  */
+  YYSYMBOL_EqExp = 75,                     /* EqExp  */
+  YYSYMBOL_LAndExp = 76,                   /* LAndExp  */
+  YYSYMBOL_LOrExp = 77                     /* LOrExp  */
 };
 typedef enum yysymbol_kind_t yysymbol_kind_t;
 
@@ -613,7 +617,7 @@ union yyalloc
 #define YYLAST   243
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  45
+#define YYNTOKENS  43
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  35
 /* YYNRULES -- Number of rules.  */
@@ -645,7 +649,7 @@ static const yytype_int8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,    43,     2,    44,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
@@ -672,16 +676,16 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int16 yyrline[] =
 {
-       0,    57,    57,    63,    68,    73,    78,    79,    81,    81,
-      87,    93,    94,    95,    97,   100,   104,   105,   106,   110,
-     113,   118,   118,   124,   127,   132,   134,   136,   138,   143,
-     146,   151,   157,   165,   168,   173,   175,   177,   181,   181,
-     183,   186,   191,   191,   193,   194,   195,   196,   197,   198,
-     199,   200,   201,   202,   203,   205,   207,   209,   211,   215,
-     216,   218,   219,   220,   222,   223,   224,   225,   227,   228,
-     229,   231,   235,   240,   241,   244,   247,   251,   252,   255,
-     259,   260,   263,   266,   269,   273,   273,   275,   279,   279,
-     283,   283
+       0,    63,    63,    69,    75,    81,    88,    91,    95,    95,
+     103,   109,   112,   115,   119,   123,   128,   131,   135,   140,
+     144,   150,   150,   158,   162,   168,   171,   174,   177,   182,
+     186,   192,   199,   208,   212,   218,   221,   224,   229,   232,
+     237,   241,   247,   249,   253,   257,   261,   265,   269,   273,
+     277,   281,   285,   289,   293,   298,   303,   308,   311,   316,
+     318,   322,   326,   329,   333,   336,   340,   344,   349,   352,
+     355,   359,   364,   370,   373,   377,   381,   386,   389,   393,
+     398,   401,   405,   409,   413,   418,   420,   423,   428,   430,
+     435,   437
 };
 #endif
 
@@ -702,10 +706,10 @@ static const char *const yytname[] =
   "\"!\"", "\";\"", "\":\"", "\",\"", "\"{\"", "\"}\"", "\"[\"", "\"]\"",
   "\"(\"", "\")\"", "CONST", "IF", "ELSE", "WHILE", "BREAK", "RETURN",
   "CONTINUE", "AND", "OR", "const_String_Val", "Ident", "INT", "FLOAT",
-  "VOID", "const_Int_Val", "INTNUM", "const_Float_Val", "FLOATNUM", "'['",
-  "']'", "$accept", "CompUnit", "Decl", "ConstDecl", "$@1", "BType",
-  "ConstDef", "InitVal", "InitValGroup", "VarDecl", "$@2", "VarDefGroup",
-  "VarDef", "ArrayList", "FuncDef", "FuncFParams", "FuncFParam", "Block",
+  "VOID", "const_Int_Val", "INTNUM", "const_Float_Val", "FLOATNUM",
+  "$accept", "CompUnit", "Decl", "ConstDecl", "$@1", "BType", "ConstDef",
+  "InitVal", "InitValGroup", "VarDecl", "$@2", "VarDefGroup", "VarDef",
+  "ArrayList", "FuncDef", "FuncFParams", "FuncFParam", "Block",
   "BlockGroup", "BlockItem", "Stmt", "Exp", "Cond", "LVal", "Number",
   "PrimaryExp", "UnaryExp", "UnaryOp", "FuncParamsGroup", "MulExp",
   "AddExp", "RelExp", "EqExp", "LAndExp", "LOrExp", YY_NULLPTR
@@ -738,10 +742,10 @@ static const yytype_int16 yypact[] =
       83,   -11,  -130,    64,    55,  -130,    47,  -130,  -130,  -130,
     -130,    58,   201,    82,  -130,  -130,  -130,  -130,  -130,  -130,
     -130,  -130,   201,    78,    56,    99,    64,   201,    97,  -130,
-      81,     0,    77,  -130,    64,  -130,  -130,  -130,    91,   112,
+     103,     0,    77,  -130,    64,  -130,  -130,  -130,    91,   112,
      173,   117,  -130,   201,   201,   201,   201,   201,  -130,  -130,
      120,  -130,  -130,   121,   124,   127,   191,   132,  -130,  -130,
-    -130,   130,  -130,  -130,   136,   151,   113,  -130,  -130,  -130,
+    -130,   130,  -130,  -130,   136,   151,   135,  -130,  -130,  -130,
       64,  -130,  -130,  -130,  -130,    -8,  -130,  -130,  -130,    78,
       78,  -130,   201,   201,  -130,  -130,   153,  -130,  -130,  -130,
     -130,   201,   150,  -130,   201,  -130,   152,    56,   213,    13,
@@ -837,10 +841,10 @@ static const yytype_int16 yycheck[] =
       12,    13,    14,    35,   121,    91,    19,   124,    40,    35,
       42,   158,   122,    21,    40,    23,    42,    10,    11,    18,
      137,    20,    15,    16,    76,    77,    19,    20,    35,   146,
-      23,    22,    25,    26,    43,    28,    29,    30,    31,   142,
+      23,    22,    25,    26,    21,    28,    29,    30,    31,   142,
      143,   158,    35,    36,    37,    38,    24,    40,    21,    42,
       10,    11,    22,    16,    23,    15,    16,    23,    16,    19,
-      20,    25,    16,    23,     3,    25,    26,    44,    28,    29,
+      20,    25,    16,    23,     3,    25,    26,    22,    28,    29,
       30,    31,    36,    37,    38,    35,    36,    37,    38,    16,
       40,    21,    42,    10,    11,    32,    24,    33,    15,    16,
       24,    16,    19,    10,    11,    27,    23,    18,    15,    26,
@@ -856,37 +860,37 @@ static const yytype_int16 yycheck[] =
    state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
-       0,    25,    36,    37,    38,    46,    47,    48,    50,    54,
-      59,    50,     0,    47,    59,    18,    35,    55,    49,    35,
-      51,    23,    35,    56,    57,    51,     3,    21,    58,    24,
-      50,    60,    61,     3,    58,    16,    18,    16,    10,    11,
-      15,    19,    23,    35,    40,    42,    52,    66,    68,    69,
-      70,    71,    72,    74,    75,    66,     3,    21,    19,    62,
-      35,    18,    24,    52,     3,    57,    20,    52,    53,    66,
-      23,    58,    71,    12,    13,    14,    10,    11,    22,    52,
-      66,    16,    20,    26,    28,    29,    30,    31,    47,    50,
-      62,    63,    64,    65,    66,    68,    43,    61,    62,    52,
-      18,    20,    24,    24,    66,    73,    71,    71,    71,    74,
-      74,    22,    23,    23,    16,    16,    66,    16,    20,    64,
-      16,     3,    44,    52,    18,    24,    67,    75,    76,    77,
-      78,    79,    67,    16,    66,    58,    66,    24,     4,     5,
-       6,     7,     8,     9,    32,    33,    24,    16,    65,    75,
-      75,    75,    75,    76,    76,    77,    78,    65,    27,    65
+       0,    25,    36,    37,    38,    44,    45,    46,    48,    52,
+      57,    48,     0,    45,    57,    18,    35,    53,    47,    35,
+      49,    23,    35,    54,    55,    49,     3,    21,    56,    24,
+      48,    58,    59,     3,    56,    16,    18,    16,    10,    11,
+      15,    19,    23,    35,    40,    42,    50,    64,    66,    67,
+      68,    69,    70,    72,    73,    64,     3,    21,    19,    60,
+      35,    18,    24,    50,     3,    55,    20,    50,    51,    64,
+      23,    56,    69,    12,    13,    14,    10,    11,    22,    50,
+      64,    16,    20,    26,    28,    29,    30,    31,    45,    48,
+      60,    61,    62,    63,    64,    66,    21,    59,    60,    50,
+      18,    20,    24,    24,    64,    71,    69,    69,    69,    72,
+      72,    22,    23,    23,    16,    16,    64,    16,    20,    62,
+      16,     3,    22,    50,    18,    24,    65,    73,    74,    75,
+      76,    77,    65,    16,    64,    56,    64,    24,     4,     5,
+       6,     7,     8,     9,    32,    33,    24,    16,    63,    73,
+      73,    73,    73,    74,    74,    75,    76,    63,    27,    63
 };
 
 /* YYR1[RULE-NUM] -- Symbol kind of the left-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr1[] =
 {
-       0,    45,    46,    46,    46,    46,    47,    47,    49,    48,
-      48,    50,    50,    50,    51,    51,    52,    52,    52,    53,
-      53,    55,    54,    56,    56,    57,    57,    57,    57,    58,
-      58,    59,    59,    60,    60,    61,    61,    61,    62,    62,
-      63,    63,    64,    64,    65,    65,    65,    65,    65,    65,
-      65,    65,    65,    65,    65,    66,    67,    68,    68,    69,
-      69,    70,    70,    70,    71,    71,    71,    71,    72,    72,
-      72,    73,    73,    74,    74,    74,    74,    75,    75,    75,
-      76,    76,    76,    76,    76,    77,    77,    77,    78,    78,
-      79,    79
+       0,    43,    44,    44,    44,    44,    45,    45,    47,    46,
+      46,    48,    48,    48,    49,    49,    50,    50,    50,    51,
+      51,    53,    52,    54,    54,    55,    55,    55,    55,    56,
+      56,    57,    57,    58,    58,    59,    59,    59,    60,    60,
+      61,    61,    62,    62,    63,    63,    63,    63,    63,    63,
+      63,    63,    63,    63,    63,    64,    65,    66,    66,    67,
+      67,    68,    68,    68,    69,    69,    69,    69,    70,    70,
+      70,    71,    71,    72,    72,    72,    72,    73,    73,    73,
+      74,    74,    74,    74,    74,    75,    75,    75,    76,    76,
+      77,    77
 };
 
 /* YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.  */
@@ -1478,541 +1482,825 @@ yyreduce:
   switch (yyn)
     {
   case 2: /* CompUnit: FuncDef  */
-#line 57 "yacc.y"
+#line 63 "yacc.y"
                   { 
-            
+            BISON_LOG("CompUnit -> FuncDef\n");
             yyval = std::make_shared<CompUnitNode>();
             AST_root = yyval;
             std::dynamic_pointer_cast<CompUnitNode>(yyval)->addDef(yyvsp[0]);
         }
-#line 1489 "y.tab.c"
+#line 1493 "y.tab.c"
     break;
 
   case 3: /* CompUnit: CompUnit FuncDef  */
-#line 63 "yacc.y"
+#line 69 "yacc.y"
                            {
+            BISON_LOG("CompUnit -> CompUnit FuncDef\n");
             yyval = yyvsp[-1];
+            AST_root = yyval;
             std::dynamic_pointer_cast<CompUnitNode>(yyval)->addDef(yyvsp[0]);
         }
-#line 1498 "y.tab.c"
+#line 1504 "y.tab.c"
     break;
 
   case 4: /* CompUnit: Decl  */
-#line 68 "yacc.y"
-             {
+#line 75 "yacc.y"
+               {
+            BISON_LOG("CompUnit -> Decl\n");
             yyval = std::make_shared<CompUnitNode>();
             AST_root = yyval;
             std::dynamic_pointer_cast<CompUnitNode>(yyval)->addDef((yyvsp[0]));
         }
-#line 1508 "y.tab.c"
+#line 1515 "y.tab.c"
     break;
 
   case 5: /* CompUnit: CompUnit Decl  */
-#line 73 "yacc.y"
+#line 81 "yacc.y"
                         {
+            BISON_LOG("CompUnit -> CompUnit Decl\n");
             yyval = yyvsp[-1];
+            AST_root = yyval;
             std::dynamic_pointer_cast<CompUnitNode>(yyval)->addDef(yyvsp[0]);
         }
-#line 1517 "y.tab.c"
+#line 1526 "y.tab.c"
     break;
 
-  case 8: /* $@1: %empty  */
-#line 81 "yacc.y"
-                       {
-            decl_type = std::dynamic_pointer_cast<SimpleTokenNode>(yyvsp[-1])->getType();
-        }
-#line 1525 "y.tab.c"
-    break;
-
-  case 9: /* ConstDecl: CONST BType $@1 ConstDef ";"  */
-#line 83 "yacc.y"
-                       {
-            yyval = std::make_shared<StmtListNode>();
-            std::dynamic_pointer_cast<StmtListNode>(yyval)->addStmt(yyvsp[-1]);
-        }
+  case 6: /* Decl: ConstDecl  */
+#line 88 "yacc.y"
+                {
+        BISON_LOG("Decl -> ConstDecl\n");
+     }
 #line 1534 "y.tab.c"
     break;
 
-  case 10: /* ConstDecl: ConstDecl "," ConstDef  */
-#line 87 "yacc.y"
-                                  {
-            yyval = yyvsp[-2];
-            std::dynamic_pointer_cast<StmtListNode>(yyval)->addStmt(yyvsp[0]);
-          }
-#line 1543 "y.tab.c"
+  case 7: /* Decl: VarDecl  */
+#line 91 "yacc.y"
+               {
+        BISON_LOG("Decl -> VarDecl\n");
+     }
+#line 1542 "y.tab.c"
     break;
 
-  case 14: /* ConstDef: Ident ArrayList "=" InitVal  */
-#line 97 "yacc.y"
-                                         {
-            yyval = std::make_shared<DeclNode>(true, decl_type, std::dynamic_pointer_cast<IdentifierNode>(yyvsp[-3])->id, yyvsp[-2], yyvsp[0]);
+  case 8: /* $@1: %empty  */
+#line 95 "yacc.y"
+                       {
+            BISON_LOG("ConstDecl -> CONST BType\n");
+            decl_type = std::dynamic_pointer_cast<SimpleTokenNode>(yyvsp[-1])->getType();
         }
 #line 1551 "y.tab.c"
     break;
 
+  case 9: /* ConstDecl: CONST BType $@1 ConstDef ";"  */
+#line 98 "yacc.y"
+                       {
+            BISON_LOG("ConstDecl -> CONST BType ConstDef ;\n");
+            yyval = std::make_shared<StmtListNode>();
+            std::dynamic_pointer_cast<StmtListNode>(yyval)->addStmt(yyvsp[-1]);
+        }
+#line 1561 "y.tab.c"
+    break;
+
+  case 10: /* ConstDecl: ConstDecl "," ConstDef  */
+#line 103 "yacc.y"
+                                   {
+            BISON_LOG("ConstDecl -> ConstDecl , ConstDef\n");
+            yyval = yyvsp[-2];
+            std::dynamic_pointer_cast<StmtListNode>(yyval)->addStmt(yyvsp[0]);
+          }
+#line 1571 "y.tab.c"
+    break;
+
+  case 11: /* BType: INT  */
+#line 109 "yacc.y"
+           {
+        BISON_LOG("BType -> INT\n");
+     }
+#line 1579 "y.tab.c"
+    break;
+
+  case 12: /* BType: FLOAT  */
+#line 112 "yacc.y"
+             {
+        BISON_LOG("BType -> FLOAT\n");
+     }
+#line 1587 "y.tab.c"
+    break;
+
+  case 13: /* BType: VOID  */
+#line 115 "yacc.y"
+            {
+        BISON_LOG("BType -> VOID\n");
+     }
+#line 1595 "y.tab.c"
+    break;
+
+  case 14: /* ConstDef: Ident ArrayList "=" InitVal  */
+#line 119 "yacc.y"
+                                         {
+            BISON_LOG("ConstDef -> Ident ArrayList ASSIGN InitVal\n");
+            yyval = std::make_shared<DeclNode>(true, decl_type, std::dynamic_pointer_cast<IdentifierNode>(yyvsp[-3])->id, yyvsp[-2], yyvsp[0]);
+        }
+#line 1604 "y.tab.c"
+    break;
+
   case 15: /* ConstDef: Ident "=" InitVal  */
-#line 100 "yacc.y"
-                              {
+#line 123 "yacc.y"
+                               {
+            BISON_LOG("ConstDef -> Ident ASSIGN InitVal\n");
             yyval = std::make_shared<DeclNode>(true, decl_type, std::dynamic_pointer_cast<IdentifierNode>(yyvsp[-2])->id, nullptr, yyvsp[0]);
         }
-#line 1559 "y.tab.c"
+#line 1613 "y.tab.c"
+    break;
+
+  case 16: /* InitVal: Exp  */
+#line 128 "yacc.y"
+              {
+            BISON_LOG("InitVal -> Exp\n");
+        }
+#line 1621 "y.tab.c"
     break;
 
   case 17: /* InitVal: "{" "}"  */
-#line 105 "yacc.y"
-                  {yyval = nullptr;}
-#line 1565 "y.tab.c"
+#line 131 "yacc.y"
+                  {
+            BISON_LOG("InitVal -> { }\n");
+            yyval = nullptr;
+        }
+#line 1630 "y.tab.c"
     break;
 
   case 18: /* InitVal: "{" InitValGroup "}"  */
-#line 106 "yacc.y"
+#line 135 "yacc.y"
                                {
+            BISON_LOG("InitVal -> { InitValGroup }\n");
             yyval = yyvsp[-1];
         }
-#line 1573 "y.tab.c"
+#line 1639 "y.tab.c"
     break;
 
   case 19: /* InitValGroup: InitVal  */
-#line 110 "yacc.y"
+#line 140 "yacc.y"
                       {
+    BISON_LOG("InitValGroup -> InitVal\n");
     yyval = std::make_shared<VectorNode> ();
     std::dynamic_pointer_cast<VectorNode> (yyval)->addNode(yyvsp[0]);
-}
-#line 1582 "y.tab.c"
-    break;
-
-  case 20: /* InitValGroup: InitValGroup "," InitVal  */
-#line 113 "yacc.y"
-                            {
-    yyval = yyvsp[-2];
-    std::dynamic_pointer_cast<VectorNode> (yyval)->addNode(yyvsp[0]);    
-}
-#line 1591 "y.tab.c"
-    break;
-
-  case 21: /* $@2: %empty  */
-#line 118 "yacc.y"
-                {
-        decl_type = std::dynamic_pointer_cast<SimpleTokenNode>(yyvsp[0])->getType();
-    }
-#line 1599 "y.tab.c"
-    break;
-
-  case 22: /* VarDecl: BType $@2 VarDefGroup ";"  */
-#line 120 "yacc.y"
-                     {*output.log<<"ok"<<std::endl;
-        yyval = yyvsp[-1]; 
-}
-#line 1607 "y.tab.c"
-    break;
-
-  case 23: /* VarDefGroup: VarDef  */
-#line 124 "yacc.y"
-                    {
-    yyval = std::make_shared<StmtListNode>();
-    std::dynamic_pointer_cast<StmtListNode>(yyval)->addStmt(yyvsp[0]);
-}
-#line 1616 "y.tab.c"
-    break;
-
-  case 24: /* VarDefGroup: VarDefGroup "," VarDef  */
-#line 127 "yacc.y"
-                         {
-    yyval = yyvsp[-2];
-    std::dynamic_pointer_cast<StmtListNode>(yyval)->addStmt(yyvsp[0]);
-}
-#line 1625 "y.tab.c"
-    break;
-
-  case 25: /* VarDef: Ident  */
-#line 132 "yacc.y"
-               {
-    yyval = std::make_shared<DeclNode>(false, decl_type, std::dynamic_pointer_cast<IdentifierNode>(yyvsp[0])->id, nullptr, nullptr);
-}
-#line 1633 "y.tab.c"
-    break;
-
-  case 26: /* VarDef: Ident "=" InitVal  */
-#line 134 "yacc.y"
-                        {
-    yyval = std::make_shared<DeclNode>(false, decl_type, std::dynamic_pointer_cast<IdentifierNode>(yyvsp[-2])->id, nullptr, yyvsp[0]);
-}
-#line 1641 "y.tab.c"
-    break;
-
-  case 27: /* VarDef: Ident ArrayList  */
-#line 136 "yacc.y"
-                   {
-    yyval = std::make_shared<DeclNode>(false, decl_type, std::dynamic_pointer_cast<IdentifierNode>(yyvsp[-1])->id, yyvsp[0], nullptr);
 }
 #line 1649 "y.tab.c"
     break;
 
+  case 20: /* InitValGroup: InitValGroup "," InitVal  */
+#line 144 "yacc.y"
+                            {
+    BISON_LOG("InitValGroup -> InitValGroup , InitVal\n");
+    yyval = yyvsp[-2];
+    std::dynamic_pointer_cast<VectorNode> (yyval)->addNode(yyvsp[0]);    
+}
+#line 1659 "y.tab.c"
+    break;
+
+  case 21: /* $@2: %empty  */
+#line 150 "yacc.y"
+                {
+        BISON_LOG("VarDecl -> BType\n");
+        decl_type = std::dynamic_pointer_cast<SimpleTokenNode>(yyvsp[0])->getType();
+    }
+#line 1668 "y.tab.c"
+    break;
+
+  case 22: /* VarDecl: BType $@2 VarDefGroup ";"  */
+#line 153 "yacc.y"
+                      {
+        BISON_LOG("VarDecl -> BType VarDefGroup ;\n");
+        yyval = yyvsp[-1]; 
+}
+#line 1677 "y.tab.c"
+    break;
+
+  case 23: /* VarDefGroup: VarDef  */
+#line 158 "yacc.y"
+                    {
+    BISON_LOG("VarDefGroup -> VarDef\n");
+    yyval = std::make_shared<StmtListNode>();
+    std::dynamic_pointer_cast<StmtListNode>(yyval)->addStmt(yyvsp[0]);
+}
+#line 1687 "y.tab.c"
+    break;
+
+  case 24: /* VarDefGroup: VarDefGroup "," VarDef  */
+#line 162 "yacc.y"
+                          {
+    BISON_LOG("VarDefGroup -> VarDefGroup , VarDef\n");
+    yyval = yyvsp[-2];
+    std::dynamic_pointer_cast<StmtListNode>(yyval)->addStmt(yyvsp[0]);
+}
+#line 1697 "y.tab.c"
+    break;
+
+  case 25: /* VarDef: Ident  */
+#line 168 "yacc.y"
+               {
+    BISON_LOG("VarDef -> Ident\n");
+    yyval = std::make_shared<DeclNode>(false, decl_type, std::dynamic_pointer_cast<IdentifierNode>(yyvsp[0])->id, nullptr, nullptr);
+}
+#line 1706 "y.tab.c"
+    break;
+
+  case 26: /* VarDef: Ident "=" InitVal  */
+#line 171 "yacc.y"
+                        {
+    BISON_LOG("VarDef -> Ident ASSIGN InitVal\n");
+    yyval = std::make_shared<DeclNode>(false, decl_type, std::dynamic_pointer_cast<IdentifierNode>(yyvsp[-2])->id, nullptr, yyvsp[0]);
+}
+#line 1715 "y.tab.c"
+    break;
+
+  case 27: /* VarDef: Ident ArrayList  */
+#line 174 "yacc.y"
+                   {
+    BISON_LOG("VarDef -> Ident ArrayList\n");
+    yyval = std::make_shared<DeclNode>(false, decl_type, std::dynamic_pointer_cast<IdentifierNode>(yyvsp[-1])->id, yyvsp[0], nullptr);
+}
+#line 1724 "y.tab.c"
+    break;
+
   case 28: /* VarDef: Ident ArrayList "=" InitVal  */
-#line 138 "yacc.y"
+#line 177 "yacc.y"
                                   {
-    
+    BISON_LOG("VarDef -> Ident ArrayList ASSIGN InitVal\n");
     yyval = std::make_shared<DeclNode>(false, decl_type, std::dynamic_pointer_cast<IdentifierNode>(yyvsp[-3])->id, yyvsp[-2], yyvsp[0]);
 }
-#line 1658 "y.tab.c"
+#line 1733 "y.tab.c"
     break;
 
   case 29: /* ArrayList: "[" Exp "]"  */
-#line 143 "yacc.y"
-                      {
+#line 182 "yacc.y"
+                       {
+    BISON_LOG("ArrayList -> [ Exp ]\n");
     yyval = std::make_shared<VectorNode> ();
     std::dynamic_pointer_cast<VectorNode> (yyval)->addNode(yyvsp[-1]);
 }
-#line 1667 "y.tab.c"
+#line 1743 "y.tab.c"
     break;
 
   case 30: /* ArrayList: ArrayList "[" Exp "]"  */
-#line 146 "yacc.y"
+#line 186 "yacc.y"
                           {
+    BISON_LOG("ArrayList -> ArrayList [ Exp ]\n");
     yyval = yyvsp[-3];
     std::dynamic_pointer_cast<VectorNode> (yyval)->addNode(yyvsp[-1]);  
 }
-#line 1676 "y.tab.c"
+#line 1753 "y.tab.c"
     break;
 
   case 31: /* FuncDef: BType Ident "(" ")" Block  */
-#line 151 "yacc.y"
-                                   {
+#line 192 "yacc.y"
+                                    {
+    BISON_LOG("FuncDef -> BType Ident ( ) Block\n");
     yyval = std::make_shared<FuncDefNode> (
         std::dynamic_pointer_cast<SimpleTokenNode>(yyvsp[-4])->type,
         std::dynamic_pointer_cast<IdentifierNode>(yyvsp[-3])->id,
         nullptr,
         yyvsp[0] );
 }
-#line 1688 "y.tab.c"
+#line 1766 "y.tab.c"
     break;
 
   case 32: /* FuncDef: BType Ident "(" FuncFParams ")" Block  */
-#line 157 "yacc.y"
-                                         {
+#line 199 "yacc.y"
+                                          {
+    BISON_LOG("FuncDef -> BType Ident ( FuncFParams ) Block\n");
     yyval = std::make_shared<FuncDefNode> (
         std::dynamic_pointer_cast<SimpleTokenNode>(yyvsp[-5])->type,
         std::dynamic_pointer_cast<IdentifierNode>(yyvsp[-4])->id,
         yyvsp[-2],
         yyvsp[0] );    
 }
-#line 1700 "y.tab.c"
+#line 1779 "y.tab.c"
     break;
 
   case 33: /* FuncFParams: FuncFParam  */
-#line 165 "yacc.y"
+#line 208 "yacc.y"
                          {
+    BISON_LOG("FuncFParams -> FuncFParam\n");
     yyval = std::make_shared<ParamListNode> ();
     std::dynamic_pointer_cast<ParamListNode> (yyval)->addParam(yyvsp[0]);
 }
-#line 1709 "y.tab.c"
+#line 1789 "y.tab.c"
     break;
 
   case 34: /* FuncFParams: FuncFParams "," FuncFParam  */
-#line 168 "yacc.y"
+#line 212 "yacc.y"
                                {
+    BISON_LOG("FuncFParams -> FuncFParams , FuncFParam\n");
     yyval = yyvsp[-2];
     std::dynamic_pointer_cast<ParamListNode> (yyval)->addParam(yyvsp[0]);
 }
-#line 1718 "y.tab.c"
+#line 1799 "y.tab.c"
     break;
 
   case 35: /* FuncFParam: BType Ident  */
-#line 173 "yacc.y"
-                       {
+#line 218 "yacc.y"
+                        {
+    BISON_LOG("FuncFParam -> BType Ident\n");
     yyval = std::make_shared<ParamNode> (std::dynamic_pointer_cast<SimpleTokenNode>(yyvsp[-1])->type, std::dynamic_pointer_cast<IdentifierNode>(yyvsp[0])->id, false, nullptr);
 }
-#line 1726 "y.tab.c"
-    break;
-
-  case 36: /* FuncFParam: BType Ident '[' ']'  */
-#line 175 "yacc.y"
-                        {
-    yyval = std::make_shared<ParamNode> (std::dynamic_pointer_cast<SimpleTokenNode>(yyvsp[-3])->type, std::dynamic_pointer_cast<IdentifierNode>(yyvsp[-2])->id, true, nullptr);
-}
-#line 1734 "y.tab.c"
-    break;
-
-  case 37: /* FuncFParam: BType Ident '[' ']' ArrayList  */
-#line 177 "yacc.y"
-                                  {
-    yyval = std::make_shared<ParamNode> (std::dynamic_pointer_cast<SimpleTokenNode>(yyvsp[-4])->type, std::dynamic_pointer_cast<IdentifierNode>(yyvsp[-3])->id, true, yyvsp[0]);
-}
-#line 1742 "y.tab.c"
-    break;
-
-  case 38: /* Block: "{" "}"  */
-#line 181 "yacc.y"
-                {yyval = nullptr;}
-#line 1748 "y.tab.c"
-    break;
-
-  case 39: /* Block: "{" BlockGroup "}"  */
-#line 181 "yacc.y"
-                                                    {yyval = yyvsp[-1];}
-#line 1754 "y.tab.c"
-    break;
-
-  case 40: /* BlockGroup: BlockItem  */
-#line 183 "yacc.y"
-                      {
-    yyval = std::make_shared<BlockGroupNode> ();
-    std::dynamic_pointer_cast<BlockGroupNode> (yyval)->addBlock(yyvsp[0]);
-}
-#line 1763 "y.tab.c"
-    break;
-
-  case 41: /* BlockGroup: BlockGroup BlockItem  */
-#line 186 "yacc.y"
-                       {
-    yyval = yyvsp[-1];
-    std::dynamic_pointer_cast<BlockGroupNode> (yyval)->addBlock(yyvsp[0]);
-}
-#line 1772 "y.tab.c"
-    break;
-
-  case 44: /* Stmt: LVal "=" Exp ";"  */
-#line 193 "yacc.y"
-                        {yyval = std::make_shared<AssignNode> (yyvsp[-3], yyvsp[-1]);}
-#line 1778 "y.tab.c"
-    break;
-
-  case 45: /* Stmt: ";"  */
-#line 194 "yacc.y"
-               {yyval = nullptr;}
-#line 1784 "y.tab.c"
-    break;
-
-  case 46: /* Stmt: Exp ";"  */
-#line 195 "yacc.y"
-                  {yyval = yyvsp[-1];}
-#line 1790 "y.tab.c"
-    break;
-
-  case 47: /* Stmt: Block  */
-#line 196 "yacc.y"
-                {yyval = yyvsp[0];}
-#line 1796 "y.tab.c"
-    break;
-
-  case 48: /* Stmt: IF "(" Cond ")" Stmt  */
-#line 197 "yacc.y"
-                               {yyval = std::make_shared<IfElseNode> (yyvsp[-2], yyvsp[0], nullptr);}
-#line 1802 "y.tab.c"
-    break;
-
-  case 49: /* Stmt: IF "(" Cond ")" Stmt ELSE Stmt  */
-#line 198 "yacc.y"
-                                         {yyval = std::make_shared<IfElseNode> (yyvsp[-4], yyvsp[-2], yyvsp[0]);}
 #line 1808 "y.tab.c"
     break;
 
-  case 50: /* Stmt: WHILE "(" Cond ")" Stmt  */
-#line 199 "yacc.y"
-                                  {yyval = std::make_shared<WhileNode>(yyvsp[-2], yyvsp[0]);}
-#line 1814 "y.tab.c"
+  case 36: /* FuncFParam: BType Ident "[" "]"  */
+#line 221 "yacc.y"
+                        {
+    BISON_LOG("FuncFParam -> BType Ident [ ]\n");
+    yyval = std::make_shared<ParamNode> ( std::dynamic_pointer_cast<SimpleTokenNode>(yyvsp[-3])->type, std::dynamic_pointer_cast<IdentifierNode>(yyvsp[-2])->id, true, nullptr);
+}
+#line 1817 "y.tab.c"
     break;
 
-  case 51: /* Stmt: BREAK ";"  */
-#line 200 "yacc.y"
-                    {yyval = std::make_shared<BreakNode>(); }
-#line 1820 "y.tab.c"
-    break;
-
-  case 52: /* Stmt: CONTINUE ";"  */
-#line 201 "yacc.y"
-                       {yyval = std::make_shared<ContinueNode>(); }
+  case 37: /* FuncFParam: BType Ident "[" "]" ArrayList  */
+#line 224 "yacc.y"
+                                  {
+    BISON_LOG("FuncFParam -> BType Ident [ ] ArrayList\n");
+    yyval = std::make_shared<ParamNode> (std::dynamic_pointer_cast<SimpleTokenNode>(yyvsp[-4])->type, std::dynamic_pointer_cast<IdentifierNode>(yyvsp[-3])->id, true, yyvsp[0]);
+}
 #line 1826 "y.tab.c"
     break;
 
-  case 53: /* Stmt: RETURN ";"  */
-#line 202 "yacc.y"
-                     {yyval = std::make_shared<ReturnNode>(nullptr);}
-#line 1832 "y.tab.c"
+  case 38: /* Block: "{" "}"  */
+#line 229 "yacc.y"
+                {
+    BISON_LOG("Block -> { }\n");
+    yyval = nullptr;
+}
+#line 1835 "y.tab.c"
     break;
 
-  case 54: /* Stmt: RETURN Exp ";"  */
-#line 203 "yacc.y"
-                         {yyval = std::make_shared<ReturnNode>(yyvsp[-1]);}
-#line 1838 "y.tab.c"
-    break;
-
-  case 55: /* Exp: AddExp  */
-#line 205 "yacc.y"
-             {yyval = yyvsp[0];}
+  case 39: /* Block: "{" BlockGroup "}"  */
+#line 232 "yacc.y"
+                       {
+    BISON_LOG("Block -> { BlockGroup }\n");
+    yyval = yyvsp[-1];
+}
 #line 1844 "y.tab.c"
     break;
 
-  case 56: /* Cond: LOrExp  */
-#line 207 "yacc.y"
-              {yyval = yyvsp[0];}
-#line 1850 "y.tab.c"
-    break;
-
-  case 57: /* LVal: Ident  */
-#line 209 "yacc.y"
-            {
-    yyval = std::make_shared<LvalNode> (std::dynamic_pointer_cast<IdentifierNode> (yyvsp[0])->id, nullptr);
+  case 40: /* BlockGroup: BlockItem  */
+#line 237 "yacc.y"
+                      {
+    BISON_LOG("BlockGroup -> BlockItem\n");
+    yyval = std::make_shared<BlockGroupNode> ();
+    std::dynamic_pointer_cast<BlockGroupNode> (yyval)->addBlock(yyvsp[0]);
 }
-#line 1858 "y.tab.c"
+#line 1854 "y.tab.c"
     break;
 
-  case 58: /* LVal: Ident ArrayList  */
-#line 211 "yacc.y"
-                    {
-    yyval = std::make_shared<LvalNode> (std::dynamic_pointer_cast<IdentifierNode> (yyvsp[-1])->id, yyvsp[0]);
+  case 41: /* BlockGroup: BlockGroup BlockItem  */
+#line 241 "yacc.y"
+                        {
+    BISON_LOG("BlockGroup -> BlockGroup BlockItem\n");
+    yyval = yyvsp[-1];
+    std::dynamic_pointer_cast<BlockGroupNode> (yyval)->addBlock(yyvsp[0]);
 }
-#line 1866 "y.tab.c"
+#line 1864 "y.tab.c"
     break;
 
-  case 61: /* PrimaryExp: "(" Exp ")"  */
-#line 218 "yacc.y"
-                         {yyval = yyvsp[-1];}
+  case 42: /* BlockItem: Decl  */
+#line 247 "yacc.y"
+                 {
+    BISON_LOG("BlockItem -> Decl\n");
+}
 #line 1872 "y.tab.c"
     break;
 
-  case 65: /* UnaryExp: Ident "(" ")"  */
-#line 223 "yacc.y"
-                         {yyval = std::make_shared<FuncCallNode> (std::dynamic_pointer_cast<IdentifierNode>(yyvsp[-2])->id, nullptr);}
-#line 1878 "y.tab.c"
-    break;
-
-  case 66: /* UnaryExp: Ident "(" FuncParamsGroup ")"  */
-#line 224 "yacc.y"
-                                          {yyval = std::make_shared<FuncCallNode> (std::dynamic_pointer_cast<IdentifierNode>(yyvsp[-3])->id, yyvsp[-1]);}
-#line 1884 "y.tab.c"
-    break;
-
-  case 67: /* UnaryExp: UnaryOp UnaryExp  */
-#line 225 "yacc.y"
-                            {yyval =  std::make_shared<ExprNode> (std::dynamic_pointer_cast<SimpleTokenNode>(yyvsp[-1])->type, nullptr, yyvsp[0]);}
-#line 1890 "y.tab.c"
-    break;
-
-  case 71: /* FuncParamsGroup: Exp  */
-#line 231 "yacc.y"
-                     {
-    yyval = std::make_shared<FuncCallParamNode> ();
-    std::dynamic_pointer_cast<FuncCallParamNode> (yyval)->addParam(yyvsp[0]);    
+  case 43: /* BlockItem: Stmt  */
+#line 249 "yacc.y"
+         {
+    BISON_LOG("BlockItem -> Stmt\n");
 }
-#line 1899 "y.tab.c"
+#line 1880 "y.tab.c"
     break;
 
-  case 72: /* FuncParamsGroup: FuncParamsGroup "," Exp  */
-#line 235 "yacc.y"
+  case 44: /* Stmt: LVal "=" Exp ";"  */
+#line 253 "yacc.y"
                          {
-    yyval = yyvsp[-2];
-    std::dynamic_pointer_cast<FuncCallParamNode> (yyval)->addParam(yyvsp[-1]);   
+    BISON_LOG("Stmt -> LVal = Exp ;\n");
+    yyval = std::make_shared<AssignNode> (yyvsp[-3], yyvsp[-1]);
 }
-#line 1908 "y.tab.c"
+#line 1889 "y.tab.c"
     break;
 
-  case 74: /* MulExp: MulExp "*" UnaryExp  */
-#line 241 "yacc.y"
-                             {
-            yyval =  std::make_shared<ExprNode> (std::dynamic_pointer_cast<SimpleTokenNode>(yyvsp[-1])->type, yyvsp[-2], yyvsp[0]);
-       }
+  case 45: /* Stmt: ";"  */
+#line 257 "yacc.y"
+          {
+        BISON_LOG("Stmt -> ;\n");
+        yyval = nullptr;
+    }
+#line 1898 "y.tab.c"
+    break;
+
+  case 46: /* Stmt: Exp ";"  */
+#line 261 "yacc.y"
+              {
+        BISON_LOG("Stmt -> Exp ;\n");
+        yyval = yyvsp[-1];
+    }
+#line 1907 "y.tab.c"
+    break;
+
+  case 47: /* Stmt: Block  */
+#line 265 "yacc.y"
+            {
+        BISON_LOG("Stmt -> Block\n");
+        yyval = yyvsp[0];
+    }
 #line 1916 "y.tab.c"
     break;
 
-  case 75: /* MulExp: MulExp "/" UnaryExp  */
-#line 244 "yacc.y"
-                             {
-            yyval =  std::make_shared<ExprNode> (std::dynamic_pointer_cast<SimpleTokenNode>(yyvsp[-1])->type, yyvsp[-2], yyvsp[0]);
-       }
-#line 1924 "y.tab.c"
-    break;
-
-  case 76: /* MulExp: MulExp "%" UnaryExp  */
-#line 247 "yacc.y"
-                             {
-            yyval =  std::make_shared<ExprNode> (std::dynamic_pointer_cast<SimpleTokenNode>(yyvsp[-1])->type, yyvsp[-2], yyvsp[0]);
-       }
-#line 1932 "y.tab.c"
-    break;
-
-  case 78: /* AddExp: AddExp "+" MulExp  */
-#line 252 "yacc.y"
-                           {
-            yyval =  std::make_shared<ExprNode> (std::dynamic_pointer_cast<SimpleTokenNode>(yyvsp[-1])->type, yyvsp[-2], yyvsp[0]);
-       }
-#line 1940 "y.tab.c"
-    break;
-
-  case 79: /* AddExp: AddExp "-" MulExp  */
-#line 255 "yacc.y"
-                           {
-            yyval =  std::make_shared<ExprNode> (std::dynamic_pointer_cast<SimpleTokenNode>(yyvsp[-1])->type, yyvsp[-2], yyvsp[0]);
-       }
-#line 1948 "y.tab.c"
-    break;
-
-  case 81: /* RelExp: RelExp LT AddExp  */
-#line 260 "yacc.y"
-                          {
-            yyval =  std::make_shared<ExprNode> (std::dynamic_pointer_cast<SimpleTokenNode>(yyvsp[-1])->type, yyvsp[-2], yyvsp[0]);
-       }
-#line 1956 "y.tab.c"
-    break;
-
-  case 82: /* RelExp: RelExp GT AddExp  */
-#line 263 "yacc.y"
-                         {
-            yyval =  std::make_shared<ExprNode> (std::dynamic_pointer_cast<SimpleTokenNode>(yyvsp[-1])->type, yyvsp[-2], yyvsp[0]);
-       }
-#line 1964 "y.tab.c"
-    break;
-
-  case 83: /* RelExp: RelExp LE AddExp  */
-#line 266 "yacc.y"
-                         {
-            yyval =  std::make_shared<ExprNode> (std::dynamic_pointer_cast<SimpleTokenNode>(yyvsp[-1])->type, yyvsp[-2], yyvsp[0]);
-       }
-#line 1972 "y.tab.c"
-    break;
-
-  case 84: /* RelExp: RelExp GE AddExp  */
+  case 48: /* Stmt: IF "(" Cond ")" Stmt  */
 #line 269 "yacc.y"
-                         {
-            yyval =  std::make_shared<ExprNode> (std::dynamic_pointer_cast<SimpleTokenNode>(yyvsp[-1])->type, yyvsp[-2], yyvsp[0]);
-       }
-#line 1980 "y.tab.c"
+                           {
+        BISON_LOG("Stmt -> IF ( Cond ) Stmt\n");
+        yyval = std::make_shared<IfElseNode> (yyvsp[-2], yyvsp[0], nullptr);
+    }
+#line 1925 "y.tab.c"
     break;
 
-  case 86: /* EqExp: EqExp EQ RelExp  */
+  case 49: /* Stmt: IF "(" Cond ")" Stmt ELSE Stmt  */
 #line 273 "yacc.y"
-                                 {
-            yyval =  std::make_shared<ExprNode> (std::dynamic_pointer_cast<SimpleTokenNode>(yyvsp[-1])->type, yyvsp[-2], yyvsp[0]);
-       }
+                                     {
+        BISON_LOG("Stmt -> IF ( Cond ) Stmt ELSE Stmt\n");
+        yyval = std::make_shared<IfElseNode> (yyvsp[-4], yyvsp[-2], yyvsp[0]);
+    }
+#line 1934 "y.tab.c"
+    break;
+
+  case 50: /* Stmt: WHILE "(" Cond ")" Stmt  */
+#line 277 "yacc.y"
+                              {
+        BISON_LOG("Stmt -> WHILE ( Cond ) Stmt\n");
+        yyval = std::make_shared<WhileNode>(yyvsp[-2], yyvsp[0]);
+    }
+#line 1943 "y.tab.c"
+    break;
+
+  case 51: /* Stmt: BREAK ";"  */
+#line 281 "yacc.y"
+                {
+        BISON_LOG("Stmt -> BREAK ;\n");
+        yyval = std::make_shared<BreakNode>();
+    }
+#line 1952 "y.tab.c"
+    break;
+
+  case 52: /* Stmt: CONTINUE ";"  */
+#line 285 "yacc.y"
+                   {
+        BISON_LOG("Stmt -> CONTINUE ;\n");
+        yyval = std::make_shared<ContinueNode>();
+    }
+#line 1961 "y.tab.c"
+    break;
+
+  case 53: /* Stmt: RETURN ";"  */
+#line 289 "yacc.y"
+                 {
+        BISON_LOG("Stmt -> RETURN ;\n");
+        yyval = std::make_shared<ReturnNode>(nullptr);
+    }
+#line 1970 "y.tab.c"
+    break;
+
+  case 54: /* Stmt: RETURN Exp ";"  */
+#line 293 "yacc.y"
+                     {
+        BISON_LOG("Stmt -> RETURN Exp ;\n");
+        yyval = std::make_shared<ReturnNode>(yyvsp[-1]);
+    }
+#line 1979 "y.tab.c"
+    break;
+
+  case 55: /* Exp: AddExp  */
+#line 298 "yacc.y"
+             {
+    BISON_LOG("Exp -> AddExp\n");
+    yyval = yyvsp[0];
+}
 #line 1988 "y.tab.c"
     break;
 
-  case 87: /* EqExp: EqExp NE RelExp  */
-#line 275 "yacc.y"
+  case 56: /* Cond: LOrExp  */
+#line 303 "yacc.y"
+              {
+    BISON_LOG("Cond -> LOrExp\n");
+    yyval = yyvsp[0];
+}
+#line 1997 "y.tab.c"
+    break;
+
+  case 57: /* LVal: Ident  */
+#line 308 "yacc.y"
+             {
+    BISON_LOG("LVal -> Ident\n");
+    yyval = std::make_shared<LvalNode> (std::dynamic_pointer_cast<IdentifierNode> (yyvsp[0])->id, nullptr);
+}
+#line 2006 "y.tab.c"
+    break;
+
+  case 58: /* LVal: Ident ArrayList  */
+#line 311 "yacc.y"
+                    {
+    BISON_LOG("LVal -> Ident ArrayList\n");
+    yyval = std::make_shared<LvalNode> (std::dynamic_pointer_cast<IdentifierNode> (yyvsp[-1])->id, yyvsp[0]);
+}
+#line 2015 "y.tab.c"
+    break;
+
+  case 59: /* Number: INTNUM  */
+#line 316 "yacc.y"
+                {
+    BISON_LOG("Number -> INTNUM\n");
+}
+#line 2023 "y.tab.c"
+    break;
+
+  case 60: /* Number: FLOATNUM  */
+#line 318 "yacc.y"
+             {
+    BISON_LOG("Number -> FLOATNUM\n");
+}
+#line 2031 "y.tab.c"
+    break;
+
+  case 61: /* PrimaryExp: "(" Exp ")"  */
+#line 322 "yacc.y"
+                         {
+    BISON_LOG("PrimaryExp -> ( Exp )\n");
+    yyval = yyvsp[-1];
+}
+#line 2040 "y.tab.c"
+    break;
+
+  case 62: /* PrimaryExp: LVal  */
+#line 326 "yacc.y"
+                  {
+    BISON_LOG("PrimaryExp -> LVal\n");
+}
+#line 2048 "y.tab.c"
+    break;
+
+  case 63: /* PrimaryExp: Number  */
+#line 329 "yacc.y"
+                    {
+    BISON_LOG("PrimaryExp -> Number\n");
+}
+#line 2056 "y.tab.c"
+    break;
+
+  case 64: /* UnaryExp: PrimaryExp  */
+#line 333 "yacc.y"
+                      {
+    BISON_LOG("UnaryExp -> PrimaryExp\n");
+}
+#line 2064 "y.tab.c"
+    break;
+
+  case 65: /* UnaryExp: Ident "(" ")"  */
+#line 336 "yacc.y"
+                         {
+    BISON_LOG("UnaryExp -> Ident ( )\n");
+    yyval = std::make_shared<FuncCallNode> (std::dynamic_pointer_cast<IdentifierNode>(yyvsp[-2])->id, nullptr);
+}
+#line 2073 "y.tab.c"
+    break;
+
+  case 66: /* UnaryExp: Ident "(" FuncParamsGroup ")"  */
+#line 340 "yacc.y"
+                                         {
+    BISON_LOG("UnaryExp -> Ident ( FuncParamsGroup )\n");
+    yyval = std::make_shared<FuncCallNode> (std::dynamic_pointer_cast<IdentifierNode>(yyvsp[-3])->id, yyvsp[-1]);
+}
+#line 2082 "y.tab.c"
+    break;
+
+  case 67: /* UnaryExp: UnaryOp UnaryExp  */
+#line 344 "yacc.y"
+                            {
+    BISON_LOG("UnaryExp -> UnaryOp UnaryExp\n");
+    yyval =  std::make_shared<ExprNode> (std::dynamic_pointer_cast<SimpleTokenNode>(yyvsp[-1])->type, nullptr, yyvsp[0]);
+}
+#line 2091 "y.tab.c"
+    break;
+
+  case 68: /* UnaryOp: "+"  */
+#line 349 "yacc.y"
+              {
+    BISON_LOG("UnaryOp -> ADD\n");
+}
+#line 2099 "y.tab.c"
+    break;
+
+  case 69: /* UnaryOp: "-"  */
+#line 352 "yacc.y"
+              {
+    BISON_LOG("UnaryOp -> SUB\n");
+}
+#line 2107 "y.tab.c"
+    break;
+
+  case 70: /* UnaryOp: "!"  */
+#line 355 "yacc.y"
+              {
+    BISON_LOG("UnaryOp -> NOT\n");
+}
+#line 2115 "y.tab.c"
+    break;
+
+  case 71: /* FuncParamsGroup: Exp  */
+#line 359 "yacc.y"
+                     {
+    BISON_LOG("FuncParamsGroup -> Exp\n");
+    yyval = std::make_shared<FuncCallParamNode> ();
+    std::dynamic_pointer_cast<FuncCallParamNode> (yyval)->addParam(yyvsp[0]);    
+}
+#line 2125 "y.tab.c"
+    break;
+
+  case 72: /* FuncParamsGroup: FuncParamsGroup "," Exp  */
+#line 364 "yacc.y"
                           {
+    BISON_LOG("FuncParamsGroup -> FuncParamsGroup , Exp\n");
+    yyval = yyvsp[-2];
+    std::dynamic_pointer_cast<FuncCallParamNode> (yyval)->addParam(yyvsp[-1]);   
+}
+#line 2135 "y.tab.c"
+    break;
+
+  case 73: /* MulExp: UnaryExp  */
+#line 370 "yacc.y"
+                  {
+    BISON_LOG("MulExp -> UnaryExp\n");
+}
+#line 2143 "y.tab.c"
+    break;
+
+  case 74: /* MulExp: MulExp "*" UnaryExp  */
+#line 373 "yacc.y"
+                             {
+            BISON_LOG("MulExp -> MulExp MUL UnaryExp\n");
             yyval =  std::make_shared<ExprNode> (std::dynamic_pointer_cast<SimpleTokenNode>(yyvsp[-1])->type, yyvsp[-2], yyvsp[0]);
        }
-#line 1996 "y.tab.c"
+#line 2152 "y.tab.c"
+    break;
+
+  case 75: /* MulExp: MulExp "/" UnaryExp  */
+#line 377 "yacc.y"
+                             {
+            BISON_LOG("MulExp -> MulExp DIV UnaryExp\n");
+            yyval =  std::make_shared<ExprNode> (std::dynamic_pointer_cast<SimpleTokenNode>(yyvsp[-1])->type, yyvsp[-2], yyvsp[0]);
+       }
+#line 2161 "y.tab.c"
+    break;
+
+  case 76: /* MulExp: MulExp "%" UnaryExp  */
+#line 381 "yacc.y"
+                             {
+            BISON_LOG("MulExp -> MulExp MOD UnaryExp\n");
+            yyval =  std::make_shared<ExprNode> (std::dynamic_pointer_cast<SimpleTokenNode>(yyvsp[-1])->type, yyvsp[-2], yyvsp[0]);
+       }
+#line 2170 "y.tab.c"
+    break;
+
+  case 77: /* AddExp: MulExp  */
+#line 386 "yacc.y"
+                {
+    BISON_LOG("AddExp -> MulExp\n");
+}
+#line 2178 "y.tab.c"
+    break;
+
+  case 78: /* AddExp: AddExp "+" MulExp  */
+#line 389 "yacc.y"
+                           {
+            BISON_LOG("AddExp -> AddExp ADD MulExp\n");
+            yyval =  std::make_shared<ExprNode> (std::dynamic_pointer_cast<SimpleTokenNode>(yyvsp[-1])->type, yyvsp[-2], yyvsp[0]);
+       }
+#line 2187 "y.tab.c"
+    break;
+
+  case 79: /* AddExp: AddExp "-" MulExp  */
+#line 393 "yacc.y"
+                           {
+            BISON_LOG("AddExp -> AddExp SUB MulExp\n");
+            yyval =  std::make_shared<ExprNode> (std::dynamic_pointer_cast<SimpleTokenNode>(yyvsp[-1])->type, yyvsp[-2], yyvsp[0]);
+       }
+#line 2196 "y.tab.c"
+    break;
+
+  case 80: /* RelExp: AddExp  */
+#line 398 "yacc.y"
+                {
+    BISON_LOG("RelExp -> AddExp\n");
+}
+#line 2204 "y.tab.c"
+    break;
+
+  case 81: /* RelExp: RelExp LT AddExp  */
+#line 401 "yacc.y"
+                          {
+            BISON_LOG("RelExp -> RelExp LT AddExp\n");
+            yyval =  std::make_shared<ExprNode> (std::dynamic_pointer_cast<SimpleTokenNode>(yyvsp[-1])->type, yyvsp[-2], yyvsp[0]);
+       }
+#line 2213 "y.tab.c"
+    break;
+
+  case 82: /* RelExp: RelExp GT AddExp  */
+#line 405 "yacc.y"
+                          {
+            BISON_LOG("RelExp -> RelExp GT AddExp\n");
+            yyval =  std::make_shared<ExprNode> (std::dynamic_pointer_cast<SimpleTokenNode>(yyvsp[-1])->type, yyvsp[-2], yyvsp[0]);
+       }
+#line 2222 "y.tab.c"
+    break;
+
+  case 83: /* RelExp: RelExp LE AddExp  */
+#line 409 "yacc.y"
+                          {
+            BISON_LOG("RelExp -> RelExp LE AddExp\n");
+            yyval =  std::make_shared<ExprNode> (std::dynamic_pointer_cast<SimpleTokenNode>(yyvsp[-1])->type, yyvsp[-2], yyvsp[0]);
+       }
+#line 2231 "y.tab.c"
+    break;
+
+  case 84: /* RelExp: RelExp GE AddExp  */
+#line 413 "yacc.y"
+                          {
+            BISON_LOG("RelExp -> RelExp GE AddExp\n");
+            yyval =  std::make_shared<ExprNode> (std::dynamic_pointer_cast<SimpleTokenNode>(yyvsp[-1])->type, yyvsp[-2], yyvsp[0]);
+       }
+#line 2240 "y.tab.c"
+    break;
+
+  case 85: /* EqExp: RelExp  */
+#line 418 "yacc.y"
+               {
+    BISON_LOG("EqExp -> RelExp\n");
+}
+#line 2248 "y.tab.c"
+    break;
+
+  case 86: /* EqExp: EqExp EQ RelExp  */
+#line 420 "yacc.y"
+                    {
+            BISON_LOG("EqExp -> EqExp EQ RelExp\n");
+            yyval =  std::make_shared<ExprNode> (std::dynamic_pointer_cast<SimpleTokenNode>(yyvsp[-1])->type, yyvsp[-2], yyvsp[0]);
+       }
+#line 2257 "y.tab.c"
+    break;
+
+  case 87: /* EqExp: EqExp NE RelExp  */
+#line 423 "yacc.y"
+                          {
+            BISON_LOG("EqExp -> EqExp NE RelExp\n");
+            yyval =  std::make_shared<ExprNode> (std::dynamic_pointer_cast<SimpleTokenNode>(yyvsp[-1])->type, yyvsp[-2], yyvsp[0]);
+       }
+#line 2266 "y.tab.c"
+    break;
+
+  case 88: /* LAndExp: EqExp  */
+#line 428 "yacc.y"
+                {
+    BISON_LOG("LAndExp -> EqExp\n");
+}
+#line 2274 "y.tab.c"
     break;
 
   case 89: /* LAndExp: LAndExp AND EqExp  */
-#line 279 "yacc.y"
-                                    {
+#line 430 "yacc.y"
+                      {
+            BISON_LOG("LAndExp -> LAndExp AND EqExp\n");
             yyval =  std::make_shared<ExprNode> (std::dynamic_pointer_cast<SimpleTokenNode>(yyvsp[-1])->type, yyvsp[-2], yyvsp[0]);
        }
-#line 2004 "y.tab.c"
+#line 2283 "y.tab.c"
+    break;
+
+  case 90: /* LOrExp: LAndExp  */
+#line 435 "yacc.y"
+                 {
+    BISON_LOG("LOrExp -> LAndExp\n");
+}
+#line 2291 "y.tab.c"
     break;
 
   case 91: /* LOrExp: LOrExp OR LAndExp  */
-#line 283 "yacc.y"
-                                     {
+#line 437 "yacc.y"
+                      {
+            BISON_LOG("LOrExp -> LOrExp OR LAndExp\n");
             yyval =  std::make_shared<ExprNode> (std::dynamic_pointer_cast<SimpleTokenNode>(yyvsp[-1])->type, yyvsp[-2], yyvsp[0]);
        }
-#line 2012 "y.tab.c"
+#line 2300 "y.tab.c"
     break;
 
 
-#line 2016 "y.tab.c"
+#line 2304 "y.tab.c"
 
       default: break;
     }
@@ -2210,8 +2498,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 287 "yacc.y"
-
+#line 442 "yacc.y"
 
 
 int main(int argc, char** argv){

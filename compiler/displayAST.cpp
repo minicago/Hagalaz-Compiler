@@ -8,64 +8,64 @@
 #include <memory>
 
 void DisplayASTVisitor::visit(ExprNode &node) {
-    *output.log << "ExprNode: op=" << node.op << std::endl;
+    *output.log << node.toString() << std::endl;
     if (node.val1) node.val1->accept(*this);
     if (node.val2) node.val2->accept(*this);
 }
 
 void DisplayASTVisitor::visit(SimpleTokenNode &node) {
-    *output.log << "SimpleTokenNode: type=" << node.type << std::endl;
+    *output.log << node.toString() << std::endl;
 }
 
 void DisplayASTVisitor::visit(IdentifierNode &node) {
-    *output.log << "IdentifierNode: id=" << node.getId() << std::endl;
+    *output.log << node.toString() << std::endl;
 }
 
 void DisplayASTVisitor::visit(FuncCallNode &node) {
-    *output.log << "FuncCallNode: id=" << node.id << std::endl;
+    *output.log << node.toString() << std::endl;
     if (node.param) node.param->accept(*this);
 }
 
 void DisplayASTVisitor::visit(FuncCallParamNode &node) {
-    *output.log << "FuncCallParamNode: params=" << std::endl;
+    *output.log << node.toString() << std::endl;
     for (auto &param : node.paramlist) {
         param->accept(*this);
     }
 }
 
 void DisplayASTVisitor::visit(ParamNode &node) {
-    *output.log << "ParamNode: type=" << node.type << ", id=" << node.id << ", isptr=" << node.isptr << std::endl;
+    *output.log << node.toString() << std::endl;
     if (node.arraySize) node.arraySize->accept(*this);
 }
 
 void DisplayASTVisitor::visit(ParamListNode &node) {
-    *output.log << "ParamListNode: params=" << std::endl;
+    *output.log << node.toString() << std::endl;
     for (auto &param : node.paramlist) {
         param->accept(*this);
     }
 }
 
 void DisplayASTVisitor::visit(CompUnitNode &node) {
-    *output.log << "CompUnitNode: definitions=" << std::endl;
+    *output.log << node.toString() << std::endl;
     for (auto &def : node.deflist) {
         def->accept(*this);
     }
 }
 
 void DisplayASTVisitor::visit(BlockGroupNode &node) {
-    *output.log << "BlockGroupNode: blocks=" << std::endl;
+    *output.log << node.toString() << std::endl;
     for (auto &block : node.blocklist) {
         block->accept(*this);
     }
 }
 
 void DisplayASTVisitor::visit(LvalNode &node) {
-    *output.log << "LvalNode: id=" << node.getId() << std::endl;
+    *output.log << node.toString() << std::endl;
     if (node.arrayIndex) node.arrayIndex->accept(*this);
 }
 
 void DisplayASTVisitor::visit(IfElseNode &node) {
-    *output.log << "IfElseNode: condition=" << std::endl;
+    *output.log << node.toString() << std::endl;
     if (node.cond) node.cond->accept(*this);
     *output.log << "If branch:" << std::endl;
     if (node.ifstmt) node.ifstmt->accept(*this);
@@ -76,27 +76,27 @@ void DisplayASTVisitor::visit(IfElseNode &node) {
 }
 
 void DisplayASTVisitor::visit(WhileNode &node) {
-    *output.log << "WhileNode: condition=" << std::endl;
+    *output.log << node.toString() << std::endl;
     if (node.cond) node.cond->accept(*this);
     *output.log << "Body:" << std::endl;
     if (node.stmt) node.stmt->accept(*this);
 }
 
 void DisplayASTVisitor::visit(BreakNode &node) {
-    *output.log << "BreakNode" << std::endl;
+    *output.log << node.toString() << std::endl;
 }
 
 void DisplayASTVisitor::visit(ContinueNode &node) {
-    *output.log << "ContinueNode" << std::endl;
+    *output.log << node.toString() << std::endl;
 }
 
 void DisplayASTVisitor::visit(ReturnNode &node) {
-    *output.log << "ReturnNode: expr=" << std::endl;
+    *output.log << node.toString() << std::endl;
     if (node.expr) node.expr->accept(*this);
 }
 
 void DisplayASTVisitor::visit(FuncDefNode &node) {
-    *output.log << "FuncDefNode: type=" << node.type << ", id=" << node.id << std::endl;
+    *output.log << node.toString() << std::endl;
     if (node.param) {
         *output.log << "Parameters:" << std::endl;
         node.param->accept(*this);
@@ -108,28 +108,28 @@ void DisplayASTVisitor::visit(FuncDefNode &node) {
 }
 
 void DisplayASTVisitor::visit(StmtListNode &node) {
-    *output.log << "StmtListNode: statements=" << std::endl;
+    *output.log << node.toString() << std::endl;
     for (auto &stmt : node.stmtlist) {
         stmt->accept(*this);
     }
 }
 
 void DisplayASTVisitor::visit(AssignNode &node) {
-    *output.log << "AssignNode: left=" << std::endl;
+    *output.log << node.toString() << std::endl;
     if (node.left) node.left->accept(*this);
     *output.log << "Expression:" << std::endl;
     if (node.expr) node.expr->accept(*this);
 }
 
 void DisplayASTVisitor::visit(VectorNode &node) {
-    *output.log << "vectorNode: elements=" << std::endl;
+    *output.log << node.toString() << std::endl;
     for (auto &element : node.list) {
         element->accept(*this);
     }
 }
 
 void DisplayASTVisitor::visit(DeclNode &node) {
-    *output.log << "DeclNode: isConst=" << node.isConst << ", type=" << node.type << ", id=" << node.id << std::endl;
+    *output.log << node.toString() << std::endl;
     if (node.arraySize) {
         *output.log << "Array size:" << std::endl;
         node.arraySize->accept(*this);
@@ -141,10 +141,10 @@ void DisplayASTVisitor::visit(DeclNode &node) {
 }
 
 void DisplayASTVisitor::visit(ConstIntNode &node) {
-    *output.log << "ConstIntNode: value=" << node.val << std::endl;
+    *output.log << node.toString() << std::endl;
 }
 
 void DisplayASTVisitor::visit(ConstFloatNode &node) {
-    *output.log << "ConstFloatNode: value=" << node.val << std::endl;
+    *output.log << node.toString() << std::endl;
 }
 

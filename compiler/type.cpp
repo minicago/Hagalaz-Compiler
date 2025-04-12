@@ -13,6 +13,7 @@ bool SysyType::isVoidType() const {
 }
 
 bool SysyType::matchType(const SysyType &other) const {
+    *output.log << "Matching types: " << this->toString() << " and " << other.toString() << std::endl;
     if (isSimpleType() && other.isSimpleType()) {
         return static_cast<const SimpleType*>(this)->type != VOID && static_cast<const SimpleType*>(&other)->type != VOID;
     } else if (isArrayType() && other.isArrayType()) {
