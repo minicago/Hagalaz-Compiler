@@ -453,7 +453,7 @@ void Checker::visit(IdentifierNode &node) {
         return;
     }
     result[std::make_shared<IdentifierNode>(node)] = 
-        checkerResult({} ,var->typeValue);
+        checkerResult(var ,var->typeValue);
     *output.log << "Finished visiting IdentifierNode" << std::endl;
 }
 
@@ -490,7 +490,14 @@ void Checker::visit(LvalNode &node) {
                 REPORT_ERROR("Invalid array index.");
                 return;
             }
-            if (std::dynamic_pointer_cast<SimpleType>(indexResult.value->type)->type != INT) {
+
+            if (indexResult.value->type->isSimpleType() == false) {
+                REPORT_ERROR("Array index must be an integer.");
+                return;
+            }
+
+            if (std::dynamic_pointer_cast<SimpleType>(indexResult.value->type)->type != INT
+            && std::dynamic_pointer_cast<SimpleType>(indexResult.value->type)->type != FLOAT) {
                 REPORT_ERROR("Array index must be an integer.");
                 return;
             }

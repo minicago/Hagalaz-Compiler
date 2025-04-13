@@ -16,7 +16,9 @@ class Node;
 #include <memory>
 
 #define LOG(msg) *output.log << msg << std::endl
-#define REPORT_ERROR(msg) *output.err << "Error: " << msg << std::endl
+
+#include <stdexcept>
+#define REPORT_ERROR(msg) throw std::runtime_error(msg)
 
 #define YYSTYPE std::shared_ptr<Node>
 #include "y.tab.h"
