@@ -75,17 +75,17 @@ void Checker::visit(ExprNode &node) {
         if (node.op == NE || node.op == GE || node.op == LE || node.op == GT || node.op == LT || node.op == AND || node.op == OR || node.op == EQ || node.op == NOT) { 
             auto val1Float = std::get<float>(val1Result.value->value);
             auto val2Float = std::get<float>(val2Result.value->value);
-            result[std::make_shared<ExprNode>(node)].value = TypeValue(std::make_shared<SimpleType>(INT), op_bool(node.op, val1Float, val2Float));
+            result[std::make_shared<ExprNode>(node)].value = TypeValue(std::make_shared<SimpleType>(INT, true), op_bool(node.op, val1Float, val2Float));
 
         } else {
             if (val1Type->type == INT && val2Type->type == INT){
                 auto val1Int = std::get<int>(val1Result.value->value);
                 auto val2Int = std::get<int>(val2Result.value->value);
-                result[std::make_shared<ExprNode>(node)].value = TypeValue(std::make_shared<SimpleType>(INT), op_int(node.op, val1Int, val2Int));
+                result[std::make_shared<ExprNode>(node)].value = TypeValue(std::make_shared<SimpleType>(INT, true), op_int(node.op, val1Int, val2Int));
             } else if (val1Type->type == FLOAT || val2Type->type == FLOAT) {
                 auto val1Float = std::get<float>(val1Result.value->value);
                 auto val2Float = std::get<float>(val2Result.value->value);
-                result[std::make_shared<ExprNode>(node)].value = TypeValue(std::make_shared<SimpleType>(FLOAT), op_float(node.op, val1Float, val2Float));
+                result[std::make_shared<ExprNode>(node)].value = TypeValue(std::make_shared<SimpleType>(FLOAT, true), op_float(node.op, val1Float, val2Float));
             }   else {
                 throw std::runtime_error("Invalid type in expression.");
                 return;
@@ -260,8 +260,9 @@ void Checker::visit(ParamNode &node) {
         type = std::make_shared<ArrayType>(type);
     }
     auto varDecl = std::make_shared<VarDecl>(node.id, TypeValue(type));
-
-    scope.addVar(node.id, varDecl);
+   
+    scope.addVar(node.id, varDecl); 
+    
     result[std::make_shared<ParamNode>(node)] = checkerResult(varDecl);
     *output.log << "Finished visiting ParamNode" << std::endl;
 }
@@ -284,11 +285,8 @@ void Checker::visit(FuncCallParamNode &node) {
 
 void Checker::visit(CompUnitNode &node) {
     *output.log << "Visiting CompUnitNode" << std::endl;
-    *output.log<<"checking"<<std::endl;
     for (auto &def : node.deflist) {
-        *output.log<<"comp1"<<std::endl;
         def->accept(*this);
-        *output.log<<"comp2"<<std::endl;
     }
     *output.log << "Finished visiting CompUnitNode" << std::endl;
 }
@@ -323,22 +321,41 @@ void Checker::visit(VectorNode &node) {
                 REPORT_ERROR("Invalid value in vector initialization.");
                 return;
             }
-            auto elementResult = result[*element];
-            int length = elementResult.value->getInt();
+            
+            *output.log << "Element type: " << result[*element].value->type->toString() << std::endl;
+
+            if (!result[*element].value->type->isSimpleType() || result[*element].value->type->isVoidType()) {
+                REPORT_ERROR("Invalid type in vector initialization.");
+                return;
+            }
+
+            if (!result[*element].value->isConst() ){
+                REPORT_ERROR("Invalid value in vector initialization.");
+                return;
+            }
+
+            int length = result[*element].value->getInt();
             constructingType = std::make_shared<ArrayType>(constructingType, length);
             *output.log << "Constructing type: " << constructingType->toString() << std::endl;
         }
     }
+
+
     if (constructingValue){
+
+        bool isConst = constructingValue->type->isConst();
+
         bool init = false;
         int initIndex = 0;
-        if (!constructingValue->isConst()){
+        if (!constructingValue->hasValue()) {
             init = true;
-            
-            constructingValue->data = std::shared_ptr<char[]>(new char[constructingValue->type->size]);
-            constructingValue->value = &(constructingValue->data[0]);
-            // constructingValue->value = std::make_shared<void>(std::get<void*> (constructingValue->value));
-            memset(std::get<void*> (constructingValue->value), 0, constructingValue->type->size);
+            if (isConst){
+                
+                constructingValue->data = std::shared_ptr<char[]>(new char[constructingValue->type->size]);
+                constructingValue->value = &(constructingValue->data[0]);
+                // constructingValue->value = std::make_shared<void>(std::get<void*> (constructingValue->value));
+                memset(std::get<void*> (constructingValue->value), 0, constructingValue->type->size);                
+            }
             constructingIndex = 0;
         } else {
             if (constructingIndex % constructingValue->type->size != 0) {
@@ -346,11 +363,11 @@ void Checker::visit(VectorNode &node) {
             } 
             initIndex = constructingIndex;
         }
-        auto simpleType = std::dynamic_pointer_cast<ArrayType>(constructingValue->type)->getSimpleType();
+        auto simpleType = constructingValue->type->getSimpleType();
         
         for (auto &element : node.list) {
             auto tmpType = constructingValue->type;
-            constructingValue->type = std::dynamic_pointer_cast<ArrayType>(constructingValue->type)->InnerType;
+            constructingValue->type = std::dynamic_pointer_cast<ArrayType>(constructingValue->type)->innerType;
             element->accept(*this);
             constructingValue->type = tmpType;
             if (result.count(element)) {
@@ -358,9 +375,16 @@ void Checker::visit(VectorNode &node) {
                     REPORT_ERROR("Invalid value in vector initialization.");
                     return;
                 }
-                if(result[element].value->isConst()){
+                *output.log << "Element type: " << result[element].value->type->toString() << std::endl;
+                if (!result[element].value->type->isSimpleType() || result[element].value->type->isVoidType()) {
+                    REPORT_ERROR("Invalid type in vector initialization.");
+                    return;
+                }
+                if(result[element].value->isConst() && isConst){
                     if(simpleType == INT){
+                        *output.log << "INT" << std::endl;
                         auto val = result[element].value->getInt();
+                        *output.log << constructingValue->value.index() << std::endl;
                         memcpy(std::get<void*> (constructingValue->value) + constructingIndex, &val, sizeof(int));
                         constructingIndex += sizeof(int);
                     } else if(simpleType == FLOAT){
@@ -368,9 +392,9 @@ void Checker::visit(VectorNode &node) {
                         memcpy(std::get<void*> (constructingValue->value) + constructingIndex, &val, sizeof(float));
                         constructingIndex += sizeof(float);
                     }   
-                } else {
+                } else if (isConst){
                     REPORT_ERROR("Invalid value in vector initialization.");
-                }            
+                }      
             }
         }
         if (init) {
@@ -397,7 +421,7 @@ void Checker::visit(VectorNode &node) {
 void Checker::visit(DeclNode &node) {
     *output.log << "Visiting DeclNode" << std::endl;
     
-    std::shared_ptr<SysyType> type = std::make_shared<SimpleType>(node.type);
+    std::shared_ptr<SysyType> type = std::make_shared<SimpleType>(node.type, node.isConst);
     
 
     constructingType = type;
@@ -422,11 +446,15 @@ void Checker::visit(DeclNode &node) {
     }
 
     constructingValue = nullptr;
-    
+
 
     auto decl = std::make_shared<VarDecl>(node.id, *value);
 
-    scope.addVar(node.id, decl);
+
+    if (currentFunction) {
+        scope.addVar(node.id, decl); 
+     } else scope.addGlobalVar(node.id, decl);
+
     
     result[std::make_shared<DeclNode>(node)] = checkerResult(decl);
     
@@ -435,13 +463,13 @@ void Checker::visit(DeclNode &node) {
 
 void Checker::visit(ConstIntNode &node) {
     *output.log << "Visiting ConstIntNode" << std::endl;
-    result[std::make_shared<ConstIntNode>(node)] = checkerResult({}, TypeValue(std::make_shared<SimpleType>(INT), node.val));
+    result[std::make_shared<ConstIntNode>(node)] = checkerResult({}, TypeValue(std::make_shared<SimpleType>(INT, true), node.val));
     *output.log << "Finished visiting ConstIntNode" << std::endl;
 }
 
 void Checker::visit(ConstFloatNode &node) {
     *output.log << "Visiting ConstFloatNode" << std::endl;
-    result[std::make_shared<ConstFloatNode>(node)] = checkerResult({}, TypeValue(std::make_shared<SimpleType>(FLOAT), node.val));
+    result[std::make_shared<ConstFloatNode>(node)] = checkerResult({}, TypeValue(std::make_shared<SimpleType>(FLOAT, true), node.val));
     *output.log << "Finished visiting ConstFloatNode" << std::endl;
 }
 
@@ -480,7 +508,7 @@ void Checker::visit(LvalNode &node) {
         REPORT_ERROR("Variable " + node.id + " not declared.");
         return;
     }
-    bool allConst = var->typeValue.isConst();
+    bool allConst = var->typeValue.type->isConst();
     if (node.arrayIndex) {
         auto typeValue = var->typeValue;
         for(auto &index : std::dynamic_pointer_cast<VectorNode> (node.arrayIndex)->list) {
@@ -501,19 +529,24 @@ void Checker::visit(LvalNode &node) {
                 REPORT_ERROR("Array index must be an integer.");
                 return;
             }
-            
-            if(indexResult.value->isConst()){
-                *output.log << "Array index is constant." << std::endl;
+
+            if (indexResult.value->type->isConst()) {
                 auto indexValue = indexResult.value->getInt();
-                *output.log << typeValue.type->toString() << std::endl;
                 if (indexValue < 0 || indexValue >= std::dynamic_pointer_cast<ArrayType>(typeValue.type)->length) {
                     REPORT_ERROR("Array index out of bounds.");
                     return;
-                } else {
-                    typeValue = typeValue.get_index(indexValue);
                 }
+            }
+
+            allConst = allConst && indexResult.value->type->isConst(); 
+
+            if(allConst){
+                *output.log << "Array is constant." << std::endl;
+                auto indexValue = indexResult.value->getInt();
+                *output.log << typeValue.type->toString() << std::endl;
+                typeValue = typeValue.get_index(indexValue);
             } else {
-                *output.log << "Array index is not constant." << std::endl;
+                *output.log << "Array is not constant." << std::endl;
                 typeValue = typeValue.get_index(0);
                 allConst = false;
             }

@@ -26,13 +26,17 @@ public:
     bool isVoidType() const; 
 
     bool matchType(const SysyType &other) const;
+
+    virtual bool isConst() = 0;
+    virtual yytokentype getSimpleType() = 0;
 };
 
 class SimpleType : public SysyType {
 public:
     yytokentype type;
+    bool _isConst;
 
-    SimpleType(yytokentype type) : type(type) {
+    SimpleType(yytokentype type, bool isConst = false) : type(type), _isConst(isConst) {
         if (type == INT) {
             size = sizeof(int);
         } else if (type == FLOAT) {
@@ -45,38 +49,49 @@ public:
     }
     std::string toString() const override {
         switch (type) {
-            case INT: return "int";
-            case FLOAT: return "float";
+            case INT: return _isConst ? "const int" : "int";
+            case FLOAT: return _isConst ? "const float" : "float";
             case VOID: return "void";
             default: return "unknown";
         }
+    }
+
+    bool isConst() override {
+        return _isConst;
+    }
+
+    yytokentype getSimpleType() override {
+        return type;
     }
 };
 
 class ArrayType : public SysyType {
 public:
-    std::shared_ptr<SysyType> InnerType;
+    std::shared_ptr<SysyType> innerType;
     int length;
-    std::string toString() const override {
-        return "[" + std::to_string(length) + "]" + InnerType->toString();
-    }
 
-    ArrayType(std::shared_ptr<SysyType> InnerType, int length) : InnerType(InnerType), length(length) {
+
+    ArrayType(std::shared_ptr<SysyType> InnerType, int length) : innerType(InnerType), length(length) {
         if (length <= 0) {
             throw std::invalid_argument("Array length must be positive");
         }
         size = InnerType->size * length;
     }
-    ArrayType(std::shared_ptr<SysyType> InnerType) : InnerType(InnerType), length(type::VARIANT_SIZE) {
+    ArrayType(std::shared_ptr<SysyType> InnerType) : innerType(InnerType), length(type::VARIANT_SIZE) {
         size = type::VARIANT_SIZE;
     }
-    yytokentype getSimpleType() {
-        if (InnerType->isSimpleType()) {
-            return std::dynamic_pointer_cast<SimpleType>(InnerType)->type;
-        } else {
-            return std::dynamic_pointer_cast<ArrayType>(InnerType)->getSimpleType();
-        }
+
+    yytokentype getSimpleType() override {
+        return innerType->getSimpleType();
     }
+    std::string toString() const override {
+        return "[" + std::to_string(length) + "]" + innerType->toString();
+    }
+
+    bool isConst() override {
+        return innerType->isConst();
+    }
+
 };
 
 typedef std::variant<std::monostate, int, float, void* > ConstType;
@@ -87,17 +102,33 @@ public:
     std::shared_ptr<char[]> data;
     ConstType value;
 
+    bool isConst(){
+        return type->isConst();
+    }
+
+    bool hasValue(){
+        return std::holds_alternative<std::monostate>(value) == false;
+    }   
+
     TypeValue(std::shared_ptr<SysyType> type, ConstType value)
         : type(type), value(value) {}
 
     TypeValue(std::shared_ptr<SysyType> type)
         : type(type), value() {}
 
-    ~TypeValue() = default;
-    
-    bool isConst() const {
-        return not std::holds_alternative<std::monostate>(value);
+    std::string toString() const {
+        std::string s = type->toString();
+        if (std::holds_alternative<int>(value)) {
+            s += " = " + std::to_string(std::get<int>(value));
+        } else if (std::holds_alternative<float>(value)) {
+            s += " = " + std::to_string(std::get<float>(value));
+        } else if (std::holds_alternative<void*>(value)) {
+            s += " = " + std::to_string(reinterpret_cast<uintptr_t>(std::get<void*>(value)));
+        }
+        return s;
     }
+    
+    ~TypeValue() = default;
 
     float getFloat() const {
         if (std::holds_alternative<float>(value)) {
@@ -126,19 +157,19 @@ public:
         if (type->isArrayType()){
             auto arrayType = std::dynamic_pointer_cast<ArrayType>(type);
             if (arrayType->length > index){
-                auto ptr = std::get<void* >(value);
-                if (arrayType->InnerType->isSimpleType()){
-                    auto simpleType = std::dynamic_pointer_cast<SimpleType>(arrayType->InnerType);
+                auto ptr = type->isConst()? std::get<void* >(value) : nullptr;
+                if (arrayType->innerType->isSimpleType()){
+                    auto simpleType = std::dynamic_pointer_cast<SimpleType>(arrayType->innerType);
                     if (simpleType->type == INT){
-                        if(isConst()) return TypeValue(arrayType->InnerType,  ((int*)(ptr))[index]);
-                        else return TypeValue(arrayType->InnerType);
+                        if(type->isConst()) return TypeValue(arrayType->innerType,  ((int*)(ptr))[index]);
+                        else return TypeValue(arrayType->innerType);
                     } else if (simpleType->type == FLOAT){
-                        if(isConst()) return TypeValue(arrayType->InnerType,  ((float*)(ptr))[index]);
-                        else return TypeValue(arrayType->InnerType);
+                        if(type->isConst()) return TypeValue(arrayType->innerType,  ((float*)(ptr))[index]);
+                        else return TypeValue(arrayType->innerType);
                     } 
                 }  else {
-                    if(isConst()) return TypeValue(arrayType->InnerType,  ptr + index * arrayType->InnerType->size);
-                    else return TypeValue(arrayType->InnerType); 
+                    if(type->isConst()) return TypeValue(arrayType->innerType,  ptr + index * arrayType->innerType->size);
+                    else return TypeValue(arrayType->innerType); 
                 }
             } else {
                 throw std::out_of_range("Index out of range");

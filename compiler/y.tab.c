@@ -1545,7 +1545,7 @@ yyreduce:
 #line 95 "yacc.y"
                        {
             BISON_LOG("ConstDecl -> CONST BType\n");
-            decl_type = std::dynamic_pointer_cast<SimpleTokenNode>(yyvsp[-1])->getType();
+            decl_type = std::dynamic_pointer_cast<SimpleTokenNode>(yyvsp[0])->getType();
         }
 #line 1551 "y.tab.c"
     break;

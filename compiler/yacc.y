@@ -94,7 +94,7 @@ Decl: ConstDecl {
 
 ConstDecl: CONST BType {
             BISON_LOG("ConstDecl -> CONST BType\n");
-            decl_type = std::dynamic_pointer_cast<SimpleTokenNode>($1)->getType();
+            decl_type = std::dynamic_pointer_cast<SimpleTokenNode>($2)->getType();
         } ConstDef ";" {
             BISON_LOG("ConstDecl -> CONST BType ConstDef ;\n");
             $$ = std::make_shared<StmtListNode>();
