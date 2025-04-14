@@ -11,13 +11,22 @@
 
 namespace type
 {
-    const int VARIANT_SIZE = INT32_MAX; 
-} // namespace type
+    const int VARIANT_SIZE = INT32_MAX;
 
+} // namespace type
 
 class SysyType {
 public:
-    int size;
+    int size;    
+    enum TypeID{
+        
+        VoidTyID,      // Void
+             // Labels, e.g., BasicBlock
+        IntegerTyID ,   // Integers, include 32 bits and 1 bit
+        FloatTyID ,     // Floats, only 32 bits
+        FunctionTyID,  // Functions
+        LabelTyID,
+    };
     virtual ~SysyType() = default;
     virtual std::string toString() const = 0;
 
@@ -28,20 +37,33 @@ public:
     bool matchType(const SysyType &other) const;
 
     virtual bool isConst() = 0;
-    virtual yytokentype getSimpleType() = 0;
+    virtual TypeID getSimpleType() = 0;
 };
 
 class SimpleType : public SysyType {
 public:
-    yytokentype type;
+    TypeID type;
     bool _isConst;
 
-    SimpleType(yytokentype type, bool isConst = false) : type(type), _isConst(isConst) {
+    SimpleType(TypeID type, bool isConst = false) : type(type), _isConst(isConst) {
+        if (type == IntegerTyID) {
+            size = sizeof(int);
+        } else if (type == FloatTyID) {
+            size = sizeof(float);
+        } else {
+            size = 0;
+        }
+    }
+
+    SimpleType(yytokentype type, bool isConst = false) : _isConst(isConst) {
         if (type == INT) {
+            this->type = IntegerTyID;
             size = sizeof(int);
         } else if (type == FLOAT) {
+            this->type = FloatTyID;
             size = sizeof(float);
         } else if (type == VOID) {
+            this->type = VoidTyID;
             size = 0;
         } else {
             throw std::invalid_argument("Invalid type");
@@ -49,9 +71,10 @@ public:
     }
     std::string toString() const override {
         switch (type) {
-            case INT: return _isConst ? "const int" : "int";
-            case FLOAT: return _isConst ? "const float" : "float";
-            case VOID: return "void";
+            case IntegerTyID: return _isConst ? "const int" : "int";
+            case FloatTyID: return _isConst ? "const float" : "float";
+            case VoidTyID: return "void";
+            case LabelTyID: return "label";
             default: return "unknown";
         }
     }
@@ -60,7 +83,7 @@ public:
         return _isConst;
     }
 
-    yytokentype getSimpleType() override {
+    TypeID getSimpleType() override {
         return type;
     }
 };
@@ -81,7 +104,7 @@ public:
         size = type::VARIANT_SIZE;
     }
 
-    yytokentype getSimpleType() override {
+    TypeID getSimpleType() override {
         return innerType->getSimpleType();
     }
     std::string toString() const override {
@@ -100,30 +123,30 @@ class TypeValue {
 public:
     std::shared_ptr<SysyType> type;
     std::shared_ptr<char[]> data;
-    ConstType value;
+    ConstType const_;
 
     bool isConst(){
         return type->isConst();
     }
 
-    bool hasValue(){
-        return std::holds_alternative<std::monostate>(value) == false;
+    bool hasConst(){
+        return std::holds_alternative<std::monostate>(const_) == false;
     }   
 
     TypeValue(std::shared_ptr<SysyType> type, ConstType value)
-        : type(type), value(value) {}
+        : type(type), const_(value) {}
 
     TypeValue(std::shared_ptr<SysyType> type)
-        : type(type), value() {}
+        : type(type), const_() {}
 
     std::string toString() const {
         std::string s = type->toString();
-        if (std::holds_alternative<int>(value)) {
-            s += " = " + std::to_string(std::get<int>(value));
-        } else if (std::holds_alternative<float>(value)) {
-            s += " = " + std::to_string(std::get<float>(value));
-        } else if (std::holds_alternative<void*>(value)) {
-            s += " = " + std::to_string(reinterpret_cast<uintptr_t>(std::get<void*>(value)));
+        if (std::holds_alternative<int>(const_)) {
+            s += " = " + std::to_string(std::get<int>(const_));
+        } else if (std::holds_alternative<float>(const_)) {
+            s += " = " + std::to_string(std::get<float>(const_));
+        } else if (std::holds_alternative<void*>(const_)) {
+            s += " = " + std::to_string(reinterpret_cast<uintptr_t>(std::get<void*>(const_)));
         }
         return s;
     }
@@ -131,20 +154,20 @@ public:
     ~TypeValue() = default;
 
     float getFloat() const {
-        if (std::holds_alternative<float>(value)) {
-            return std::get<float>(value);
-        } else if (std::holds_alternative<int>(value)) {
-            return static_cast<float>(std::get<int>(value));
+        if (std::holds_alternative<float>(const_)) {
+            return std::get<float>(const_);
+        } else if (std::holds_alternative<int>(const_)) {
+            return static_cast<float>(std::get<int>(const_));
         } else {
             throw std::bad_variant_access();
         }
     }
 
     int getInt() const {
-        if (std::holds_alternative<int>(value)) {
-            return std::get<int>(value);
-        } else if (std::holds_alternative<float>(value)) {
-            return static_cast<int>(std::get<float>(value));
+        if (std::holds_alternative<int>(const_)) {
+            return std::get<int>(const_);
+        } else if (std::holds_alternative<float>(const_)) {
+            return static_cast<int>(std::get<float>(const_));
         } else {
             throw std::bad_variant_access();
         }
@@ -153,17 +176,17 @@ public:
     TypeValue get_index(int index){
         *output.log << "get_index" << std::endl;
         *output.log << "index: " << index << std::endl;
-        *output.log << "type: " << type->toString() << std::endl;
+        *output.log << "type: " << (hasConst()?1:0) << std::endl;
         if (type->isArrayType()){
             auto arrayType = std::dynamic_pointer_cast<ArrayType>(type);
             if (arrayType->length > index){
-                auto ptr = type->isConst()? std::get<void* >(value) : nullptr;
+                auto ptr = type->isConst()? std::get<void* >(const_) : nullptr;
                 if (arrayType->innerType->isSimpleType()){
                     auto simpleType = std::dynamic_pointer_cast<SimpleType>(arrayType->innerType);
-                    if (simpleType->type == INT){
+                    if (simpleType->type == SysyType::IntegerTyID){
                         if(type->isConst()) return TypeValue(arrayType->innerType,  ((int*)(ptr))[index]);
                         else return TypeValue(arrayType->innerType);
-                    } else if (simpleType->type == FLOAT){
+                    } else if (simpleType->type == SysyType::FloatTyID){
                         if(type->isConst()) return TypeValue(arrayType->innerType,  ((float*)(ptr))[index]);
                         else return TypeValue(arrayType->innerType);
                     } 
@@ -180,7 +203,5 @@ public:
     } 
     
 };
-
-
 
 #endif

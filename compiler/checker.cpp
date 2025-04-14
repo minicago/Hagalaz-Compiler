@@ -9,7 +9,7 @@ void Checker::visit(ExprNode &node) {
     } 
     
     node.val2->accept(*this);
-    auto val1Result = node.val1 ? result[node.val1] : checkerResult({}, TypeValue(std::make_shared<SimpleType>(INT), 0));
+    auto val1Result = node.val1 ? result[node.val1] : CheckerResult( TypeValue(std::make_shared<SimpleType>(SysyType::IntegerTyID), 0));
     auto val2Result = result[node.val2];
 
 
@@ -66,26 +66,26 @@ void Checker::visit(ExprNode &node) {
     };
     
 
-    result[std::make_shared<ExprNode>(node)] = checkerResult();
+    result[std::make_shared<ExprNode>(node)] = CheckerResult();
 
 
 
     // Check if the result is a constant
     if (val1Result.value->isConst() && val2Result.value->isConst()) {
         if (node.op == NE || node.op == GE || node.op == LE || node.op == GT || node.op == LT || node.op == AND || node.op == OR || node.op == EQ || node.op == NOT) { 
-            auto val1Float = std::get<float>(val1Result.value->value);
-            auto val2Float = std::get<float>(val2Result.value->value);
-            result[std::make_shared<ExprNode>(node)].value = TypeValue(std::make_shared<SimpleType>(INT, true), op_bool(node.op, val1Float, val2Float));
+            auto val1Float = std::get<float>(val1Result.value->const_);
+            auto val2Float = std::get<float>(val2Result.value->const_);
+            result[std::make_shared<ExprNode>(node)].value = TypeValue(std::make_shared<SimpleType>(SysyType::IntegerTyID, true), op_bool(node.op, val1Float, val2Float));
 
         } else {
-            if (val1Type->type == INT && val2Type->type == INT){
-                auto val1Int = std::get<int>(val1Result.value->value);
-                auto val2Int = std::get<int>(val2Result.value->value);
-                result[std::make_shared<ExprNode>(node)].value = TypeValue(std::make_shared<SimpleType>(INT, true), op_int(node.op, val1Int, val2Int));
-            } else if (val1Type->type == FLOAT || val2Type->type == FLOAT) {
-                auto val1Float = std::get<float>(val1Result.value->value);
-                auto val2Float = std::get<float>(val2Result.value->value);
-                result[std::make_shared<ExprNode>(node)].value = TypeValue(std::make_shared<SimpleType>(FLOAT, true), op_float(node.op, val1Float, val2Float));
+            if (val1Type->type == SysyType::IntegerTyID && val2Type->type == SysyType::IntegerTyID){
+                auto val1Int = std::get<int>(val1Result.value->const_);
+                auto val2Int = std::get<int>(val2Result.value->const_);
+                result[std::make_shared<ExprNode>(node)].value = TypeValue(std::make_shared<SimpleType>(SysyType::IntegerTyID, true), op_int(node.op, val1Int, val2Int));
+            } else if (val1Type->type == SysyType::FloatTyID || val2Type->type == SysyType::FloatTyID) {
+                auto val1Float = std::get<float>(val1Result.value->const_);
+                auto val2Float = std::get<float>(val2Result.value->const_);
+                result[std::make_shared<ExprNode>(node)].value = TypeValue(std::make_shared<SimpleType>(SysyType::FloatTyID, true), op_float(node.op, val1Float, val2Float));
             }   else {
                 throw std::runtime_error("Invalid type in expression.");
                 return;
@@ -93,10 +93,10 @@ void Checker::visit(ExprNode &node) {
         } 
     } else {
     // Determine the result type
-        if (node.op == NE || node.op == GE || node.op == LE || node.op == GT || node.op == LT || val1Type->type == INT && val2Type->type == INT) {
-            result[std::make_shared<ExprNode>(node)].value = TypeValue(std::make_shared<SimpleType>(INT));
-        } else if (val1Type->type == FLOAT || val2Type->type == FLOAT) {
-            result[std::make_shared<ExprNode>(node)].value = TypeValue(std::make_shared<SimpleType>(FLOAT));
+        if (node.op == NE || node.op == GE || node.op == LE || node.op == GT || node.op == LT || val1Type->type == SysyType::IntegerTyID && val2Type->type == SysyType::IntegerTyID) {
+            result[std::make_shared<ExprNode>(node)].value = TypeValue(std::make_shared<SimpleType>(SysyType::IntegerTyID));
+        } else if (val1Type->type == SysyType::FloatTyID || val2Type->type == SysyType::FloatTyID) {
+            result[std::make_shared<ExprNode>(node)].value = TypeValue(std::make_shared<SimpleType>(SysyType::FloatTyID));
         } else {
             throw std::runtime_error("Invalid type in expression.");
             return;
@@ -147,7 +147,7 @@ void Checker::visit(BreakNode &node) {
         return;
     }
 
-    result[std::make_shared<BreakNode>(node)] = checkerResult();
+    result[std::make_shared<BreakNode>(node)] = CheckerResult();
     result[std::make_shared<BreakNode>(node)].jumpTarget = loopStack.top(); // Use shared_ptr<Node>
     *output.log << "Finished visiting BreakNode" << std::endl;
 }
@@ -159,7 +159,7 @@ void Checker::visit(ContinueNode &node) {
         return;
     }
 
-    result[std::make_shared<ContinueNode>(node)] = checkerResult();
+    result[std::make_shared<ContinueNode>(node)] = CheckerResult();
     result[std::make_shared<ContinueNode>(node)].jumpTarget = loopStack.top(); // Use shared_ptr<Node>
     *output.log << "Finished visiting ContinueNode" << std::endl;
 }
@@ -176,7 +176,7 @@ void Checker::visit(ReturnNode &node) {
         auto exprResult = result[node.expr];// Access function ID from Node
     }
 
-    result[std::make_shared<ReturnNode>(node)] = checkerResult();
+    result[std::make_shared<ReturnNode>(node)] = CheckerResult();
     result[std::make_shared<ReturnNode>(node)].jumpTarget = currentFunction; // Use shared_ptr<Node>
     *output.log << "Finished visiting ReturnNode" << std::endl;
 }
@@ -185,8 +185,8 @@ void Checker::visit(FuncDefNode &node) {
     *output.log << "Visiting FuncDefNode" << std::endl;
     *output.log << "Function definition: " << node.id << std::endl;
     currentFunction = std::make_shared<FuncDefNode>(node); // Assign current function as a Node
-    auto funcDecl = std::make_shared<FuncDecl>(node.type, node.id);
-    scope.addFunc(node.id, funcDecl);
+    auto funcDecl = std::make_shared<FuncDecl>(node.type, node.id, node);
+    
     scope.enterBlock();
 
     if (node.param) {
@@ -194,11 +194,12 @@ void Checker::visit(FuncDefNode &node) {
         funcDecl->paramList = std::make_shared<std::vector<std::shared_ptr<VarDecl>>>();
         for (auto &param : std::dynamic_pointer_cast<ParamListNode> (node.param) ->paramlist) {
             auto paramResult = result[param];
-            if (std::holds_alternative<std::shared_ptr<VarDecl>>(paramResult.decl)) {
-                funcDecl->paramList->push_back(std::get<std::shared_ptr<VarDecl>>(paramResult.decl));
-            }
+            funcDecl->paramList->push_back(scope.findVar(std::dynamic_pointer_cast<ParamNode> (param)->id));
         }
     }
+
+    scope.addFunc(node.id, funcDecl);
+    result[std::make_shared<FuncDefNode>(node)] = CheckerResult(funcDecl);
 
 
     if (node.stmt) {
@@ -239,8 +240,7 @@ void Checker::visit(FuncCallNode &node) {
             return;
         }
     }
-    result[std::make_shared<FuncCallNode>(node)] = checkerResult();
-    result[std::make_shared<FuncCallNode>(node)].value = TypeValue(std::make_shared<SimpleType> (func->returnType));
+    result[std::make_shared<FuncCallNode>(node)] = CheckerResult(func);
     *output.log << "Finished visiting FuncCallNode" << std::endl;
 }
 
@@ -259,11 +259,11 @@ void Checker::visit(ParamNode &node) {
     if (node.isptr) {
         type = std::make_shared<ArrayType>(type);
     }
-    auto varDecl = std::make_shared<VarDecl>(node.id, TypeValue(type));
+    auto varDecl = std::make_shared<VarDecl>(node.id, TypeValue(type), node);
    
     scope.addVar(node.id, varDecl); 
     
-    result[std::make_shared<ParamNode>(node)] = checkerResult(varDecl);
+    result[std::make_shared<ParamNode>(node)] = CheckerResult(varDecl);
     *output.log << "Finished visiting ParamNode" << std::endl;
 }
 
@@ -347,14 +347,14 @@ void Checker::visit(VectorNode &node) {
 
         bool init = false;
         int initIndex = 0;
-        if (!constructingValue->hasValue()) {
+        if (!constructingValue->hasConst()) {
             init = true;
             if (isConst){
                 
                 constructingValue->data = std::shared_ptr<char[]>(new char[constructingValue->type->size]);
-                constructingValue->value = &(constructingValue->data[0]);
+                constructingValue->const_ = &(constructingValue->data[0]);
                 // constructingValue->value = std::make_shared<void>(std::get<void*> (constructingValue->value));
-                memset(std::get<void*> (constructingValue->value), 0, constructingValue->type->size);                
+                memset(std::get<void*> (constructingValue->const_), 0, constructingValue->type->size);                
             }
             constructingIndex = 0;
         } else {
@@ -381,15 +381,15 @@ void Checker::visit(VectorNode &node) {
                     return;
                 }
                 if(result[element].value->isConst() && isConst){
-                    if(simpleType == INT){
-                        *output.log << "INT" << std::endl;
+                    if(simpleType == SysyType::IntegerTyID){
+                        *output.log << "SysyType::IntegerTyID" << std::endl;
                         auto val = result[element].value->getInt();
-                        *output.log << constructingValue->value.index() << std::endl;
-                        memcpy(std::get<void*> (constructingValue->value) + constructingIndex, &val, sizeof(int));
+                        *output.log << constructingValue->const_.index() << std::endl;
+                        memcpy(std::get<void*> (constructingValue->const_) + constructingIndex, &val, sizeof(int));
                         constructingIndex += sizeof(int);
-                    } else if(simpleType == FLOAT){
+                    } else if(simpleType == SysyType::FloatTyID){
                         auto val = result[element].value->getFloat();
-                        memcpy(std::get<void*> (constructingValue->value) + constructingIndex, &val, sizeof(float));
+                        memcpy(std::get<void*> (constructingValue->const_) + constructingIndex, &val, sizeof(float));
                         constructingIndex += sizeof(float);
                     }   
                 } else if (isConst){
@@ -448,7 +448,7 @@ void Checker::visit(DeclNode &node) {
     constructingValue = nullptr;
 
 
-    auto decl = std::make_shared<VarDecl>(node.id, *value);
+    auto decl = std::make_shared<VarDecl>(node.id, *value, node);
 
 
     if (currentFunction) {
@@ -456,20 +456,20 @@ void Checker::visit(DeclNode &node) {
      } else scope.addGlobalVar(node.id, decl);
 
     
-    result[std::make_shared<DeclNode>(node)] = checkerResult(decl);
+    result[std::make_shared<DeclNode>(node)] = CheckerResult(decl);
     
     *output.log << "Finished visiting DeclNode" << std::endl;
 }
 
 void Checker::visit(ConstIntNode &node) {
     *output.log << "Visiting ConstIntNode" << std::endl;
-    result[std::make_shared<ConstIntNode>(node)] = checkerResult({}, TypeValue(std::make_shared<SimpleType>(INT, true), node.val));
+    result[std::make_shared<ConstIntNode>(node)] = CheckerResult(TypeValue(std::make_shared<SimpleType>(SysyType::IntegerTyID, true), node.val));
     *output.log << "Finished visiting ConstIntNode" << std::endl;
 }
 
 void Checker::visit(ConstFloatNode &node) {
     *output.log << "Visiting ConstFloatNode" << std::endl;
-    result[std::make_shared<ConstFloatNode>(node)] = checkerResult({}, TypeValue(std::make_shared<SimpleType>(FLOAT, true), node.val));
+    result[std::make_shared<ConstFloatNode>(node)] = CheckerResult(TypeValue(std::make_shared<SimpleType>(SysyType::FloatTyID, true), node.val));
     *output.log << "Finished visiting ConstFloatNode" << std::endl;
 }
 
@@ -481,7 +481,7 @@ void Checker::visit(IdentifierNode &node) {
         return;
     }
     result[std::make_shared<IdentifierNode>(node)] = 
-        checkerResult(var ,var->typeValue);
+        CheckerResult(var);
     *output.log << "Finished visiting IdentifierNode" << std::endl;
 }
 
@@ -524,8 +524,8 @@ void Checker::visit(LvalNode &node) {
                 return;
             }
 
-            if (std::dynamic_pointer_cast<SimpleType>(indexResult.value->type)->type != INT
-            && std::dynamic_pointer_cast<SimpleType>(indexResult.value->type)->type != FLOAT) {
+            if (std::dynamic_pointer_cast<SimpleType>(indexResult.value->type)->type != SysyType::IntegerTyID
+            && std::dynamic_pointer_cast<SimpleType>(indexResult.value->type)->type != SysyType::FloatTyID) {
                 REPORT_ERROR("Array index must be an integer.");
                 return;
             }
@@ -556,13 +556,13 @@ void Checker::visit(LvalNode &node) {
 
         }
         if(allConst) {
-            result[std::make_shared<LvalNode>(node)] = checkerResult({}, typeValue);
+            result[std::make_shared<LvalNode>(node)] = CheckerResult(typeValue);
         } else {
-            result[std::make_shared<LvalNode>(node)] = checkerResult({}, TypeValue(typeValue.type));
+            result[std::make_shared<LvalNode>(node)] = CheckerResult(TypeValue(typeValue.type));
         }
         return ;
     }
-    else result[std::make_shared<LvalNode>(node)] = checkerResult({}, var->typeValue);
+    else result[std::make_shared<LvalNode>(node)] = CheckerResult( var->typeValue);
     
     *output.log << "Finished visiting LvalNode" << std::endl;
 }

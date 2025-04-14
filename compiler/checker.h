@@ -8,26 +8,28 @@
 #include <stack>
 #include "type.h"
 
-class checkerResult {
+class CheckerResult {
 public:
-    std::variant<std::shared_ptr<FuncDecl>, std::shared_ptr<VarDecl>> decl; // Changed to use shared_ptr
-    std::optional<TypeValue> value; // Changed to std::optional<std::shared_ptr<ConstChunk>>
-    std::shared_ptr<Node> relocateNode; // For conditional jumps
-    std::shared_ptr<Node> jumpTarget;   // Changed to std::shared_ptr<Node>
+    std::shared_ptr<Node> decl; 
+    std::optional<TypeValue> value; 
+    std::shared_ptr<Node> relocateNode; 
+    std::shared_ptr<Node> jumpTarget;   
 
-    checkerResult(std::variant<std::shared_ptr<FuncDecl>, std::shared_ptr<VarDecl>> decl)
-        : decl(decl), value(), relocateNode(nullptr), jumpTarget(nullptr) {}
+    CheckerResult(std::shared_ptr<FuncDecl> decl)
+        : decl(decl->node), value(decl->returnType), relocateNode(nullptr), jumpTarget(nullptr)  {}
+    CheckerResult(std::shared_ptr<VarDecl> decl)
+        : decl(decl->node), value(decl->typeValue), relocateNode(nullptr), jumpTarget(nullptr) {}
 
-    checkerResult(std::variant<std::shared_ptr<FuncDecl>, std::shared_ptr<VarDecl>> decl, TypeValue value)
-        : decl(decl), value(value), relocateNode(nullptr), jumpTarget(nullptr) {}
+    CheckerResult(TypeValue value)
+        : decl(nullptr), value(value), relocateNode(nullptr), jumpTarget(nullptr) {}
 
-    checkerResult() = default;
+    CheckerResult() = default;
 };
 
 class Checker : public Visitor {
 public:
     Scope scope;
-    std::map<std::shared_ptr<Node>, checkerResult, Node::NodeCompare> result;
+    std::map<std::shared_ptr<Node>, CheckerResult, Node::NodeCompare> result;
 
     std::stack<std::shared_ptr<Node>> loopStack; // Changed to std::shared_ptr<Node>
     std::shared_ptr<Node> currentFunction;      // Changed to std::shared_ptr<Node>

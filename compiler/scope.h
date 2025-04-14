@@ -11,27 +11,33 @@
 #include <stack>
 
 #include "type.h"
+#include "AST.h"
 
 class VarDecl{
 public:
+    std::shared_ptr<Node> node;
     std::string id;
     
     TypeValue typeValue;
 
-    VarDecl(std::string id, TypeValue typeValue)
-        : id(id), typeValue(typeValue) {}
+    VarDecl(std::string id, TypeValue typeValue, DeclNode& node)
+        : id(id), node(std::make_shared<DeclNode> (node)), typeValue(typeValue) {}
+    
+    VarDecl(std::string id, TypeValue typeValue, ParamNode& node)
+        : id(id), node(std::make_shared<ParamNode> (node)), typeValue(typeValue) {}
 
 
 };
 
 class FuncDecl{
 public:
-    SimpleType returnType;
+    std::shared_ptr<Node> node;
+    std::shared_ptr<SysyType> returnType;
     std::string id;
     std::shared_ptr<std::vector<std::shared_ptr<VarDecl> > > paramList;
     std::shared_ptr<Node> stmt;
-    FuncDecl(yytokentype returnType, std::string id)
-        : returnType(returnType), id(id), paramList(std::make_shared<std::vector<std::shared_ptr<VarDecl> > >()), stmt(nullptr) {}
+    FuncDecl(yytokentype returnType, std::string id, FuncDefNode& node)
+        : returnType(std::make_shared<SimpleType>(returnType)), id(id), node(std::make_shared<FuncDefNode> (node)), paramList(std::make_shared<std::vector<std::shared_ptr<VarDecl> > >()), stmt(nullptr) {}
 };
 
 class Scope{

@@ -10,12 +10,12 @@ lex.yy.c: lex.l
 y.tab.c: yacc.y
 	$(YACC) -o $@ -d $<
 
-AST: y.tab.c lex.yy.c AST.cpp displayAST.cpp output.cpp main.cpp checker.cpp tool.cpp scope.cpp type.cpp
+hagalaz: y.tab.c lex.yy.c AST.cpp displayAST.cpp output.cpp main.cpp checker.cpp tool.cpp scope.cpp type.cpp
 	$(CC) -o $@ $^ -lfl
 
 clean:
 	@echo "Cleaning up..."
-	@rm -f *.o lex.yy.c y.tab.c y.tab.h AST
+	@rm -f *.o lex.yy.c y.tab.c y.tab.h hagalaz
 	@echo "Cleaned up."
 
 .PHONY: clean
