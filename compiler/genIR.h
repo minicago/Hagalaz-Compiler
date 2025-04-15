@@ -32,7 +32,7 @@ public:
     Scope scope;
     std::map<std::shared_ptr<Node>, CheckerResult, Node::NodeCompare> result;
 
-    std::stack<std::shared_ptr<Node>> loopStack; // Changed to std::shared_ptr<Node>
+    std::stack<Operand> breakStack, continueStack, returnStack; // Changed to std::shared_ptr<Node>
     std::shared_ptr<Node> currentFunction;      // Changed to std::shared_ptr<Node>
 
     size_t constructingIndex;

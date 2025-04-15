@@ -24,6 +24,8 @@ void GenIR::visit(ExprNode &node) {
         return;
     }
 
+    
+
     auto val1Type = std::dynamic_pointer_cast<SimpleType>(val1Result.value->type);
     auto val2Type = std::dynamic_pointer_cast<SimpleType>(val2Result.value->type);
 
@@ -69,7 +71,9 @@ void GenIR::visit(ExprNode &node) {
     result[std::make_shared<ExprNode>(node)] = CheckerResult();
 
 
-
+    // *output.log << "val1" << val1Result.value->toString() << std::endl;
+    // *output.log << "val2" << val2Result.value->toString() << std::endl;
+    
     // Check if the result is a constant
     if (val1Result.value->isConst() && val2Result.value->isConst()) {
         if (node.op == NE || node.op == GE || node.op == LE || node.op == GT || node.op == LT || node.op == AND || node.op == OR || node.op == EQ || node.op == NOT) { 
@@ -95,57 +99,23 @@ void GenIR::visit(ExprNode &node) {
     // Determine the result type
         if (node.op == NOT){
             result[std::make_shared<ExprNode>(node)].value = TypeValue(std::make_shared<SimpleType>(SysyType::IntegerTyID));
-            builder.addUnaryInstruction(val2Result.value->value, result[std::make_shared<ExprNode>(node)].value->value, node.op);
+            builder.addUnaryInstruction(val2Result.value->getOperand(), result[std::make_shared<ExprNode>(node)].value->value, node.op);
         } else if (node.op == NE || node.op == GE || node.op == LE || node.op == GT || node.op == LT || node.op == AND || node.op == OR || node.op == EQ || node.op == NOT) {
             result[std::make_shared<ExprNode>(node)].value = TypeValue(std::make_shared<SimpleType>(SysyType::IntegerTyID));
-            if (val1Type->type == SysyType::IntegerTyID && val2Type->type == SysyType::FloatTyID) {
-                if (val1Result.value->isConst()) {
-                    ConstType val1Float = val1Result.value->getFloat();
-                    builder.addBinaryInstruction(val1Float, val2Result.value->value, result[std::make_shared<ExprNode>(node)].value->value, node.op, true);
-                } else {
-                    auto tmp = builder.newValue();
-                    builder.i2f(val1Result.value->value, tmp);
-                    builder.addBinaryInstruction(tmp, val2Result.value->value, result[std::make_shared<ExprNode>(node)].value->value, node.op, true);
-                }
-            } else if (val1Type->type == SysyType::FloatTyID && val2Type->type == SysyType::IntegerTyID) {
-                if (val2Result.value->isConst()) {
-                    ConstType val2Float = val2Result.value->getFloat();
-                    builder.addBinaryInstruction(val1Result.value->value, val2Float, result[std::make_shared<ExprNode>(node)].value->value, node.op, true);
-                } else {
-                    auto tmp = builder.newValue();
-                    builder.i2f(val2Result.value->value, tmp);
-                    builder.addBinaryInstruction(val1Result.value->value, tmp, result[std::make_shared<ExprNode>(node)].value->value, node.op, true);
-                }
+            if(val1Type->type == SysyType::IntegerTyID && val2Type->type == SysyType::IntegerTyID){
+                builder.addBinaryInstruction(builder.getIntOperand(*val1Result.value), builder.getIntOperand(*val2Result.value), result[std::make_shared<ExprNode>(node)].value->value, node.op);
             } else {
-                builder.addBinaryInstruction(val1Result.value->value, val2Result.value->value, result[std::make_shared<ExprNode>(node)].value->value, node.op);
+                builder.addBinaryInstruction(builder.getFloatOperand(*val1Result.value), builder.getFloatOperand(*val2Result.value), result[std::make_shared<ExprNode>(node)].value->value, node.op, true);
             }
+            
+            
         } else if (val1Type->type == SysyType::FloatTyID || val2Type->type == SysyType::FloatTyID) {
             result[std::make_shared<ExprNode>(node)].value = TypeValue(std::make_shared<SimpleType>(SysyType::FloatTyID));
-            if(val1Type->type == SysyType::IntegerTyID) {
-                if(val1Result.value->isConst()) {
-                    ConstType val1Float = val1Result.value->getFloat();
-                    builder.addBinaryInstruction(val1Float, val2Result.value->value, result[std::make_shared<ExprNode>(node)].value->value, node.op, true);
-                } else {
-                    auto tmp = builder.newValue();
-                    builder.i2f(val1Result.value->value, tmp);
-                    builder.addBinaryInstruction(tmp, val2Result.value->value, result[std::make_shared<ExprNode>(node)].value->value, node.op, true);
-                }
-            } else if (val2Type->type == SysyType::IntegerTyID) {
-                if(val2Result.value->isConst()) {
-                    ConstType val2Float = val2Result.value->getFloat();
-                    builder.addBinaryInstruction(val1Result.value->value, val2Float, result[std::make_shared<ExprNode>(node)].value->value, node.op, true);
-                } else {
-                    auto tmp = builder.newValue();
-                    builder.i2f(val2Result.value->value, tmp);
-                    builder.addBinaryInstruction(val1Result.value->value, tmp, result[std::make_shared<ExprNode>(node)].value->value, node.op, true);
-                }
-            } else {
-                builder.addBinaryInstruction(val1Result.value->value, val2Result.value->value, result[std::make_shared<ExprNode>(node)].value->value, node.op, true);
-            }
+            builder.addBinaryInstruction(builder.getFloatOperand(*val1Result.value), builder.getFloatOperand(*val2Result.value), result[std::make_shared<ExprNode>(node)].value->value, node.op, true);
+            
         } else if (val1Type->type == SysyType::IntegerTyID && val2Type->type == SysyType::IntegerTyID) {
             result[std::make_shared<ExprNode>(node)].value = TypeValue(std::make_shared<SimpleType>(SysyType::IntegerTyID));
-            builder.addBinaryInstruction(val1Result.value->value, val2Result.value->value, result[std::make_shared<ExprNode>(node)].value->value, node.op);
-            
+            builder.addBinaryInstruction(builder.getIntOperand(*val1Result.value), builder.getIntOperand(*val2Result.value), result[std::make_shared<ExprNode>(node)].value->value, node.op);
         } else {
             throw std::runtime_error("Invalid type in expression.");
             return;
@@ -158,7 +128,9 @@ void GenIR::visit(ExprNode &node) {
 
 void GenIR::visit(IfElseNode &node) {
     *output.log << "Visiting IfElseNode" << std::endl;
+
     node.cond->accept(*this);
+
     auto condResult = result[node.cond];
 
     if (condResult.value->isConst()) {
@@ -169,48 +141,67 @@ void GenIR::visit(IfElseNode &node) {
         }
     } else {
         // Regular handling of IfElseNode
-        node.ifstmt->accept(*this);
+        auto iflabel = builder.newValue(), finallabel = builder.newValue(); // Create a new Node for the if label
+        builder.addBranchInstruction(condResult.value->value, iflabel);
         if (node.elsestmt) {
             node.elsestmt->accept(*this);
         }
+        builder.addGotoInstruction(finallabel);
+        builder.addLabelInstruction(iflabel);
+        node.ifstmt->accept(*this);
+        builder.addLabelInstruction(finallabel);
     }
     *output.log << "Finished visiting IfElseNode" << std::endl;
 }
 
 void GenIR::visit(WhileNode &node) {
     *output.log << "Visiting WhileNode" << std::endl;
+    
+    auto loopLabel = builder.newValue(); // Create a new Node for the loop label
+    auto loopEndLabel = builder.newValue(); // Create a new Node for the loop end label
+    
+    breakStack.push(loopEndLabel);
+    continueStack.push(loopLabel);
+
+    builder.addLabelInstruction(loopLabel);
     node.cond->accept(*this);
-
-    auto loopLabel = std::make_shared<WhileNode>(node); // Create a new Node for the loop label
-    loopStack.push(loopLabel);
-
+    auto reverseCond = builder.newValue();
+    builder.addUnaryInstruction(result[node.cond].value->value, reverseCond, NOT);
+    builder.addBranchInstruction(reverseCond, loopEndLabel);
+    
     node.stmt->accept(*this);
 
-    loopStack.pop();
+    builder.addGotoInstruction(loopLabel);
+    
+    builder.addLabelInstruction(loopEndLabel); 
+
+    breakStack.pop();
+    continueStack.pop();
+
     *output.log << "Finished visiting WhileNode" << std::endl;
 }
 
 void GenIR::visit(BreakNode &node) {
     *output.log << "Visiting BreakNode" << std::endl;
-    if (loopStack.empty()) {
+    if (breakStack.empty()) {
         REPORT_ERROR("Break statement outside of a loop.");
         return;
     }
 
     result[std::make_shared<BreakNode>(node)] = CheckerResult();
-    result[std::make_shared<BreakNode>(node)].jumpTarget = loopStack.top(); // Use shared_ptr<Node>
+    builder.addGotoInstruction(breakStack.top());// Use shared_ptr<Node>
     *output.log << "Finished visiting BreakNode" << std::endl;
 }
 
 void GenIR::visit(ContinueNode &node) {
     *output.log << "Visiting ContinueNode" << std::endl;
-    if (loopStack.empty()) {
+    if (continueStack.empty()) {
         REPORT_ERROR("Continue statement outside of a loop.");
         return;
     }
 
     result[std::make_shared<ContinueNode>(node)] = CheckerResult();
-    result[std::make_shared<ContinueNode>(node)].jumpTarget = loopStack.top(); // Use shared_ptr<Node>
+    builder.addGotoInstruction(continueStack.top());
     *output.log << "Finished visiting ContinueNode" << std::endl;
 }
 
@@ -509,10 +500,20 @@ void GenIR::visit(DeclNode &node) {
                 return ;
             }
             if(std::dynamic_pointer_cast<SimpleType>(type)->type == SysyType::IntegerTyID ) {
-                value->const_ = result[node.initval].value->getInt();
+                if(node.isConst) {
+                    if (!result[node.initval].value->isConst()){
+                        REPORT_ERROR("Invalid value in vector initialization.");
+                    }
+                    value->const_ = result[node.initval].value->getInt();
+                } 
                 builder.addStoreInstruction(builder.getIntOperand(*result[node.initval].value), value->value);
             } else  if(std::dynamic_pointer_cast<SimpleType>(type)->type == SysyType::FloatTyID ) {
-                value->const_ = result[node.initval].value->getFloat();
+                if(node.isConst) {
+                    if (!result[node.initval].value->isConst()){
+                        REPORT_ERROR("Invalid value in vector initialization.");
+                    }
+                    value->const_ = result[node.initval].value->getFloat();
+                }
                 builder.addStoreInstruction(builder.getFloatOperand(*result[node.initval].value), value->value);
             }
         }
@@ -673,5 +674,6 @@ void GenIR::visit(LvalNode &node) {
         builder.addLoadInstruction(result[std::make_shared<LvalNode>(node)].value->value, tmp);
         result[std::make_shared<LvalNode>(node)].value->value = tmp;
     }
+    *output.log << result[std::make_shared<LvalNode>(node)].value->toString() << std::endl;
     *output.log << "Finished visiting LvalNode" << std::endl;
 }

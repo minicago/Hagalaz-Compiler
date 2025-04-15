@@ -336,6 +336,7 @@ public:
     std::string toString() const {
         std::string result;
         for (const auto &instruction : instructions) {
+            *output.log << instruction->toString() << std::endl;
             result += instruction->toString() + "\n";
         }
         return result;

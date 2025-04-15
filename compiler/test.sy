@@ -5,4 +5,11 @@ int main(){
     const int a = 1;
     int b = 2;
     int c[a] = {1};
+    if ( a + b > 1) {
+        b = b + 1;
+    } else {
+        b = b + 2;
+    }
+    b = b + 3;
+
 }
