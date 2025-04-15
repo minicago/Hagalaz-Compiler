@@ -40,6 +40,8 @@ public:
     std::shared_ptr<SysyType> constructingType;
     IRBuilder builder;
 
+    bool isAssign;
+
     void visit(ExprNode &node) override;
     void visit(IfElseNode &node) override;
     void visit(WhileNode &node) override;

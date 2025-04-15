@@ -24,6 +24,9 @@ public:
         I2F_OP,
         ASSIGN_OP,
     };
+    static Operand constInt(int a){
+        return a;
+    }
     static std::map<OpType, std::string> opTypeToString;
     static std::string operandToString(Operand op)  {
         if (std::holds_alternative<std::shared_ptr<Value>>(op)) {
@@ -290,6 +293,45 @@ public:
     void addMallocInstruction(Operand size, Operand result) {
         addInstruction(std::make_shared<MallocInstruction>(size, result));
     }
+
+    Operand getIntOperand(TypeValue& tv){
+        if(!tv.type->isSimpleType()) {
+            REPORT_ERROR("getIntOperand Error");
+        }
+        if(std::dynamic_pointer_cast<SimpleType> (tv.type)->type == SysyType::IntegerTyID) {
+            return tv.getOperand();
+        }
+        if(std::dynamic_pointer_cast<SimpleType> (tv.type)->type == SysyType::FloatTyID){
+            if (tv.hasConst()) {
+                return tv.getInt();
+            } else {
+                auto tmp = newValue();
+                f2i(tv.getOperand(), tmp);
+                return tmp;
+            }
+        }
+        REPORT_ERROR("getIntOperand Error");
+    }
+
+    Operand getFloatOperand(TypeValue& tv){
+        if(!tv.type->isSimpleType()) {
+            REPORT_ERROR("getFloatOperand Error");
+        }
+        if(std::dynamic_pointer_cast<SimpleType> (tv.type)->type == SysyType::FloatTyID) {
+            return tv.getOperand();
+        }
+        if(std::dynamic_pointer_cast<SimpleType> (tv.type)->type == SysyType::IntegerTyID){
+            if (tv.hasConst()) {
+                return tv.getFloat();
+            } else {
+                auto tmp = newValue();
+                i2f(tv.getOperand(), tmp);
+                return tmp;
+            }
+        }
+        REPORT_ERROR("getFloatOperand Error");
+    }
+
 
     std::string toString() const {
         std::string result;

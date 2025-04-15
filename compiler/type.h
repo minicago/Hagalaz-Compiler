@@ -143,6 +143,8 @@ public:
     bool hasConst(){
         return std::holds_alternative<std::monostate>(const_) == false;
     }   
+    TypeValue(std::shared_ptr<Value> value, std::shared_ptr<SysyType> type)
+        : type(type), const_(), value(value) {}
 
     TypeValue(std::shared_ptr<SysyType> type, ConstType value)
         : type(type), const_(value), value(nullptr) {}
@@ -212,11 +214,12 @@ public:
             throw std::invalid_argument("Type is not an array");
         }
     } 
+    
     Operand getOperand() {
-        if (hasConst()) {
-            return const_;
-        } else if (value) {
+        if (value) {
             return value;
+        } else if (hasConst()) {
+            return const_;
         } else {
             throw std::invalid_argument("No value or const");
         }

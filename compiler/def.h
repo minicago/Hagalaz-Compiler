@@ -8,6 +8,7 @@
 #include <string>
 #include <optional>
 #include <valarray>
+#include <stdexcept>
 
 class Visitor;
 
