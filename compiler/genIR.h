@@ -1,5 +1,5 @@
-#ifndef CHECKER_H
-#define CHECKER_H
+#ifndef GENIR_H
+#define GENIR_H
 
 #include "def.h"
 #include "AST.h"
@@ -7,6 +7,7 @@
 #include <optional>
 #include <stack>
 #include "type.h"
+#include "ir.h"
 
 class CheckerResult {
 public:
@@ -26,7 +27,7 @@ public:
     CheckerResult() = default;
 };
 
-class Checker : public Visitor {
+class GenIR : public Visitor {
 public:
     Scope scope;
     std::map<std::shared_ptr<Node>, CheckerResult, Node::NodeCompare> result;
@@ -37,6 +38,7 @@ public:
     size_t constructingIndex;
     std::shared_ptr<TypeValue> constructingValue;
     std::shared_ptr<SysyType> constructingType;
+    IRBuilder builder;
 
     void visit(ExprNode &node) override;
     void visit(IfElseNode &node) override;
@@ -61,7 +63,7 @@ public:
     void visit(BlockGroupNode &node) override;
     void visit(LvalNode &node) override;
 
-    Checker() = default;
+    GenIR() = default;
 };
 
 #endif

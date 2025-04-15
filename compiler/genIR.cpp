@@ -1,9 +1,9 @@
-#include "checker.h"
+#include "genIR.h"
 #include "output.h"
 #include "tool.h"
 #include <cstring>
 
-void Checker::visit(ExprNode &node) {
+void GenIR::visit(ExprNode &node) {
     if (node.val1){
        node.val1->accept(*this); 
     } 
@@ -73,8 +73,8 @@ void Checker::visit(ExprNode &node) {
     // Check if the result is a constant
     if (val1Result.value->isConst() && val2Result.value->isConst()) {
         if (node.op == NE || node.op == GE || node.op == LE || node.op == GT || node.op == LT || node.op == AND || node.op == OR || node.op == EQ || node.op == NOT) { 
-            auto val1Float = std::get<float>(val1Result.value->const_);
-            auto val2Float = std::get<float>(val2Result.value->const_);
+            auto val1Float = val1Result.value->getInt();
+            auto val2Float = val2Result.value->getInt();
             result[std::make_shared<ExprNode>(node)].value = TypeValue(std::make_shared<SimpleType>(SysyType::IntegerTyID, true), op_bool(node.op, val1Float, val2Float));
 
         } else {
@@ -83,8 +83,8 @@ void Checker::visit(ExprNode &node) {
                 auto val2Int = std::get<int>(val2Result.value->const_);
                 result[std::make_shared<ExprNode>(node)].value = TypeValue(std::make_shared<SimpleType>(SysyType::IntegerTyID, true), op_int(node.op, val1Int, val2Int));
             } else if (val1Type->type == SysyType::FloatTyID || val2Type->type == SysyType::FloatTyID) {
-                auto val1Float = std::get<float>(val1Result.value->const_);
-                auto val2Float = std::get<float>(val2Result.value->const_);
+                auto val1Float = val1Result.value->getFloat();
+                auto val2Float = val2Result.value->getFloat();
                 result[std::make_shared<ExprNode>(node)].value = TypeValue(std::make_shared<SimpleType>(SysyType::FloatTyID, true), op_float(node.op, val1Float, val2Float));
             }   else {
                 throw std::runtime_error("Invalid type in expression.");
@@ -93,20 +93,70 @@ void Checker::visit(ExprNode &node) {
         } 
     } else {
     // Determine the result type
-        if (node.op == NE || node.op == GE || node.op == LE || node.op == GT || node.op == LT || val1Type->type == SysyType::IntegerTyID && val2Type->type == SysyType::IntegerTyID) {
+        if (node.op == NOT){
             result[std::make_shared<ExprNode>(node)].value = TypeValue(std::make_shared<SimpleType>(SysyType::IntegerTyID));
+            builder.addUnaryInstruction(val2Result.value->value, result[std::make_shared<ExprNode>(node)].value->value, node.op);
+        } else if (node.op == NE || node.op == GE || node.op == LE || node.op == GT || node.op == LT || node.op == AND || node.op == OR || node.op == EQ || node.op == NOT) {
+            result[std::make_shared<ExprNode>(node)].value = TypeValue(std::make_shared<SimpleType>(SysyType::IntegerTyID));
+            if (val1Type->type == SysyType::IntegerTyID && val2Type->type == SysyType::FloatTyID) {
+                if (val1Result.value->isConst()) {
+                    ConstType val1Float = val1Result.value->getFloat();
+                    builder.addBinaryInstruction(val1Float, val2Result.value->value, result[std::make_shared<ExprNode>(node)].value->value, node.op, true);
+                } else {
+                    auto tmp = builder.newValue();
+                    builder.i2f(val1Result.value->value, tmp);
+                    builder.addBinaryInstruction(tmp, val2Result.value->value, result[std::make_shared<ExprNode>(node)].value->value, node.op, true);
+                }
+            } else if (val1Type->type == SysyType::FloatTyID && val2Type->type == SysyType::IntegerTyID) {
+                if (val2Result.value->isConst()) {
+                    ConstType val2Float = val2Result.value->getFloat();
+                    builder.addBinaryInstruction(val1Result.value->value, val2Float, result[std::make_shared<ExprNode>(node)].value->value, node.op, true);
+                } else {
+                    auto tmp = builder.newValue();
+                    builder.i2f(val2Result.value->value, tmp);
+                    builder.addBinaryInstruction(val1Result.value->value, tmp, result[std::make_shared<ExprNode>(node)].value->value, node.op, true);
+                }
+            } else {
+                builder.addBinaryInstruction(val1Result.value->value, val2Result.value->value, result[std::make_shared<ExprNode>(node)].value->value, node.op);
+            }
         } else if (val1Type->type == SysyType::FloatTyID || val2Type->type == SysyType::FloatTyID) {
             result[std::make_shared<ExprNode>(node)].value = TypeValue(std::make_shared<SimpleType>(SysyType::FloatTyID));
+            if(val1Type->type == SysyType::IntegerTyID) {
+                if(val1Result.value->isConst()) {
+                    ConstType val1Float = val1Result.value->getFloat();
+                    builder.addBinaryInstruction(val1Float, val2Result.value->value, result[std::make_shared<ExprNode>(node)].value->value, node.op, true);
+                } else {
+                    auto tmp = builder.newValue();
+                    builder.i2f(val1Result.value->value, tmp);
+                    builder.addBinaryInstruction(tmp, val2Result.value->value, result[std::make_shared<ExprNode>(node)].value->value, node.op, true);
+                }
+            } else if (val2Type->type == SysyType::IntegerTyID) {
+                if(val2Result.value->isConst()) {
+                    ConstType val2Float = val2Result.value->getFloat();
+                    builder.addBinaryInstruction(val1Result.value->value, val2Float, result[std::make_shared<ExprNode>(node)].value->value, node.op, true);
+                } else {
+                    auto tmp = builder.newValue();
+                    builder.i2f(val2Result.value->value, tmp);
+                    builder.addBinaryInstruction(val1Result.value->value, tmp, result[std::make_shared<ExprNode>(node)].value->value, node.op, true);
+                }
+            } else {
+                builder.addBinaryInstruction(val1Result.value->value, val2Result.value->value, result[std::make_shared<ExprNode>(node)].value->value, node.op, true);
+            }
+        } else if (val1Type->type == SysyType::IntegerTyID && val2Type->type == SysyType::IntegerTyID) {
+            result[std::make_shared<ExprNode>(node)].value = TypeValue(std::make_shared<SimpleType>(SysyType::IntegerTyID));
+            builder.addBinaryInstruction(val1Result.value->value, val2Result.value->value, result[std::make_shared<ExprNode>(node)].value->value, node.op);
+            
         } else {
             throw std::runtime_error("Invalid type in expression.");
             return;
         }
+        
     }
     
     *output.log << "Finished visiting ExprNode" << std::endl;
 }
 
-void Checker::visit(IfElseNode &node) {
+void GenIR::visit(IfElseNode &node) {
     *output.log << "Visiting IfElseNode" << std::endl;
     node.cond->accept(*this);
     auto condResult = result[node.cond];
@@ -127,7 +177,7 @@ void Checker::visit(IfElseNode &node) {
     *output.log << "Finished visiting IfElseNode" << std::endl;
 }
 
-void Checker::visit(WhileNode &node) {
+void GenIR::visit(WhileNode &node) {
     *output.log << "Visiting WhileNode" << std::endl;
     node.cond->accept(*this);
 
@@ -140,7 +190,7 @@ void Checker::visit(WhileNode &node) {
     *output.log << "Finished visiting WhileNode" << std::endl;
 }
 
-void Checker::visit(BreakNode &node) {
+void GenIR::visit(BreakNode &node) {
     *output.log << "Visiting BreakNode" << std::endl;
     if (loopStack.empty()) {
         REPORT_ERROR("Break statement outside of a loop.");
@@ -152,7 +202,7 @@ void Checker::visit(BreakNode &node) {
     *output.log << "Finished visiting BreakNode" << std::endl;
 }
 
-void Checker::visit(ContinueNode &node) {
+void GenIR::visit(ContinueNode &node) {
     *output.log << "Visiting ContinueNode" << std::endl;
     if (loopStack.empty()) {
         REPORT_ERROR("Continue statement outside of a loop.");
@@ -164,7 +214,7 @@ void Checker::visit(ContinueNode &node) {
     *output.log << "Finished visiting ContinueNode" << std::endl;
 }
 
-void Checker::visit(ReturnNode &node) {
+void GenIR::visit(ReturnNode &node) {
     *output.log << "Visiting ReturnNode" << std::endl;
     if (!currentFunction) {
         REPORT_ERROR("Return statement outside of a function.");
@@ -181,7 +231,7 @@ void Checker::visit(ReturnNode &node) {
     *output.log << "Finished visiting ReturnNode" << std::endl;
 }
 
-void Checker::visit(FuncDefNode &node) {
+void GenIR::visit(FuncDefNode &node) {
     *output.log << "Visiting FuncDefNode" << std::endl;
     *output.log << "Function definition: " << node.id << std::endl;
     currentFunction = std::make_shared<FuncDefNode>(node); // Assign current function as a Node
@@ -212,7 +262,7 @@ void Checker::visit(FuncDefNode &node) {
     *output.log << "Finished visiting FuncDefNode" << std::endl;
 }
 
-void Checker::visit(FuncCallNode &node) {
+void GenIR::visit(FuncCallNode &node) {
     *output.log << "Visiting FuncCallNode" << std::endl;
     auto func = scope.findFunc(node.id);
     if (!func) {
@@ -244,7 +294,7 @@ void Checker::visit(FuncCallNode &node) {
     *output.log << "Finished visiting FuncCallNode" << std::endl;
 }
 
-void Checker::visit(ParamNode &node) {   
+void GenIR::visit(ParamNode &node) {   
     *output.log << "Visiting ParamNode" << std::endl;
     std::shared_ptr<SysyType> type = std::make_shared<SimpleType>(node.type);
     
@@ -267,7 +317,7 @@ void Checker::visit(ParamNode &node) {
     *output.log << "Finished visiting ParamNode" << std::endl;
 }
 
-void Checker::visit(ParamListNode &node) {
+void GenIR::visit(ParamListNode &node) {
     *output.log << "Visiting ParamListNode" << std::endl;
     for (auto &param : node.paramlist) {
         param->accept(*this);
@@ -275,7 +325,7 @@ void Checker::visit(ParamListNode &node) {
     *output.log << "Finished visiting ParamListNode" << std::endl;
 }
 
-void Checker::visit(FuncCallParamNode &node) {
+void GenIR::visit(FuncCallParamNode &node) {
     *output.log << "Visiting FuncCallParamNode" << std::endl;
     for (auto &param : node.paramlist) {
         param->accept(*this);
@@ -283,7 +333,7 @@ void Checker::visit(FuncCallParamNode &node) {
     *output.log << "Finished visiting FuncCallParamNode" << std::endl;
 }
 
-void Checker::visit(CompUnitNode &node) {
+void GenIR::visit(CompUnitNode &node) {
     *output.log << "Visiting CompUnitNode" << std::endl;
     for (auto &def : node.deflist) {
         def->accept(*this);
@@ -291,7 +341,7 @@ void Checker::visit(CompUnitNode &node) {
     *output.log << "Finished visiting CompUnitNode" << std::endl;
 }
 
-void Checker::visit(StmtListNode &node) {
+void GenIR::visit(StmtListNode &node) {
     *output.log << "Visiting StmtListNode" << std::endl;
     for (auto &stmt : node.stmtlist) {
         stmt->accept(*this);
@@ -303,7 +353,7 @@ void Checker::visit(StmtListNode &node) {
     *output.log << "Finished visiting StmtListNode" << std::endl;
 }
 
-void Checker::visit(AssignNode &node) {
+void GenIR::visit(AssignNode &node) {
     *output.log << "Visiting AssignNode" << std::endl;
     node.left->accept(*this);
     node.expr->accept(*this);
@@ -311,7 +361,7 @@ void Checker::visit(AssignNode &node) {
     *output.log << "Finished visiting AssignNode" << std::endl;
 }
 
-void Checker::visit(VectorNode &node) {
+void GenIR::visit(VectorNode &node) {
     *output.log << "Visiting vectorNode" << std::endl;
     if (constructingType){
         *output.log << "Constructing type: " << constructingType->toString() << std::endl;
@@ -418,7 +468,7 @@ void Checker::visit(VectorNode &node) {
     *output.log << "Finished visiting vectorNode" << std::endl;
 }
 
-void Checker::visit(DeclNode &node) {
+void GenIR::visit(DeclNode &node) {
     *output.log << "Visiting DeclNode" << std::endl;
     
     std::shared_ptr<SysyType> type = std::make_shared<SimpleType>(node.type, node.isConst);
@@ -435,6 +485,9 @@ void Checker::visit(DeclNode &node) {
     constructingType = nullptr;
 
     auto value = std::make_shared<TypeValue>(type);
+
+
+    
     
 
     constructingValue = value;
@@ -447,6 +500,12 @@ void Checker::visit(DeclNode &node) {
 
     constructingValue = nullptr;
 
+    if (type->isArrayType()) {
+        builder.addMallocInstruction(type->size, value->value);
+    } else {
+        builder.assign(result[node.initval].value->getOperand(), value->value);
+    }
+
 
     auto decl = std::make_shared<VarDecl>(node.id, *value, node);
 
@@ -457,23 +516,24 @@ void Checker::visit(DeclNode &node) {
 
     
     result[std::make_shared<DeclNode>(node)] = CheckerResult(decl);
+
     
     *output.log << "Finished visiting DeclNode" << std::endl;
 }
 
-void Checker::visit(ConstIntNode &node) {
+void GenIR::visit(ConstIntNode &node) {
     *output.log << "Visiting ConstIntNode" << std::endl;
     result[std::make_shared<ConstIntNode>(node)] = CheckerResult(TypeValue(std::make_shared<SimpleType>(SysyType::IntegerTyID, true), node.val));
     *output.log << "Finished visiting ConstIntNode" << std::endl;
 }
 
-void Checker::visit(ConstFloatNode &node) {
+void GenIR::visit(ConstFloatNode &node) {
     *output.log << "Visiting ConstFloatNode" << std::endl;
     result[std::make_shared<ConstFloatNode>(node)] = CheckerResult(TypeValue(std::make_shared<SimpleType>(SysyType::FloatTyID, true), node.val));
     *output.log << "Finished visiting ConstFloatNode" << std::endl;
 }
 
-void Checker::visit(IdentifierNode &node) {
+void GenIR::visit(IdentifierNode &node) {
     *output.log << "Visiting IdentifierNode" << std::endl;
     auto var = scope.findVar(node.id);
     if (!var) {
@@ -485,13 +545,13 @@ void Checker::visit(IdentifierNode &node) {
     *output.log << "Finished visiting IdentifierNode" << std::endl;
 }
 
-void Checker::visit(SimpleTokenNode &node) {
+void GenIR::visit(SimpleTokenNode &node) {
     *output.log << "Visiting SimpleTokenNode" << std::endl;
     // ...existing code for handling simple tokens...
     *output.log << "Finished visiting SimpleTokenNode" << std::endl;
 }
 
-void Checker::visit(BlockGroupNode &node) {
+void GenIR::visit(BlockGroupNode &node) {
     *output.log << "Visiting BlockGroupNode" << std::endl;
     scope.enterBlock();
     for (auto &block : node.blocklist) {
@@ -501,7 +561,7 @@ void Checker::visit(BlockGroupNode &node) {
     *output.log << "Finished visiting BlockGroupNode" << std::endl;
 }
 
-void Checker::visit(LvalNode &node) {
+void GenIR::visit(LvalNode &node) {
     *output.log << "Visiting LvalNode" << std::endl;
     auto var = scope.findVar(node.id);
     if (!var) {

@@ -1,5 +1,7 @@
 #include "type.h"
 
+int Value::count = 0;
+
 bool SysyType::isSimpleType() const {
     return dynamic_cast<const SimpleType*>(this) != nullptr;
 }

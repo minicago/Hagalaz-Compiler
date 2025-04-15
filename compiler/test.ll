@@ -3,64 +3,56 @@ source_filename = "test.c"
 target datalayout = "e-m:e-p270:32:32-p271:32:32-p272:64:64-i64:64-i128:128-f80:128-n8:16:32:64-S128"
 target triple = "x86_64-pc-linux-gnu"
 
+@__const.main.a = private unnamed_addr constant [2 x [2 x i32]] [[2 x i32] [i32 1, i32 1], [2 x i32] [i32 1, i32 4]], align 16
+
 ; Function Attrs: noinline nounwind optnone uwtable
 define dso_local i32 @foo(ptr noundef %0) #0 {
-  %2 = alloca ptr, align 8
-  store ptr %0, ptr %2, align 8
-  %3 = load ptr, ptr %2, align 8
-  %4 = getelementptr inbounds [2 x i32], ptr %3, i64 0
-  %5 = getelementptr inbounds [2 x i32], ptr %4, i64 0, i64 0
-  %6 = load i32, ptr %5, align 4
-  ret i32 %6
+  %2 = alloca i32, align 4
+  %3 = alloca ptr, align 8
+  store ptr %0, ptr %3, align 8
+  %4 = load i32, ptr %2, align 4
+  ret i32 %4
 }
 
 ; Function Attrs: noinline nounwind optnone uwtable
 define dso_local i32 @main() #0 {
-  %1 = alloca i32, align 4
-  %2 = alloca i32, align 4
-  %3 = alloca i32, align 4
-  %4 = alloca [2 x [2 x i32]], align 16
-  store i32 0, ptr %1, align 4
-  store i32 1, ptr %2, align 4
-  store i32 4, ptr %3, align 4
-  %5 = getelementptr inbounds [2 x [2 x i32]], ptr %4, i64 0, i64 0
-  %6 = getelementptr inbounds [2 x i32], ptr %5, i64 0, i64 0
-  store i32 114, ptr %6, align 4
-  %7 = getelementptr inbounds i32, ptr %6, i64 1
-  store i32 514, ptr %7, align 4
-  %8 = getelementptr inbounds [2 x i32], ptr %5, i64 1
-  %9 = getelementptr inbounds [2 x i32], ptr %8, i64 0, i64 0
-  %10 = load i32, ptr %3, align 4
-  %11 = load i32, ptr %2, align 4
-  %12 = add nsw i32 %10, %11
-  store i32 %12, ptr %9, align 4
-  %13 = getelementptr inbounds i32, ptr %9, i64 1
-  store i32 810, ptr %13, align 4
-  %14 = getelementptr inbounds [2 x [2 x i32]], ptr %4, i64 0, i64 1
-  %15 = getelementptr inbounds [2 x i32], ptr %14, i64 0, i64 0
-  %16 = load i32, ptr %15, align 8
-  %17 = getelementptr inbounds [2 x [2 x i32]], ptr %4, i64 0, i64 0
-  %18 = getelementptr inbounds [2 x i32], ptr %17, i64 0, i64 0
-  %19 = load i32, ptr %18, align 16
-  %20 = icmp sgt i32 %16, %19
-  br i1 %20, label %21, label %24
-
-21:                                               ; preds = %0
-  %22 = getelementptr inbounds [2 x [2 x i32]], ptr %4, i64 0, i64 0
-  %23 = call i32 @foo(ptr noundef %22)
-  store i32 %23, ptr %1, align 4
-  br label %25
-
-24:                                               ; preds = %0
-  store i32 2, ptr %1, align 4
-  br label %25
-
-25:                                               ; preds = %24, %21
-  %26 = load i32, ptr %1, align 4
-  ret i32 %26
+  %1 = alloca [2 x [2 x i32]], align 16
+  %2 = alloca ptr, align 8
+  %3 = alloca i64, align 8
+  %4 = alloca i64, align 8
+  call void @llvm.memcpy.p0.p0.i64(ptr align 16 %1, ptr align 16 @__const.main.a, i64 16, i1 false)
+  %5 = getelementptr inbounds [2 x [2 x i32]], ptr %1, i64 0, i64 1
+  %6 = getelementptr inbounds [2 x i32], ptr %5, i64 0, i64 1
+  %7 = load i32, ptr %6, align 4
+  %8 = zext i32 %7 to i64
+  %9 = getelementptr inbounds [2 x [2 x i32]], ptr %1, i64 0, i64 1
+  %10 = getelementptr inbounds [2 x i32], ptr %9, i64 0, i64 1
+  %11 = load i32, ptr %10, align 4
+  %12 = zext i32 %11 to i64
+  %13 = call ptr @llvm.stacksave.p0()
+  store ptr %13, ptr %2, align 8
+  %14 = mul nuw i64 %8, %12
+  %15 = alloca i32, i64 %14, align 16
+  store i64 %8, ptr %3, align 8
+  store i64 %12, ptr %4, align 8
+  %16 = call i32 @foo(ptr noundef %15)
+  %17 = load ptr, ptr %2, align 8
+  call void @llvm.stackrestore.p0(ptr %17)
+  ret i32 0
 }
 
+; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: readwrite)
+declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #1
+
+; Function Attrs: nocallback nofree nosync nounwind willreturn
+declare ptr @llvm.stacksave.p0() #2
+
+; Function Attrs: nocallback nofree nosync nounwind willreturn
+declare void @llvm.stackrestore.p0(ptr) #2
+
 attributes #0 = { noinline nounwind optnone uwtable "frame-pointer"="all" "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cmov,+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #1 = { nocallback nofree nounwind willreturn memory(argmem: readwrite) }
+attributes #2 = { nocallback nofree nosync nounwind willreturn }
 
 !llvm.module.flags = !{!0, !1, !2, !3, !4}
 !llvm.ident = !{!5}

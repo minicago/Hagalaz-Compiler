@@ -1,6 +1,6 @@
 #include "def.h"
 #include "displayAST.h"
-#include "checker.h"
+#include "genIR.h"
 #include "AST.h"
 #include "output.h"
 
@@ -13,8 +13,9 @@ int __main(){
     *output.log << "Starting the compiler?" << std::endl;
     DisplayASTVisitor display;
     AST_root->accept(display);
-    Checker check;
-    AST_root->accept(check);
+    GenIR genIR;
+    AST_root->accept(genIR);
+    *output.output<< genIR.builder.toString() << std::endl;
     return 0;
 
 }

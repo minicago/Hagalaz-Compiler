@@ -119,11 +119,22 @@ public:
 
 typedef std::variant<std::monostate, int, float, void* > ConstType;
 
+class Value{
+private:
+    static int count;
+public:
+    int no;
+    Value() : no(count++) {}
+};
+
+typedef std::variant<std::shared_ptr<Value>, ConstType> Operand;
+
 class TypeValue {
 public:
     std::shared_ptr<SysyType> type;
     std::shared_ptr<char[]> data;
     ConstType const_;
+    std::shared_ptr<Value> value;
 
     bool isConst(){
         return type->isConst();
@@ -134,10 +145,10 @@ public:
     }   
 
     TypeValue(std::shared_ptr<SysyType> type, ConstType value)
-        : type(type), const_(value) {}
+        : type(type), const_(value), value(nullptr) {}
 
     TypeValue(std::shared_ptr<SysyType> type)
-        : type(type), const_() {}
+        : type(type), const_(), value(new Value()){}
 
     std::string toString() const {
         std::string s = type->toString();
@@ -201,6 +212,15 @@ public:
             throw std::invalid_argument("Type is not an array");
         }
     } 
+    Operand getOperand() {
+        if (hasConst()) {
+            return const_;
+        } else if (value) {
+            return value;
+        } else {
+            throw std::invalid_argument("No value or const");
+        }
+    }
     
 };
 
