@@ -92,13 +92,10 @@ Decl: ConstDecl {
         BISON_LOG("Decl -> VarDecl\n");
      }
 
-ConstDecl: CONST BType {
-            BISON_LOG("ConstDecl -> CONST BType\n");
-            decl_type = std::dynamic_pointer_cast<SimpleTokenNode>($2)->getType();
-        } ConstDef ";" {
+ConstDecl: CONST BType ConstDef ";" {
             BISON_LOG("ConstDecl -> CONST BType ConstDef ;\n");
             $$ = std::make_shared<StmtListNode>();
-            std::dynamic_pointer_cast<StmtListNode>($$)->addStmt($4);
+            std::dynamic_pointer_cast<StmtListNode>($$)->addStmt($3);
         }
           | ConstDecl "," ConstDef {
             BISON_LOG("ConstDecl -> ConstDecl , ConstDef\n");
@@ -108,12 +105,15 @@ ConstDecl: CONST BType {
 
 BType: INT {
         BISON_LOG("BType -> INT\n");
+        decl_type = INT;
      }
      | FLOAT {
         BISON_LOG("BType -> FLOAT\n");
+        decl_type = FLOAT;
      }
      | VOID {
         BISON_LOG("BType -> VOID\n");
+        decl_type = VOID;
      }
 
 ConstDef: Ident ArrayList ASSIGN InitVal {
@@ -147,12 +147,9 @@ InitValGroup: InitVal {
     std::dynamic_pointer_cast<VectorNode> ($$)->addNode($3);    
 }
 
-VarDecl : BType {
-        BISON_LOG("VarDecl -> BType\n");
-        decl_type = std::dynamic_pointer_cast<SimpleTokenNode>($1)->getType();
-    } VarDefGroup ";" {
+VarDecl : BType VarDefGroup ";" {
         BISON_LOG("VarDecl -> BType VarDefGroup ;\n");
-        $$ = $3; 
+        $$ = $2; 
 }
 
 VarDefGroup: VarDef {
@@ -335,7 +332,7 @@ UnaryExp : PrimaryExp {
 }
          | Ident "(" ")" {
     BISON_LOG("UnaryExp -> Ident ( )\n");
-    $$ = std::make_shared<FuncCallNode> (std::dynamic_pointer_cast<IdentifierNode>($1)->id, nullptr);
+    $$ = std::make_shared<FuncCallNode> (std::dynamic_pointer_cast<IdentifierNode>($1)->id, std::make_shared<FuncCallParamNode> ());
 } 
          | Ident "(" FuncParamsGroup ")" {
     BISON_LOG("UnaryExp -> Ident ( FuncParamsGroup )\n");

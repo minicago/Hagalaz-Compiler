@@ -124,6 +124,14 @@ private:
     static int count;
 public:
     int no;
+    class ValueCompare
+    {
+    public:
+        bool operator()(const std::shared_ptr<Value>& lhs, const std::shared_ptr<Value>& rhs) const
+        {
+            return lhs->no < rhs->no;
+        }
+    };
     Value() : no(count++) {}
 };
 

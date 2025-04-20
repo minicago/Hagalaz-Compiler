@@ -1,5 +1,7 @@
 CC = g++
 CFLAGS = -g -Wall -std=c++17
+ANSC = arm-linux-gnueabihf-gcc
+
 
 LEX = flex
 YACC = bison
@@ -12,6 +14,13 @@ y.tab.c: yacc.y
 
 hagalaz: y.tab.c lex.yy.c AST.cpp displayAST.cpp output.cpp main.cpp genIR.cpp tool.cpp scope.cpp type.cpp ir.cpp
 	$(CC) -o $@ $^ -lfl
+
+test.c : test.sy
+	cp $< $@
+
+test.ans.S : test.c
+	$(ANSC) -S -o $@ $<
+
 
 clean:
 	@echo "Cleaning up..."

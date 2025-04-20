@@ -15,6 +15,8 @@ std::map<Instruction::OpType, std::string> Instruction::opTypeToString = {
     {NE_OP, "ne"},
     {GE_OP, "ge"},
     {LE_OP, "le"},
+    {GT_OP, "gt"},
+    {LT_OP, "lt"},
     {F2I_OP, "f2i"},
     {I2F_OP, "i2f"},
     {ASSIGN_OP, "assign"},

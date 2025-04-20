@@ -17,8 +17,10 @@ class VarDecl{
 public:
     std::shared_ptr<Node> node;
     std::string id;
-    
+
+
     TypeValue typeValue;
+    
 
     VarDecl(std::string id, TypeValue typeValue, DeclNode& node)
         : id(id), node(std::make_shared<DeclNode> (node)), typeValue(typeValue) {}

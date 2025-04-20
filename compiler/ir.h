@@ -19,11 +19,28 @@ public:
         EQ_OP,
         NE_OP,
         GE_OP,
+        GT_OP,
+        LT_OP,
         LE_OP,
         F2I_OP,
         I2F_OP,
         ASSIGN_OP,
     };
+    static OpType reserveOp(OpType op) {
+        if (op == EQ_OP) {
+            return NE_OP;
+        } else if (op == NE_OP) {
+            return LE_OP;
+        } else if (op == GE_OP) {
+            return LT_OP;
+        } else if (op == GT_OP) {
+            return LE_OP;
+        } else if (op == LT_OP) {
+            return GE_OP;
+        } else if (op == LE_OP) {
+            return GT_OP;
+        }
+    }
     static Operand constInt(int a){
         return a;
     }
@@ -226,16 +243,55 @@ public:
     }
 };
 
+class CodeBlock {
+public:
+    std::vector<std::shared_ptr<Value>> args_;
+    std::vector<std::shared_ptr<Instruction>> instructions;
+    std::string toString() const {
+        std::string result;
+        result += "(";
+        for (const auto &arg : args_) {
+            result += Instruction::operandToString(arg) + ",";
+        }
+        result += ")\n";
+        for (const auto &instruction : instructions) {
+            
+            result += instruction->toString() + "\n";
+
+        }
+        return result;
+    }
+};
+
+class Module {
+public:
+    std::shared_ptr<CodeBlock> global;
+    std::map<std::string, std::shared_ptr<CodeBlock>>  func;
+
+    std::string toString() const {
+        std::string result;
+        
+        result += global->toString();
+        for (const auto &pair : func) {
+            result += pair.first + "\n" + pair.second->toString() + '\n';
+            
+        }
+        return result;
+    }
+
+};
+
 class IRBuilder {
 public:
-    std::vector<std::shared_ptr<Instruction>> instructions;
+    std::shared_ptr<Module> module;
+    std::shared_ptr<CodeBlock> currentBlock;
 
     Operand newValue() {
         return std::make_shared<Value>();
     }
 
     void addInstruction(std::shared_ptr<Instruction> instruction) {
-        instructions.push_back(instruction);
+        currentBlock->instructions.push_back(instruction);
     }
 
     void f2i(Operand operand, Operand result) {
@@ -335,12 +391,31 @@ public:
 
     std::string toString() const {
         std::string result;
-        for (const auto &instruction : instructions) {
-            *output.log << instruction->toString() << std::endl;
-            result += instruction->toString() + "\n";
-        }
-        return result;
+        *output.log << "IRBuilder toString" << std::endl;
+        return module->toString();
     }
+
+    void newBlock(std::string name) {
+        module->func[name] = std::make_shared<CodeBlock>();
+        currentBlock = module->func[name];
+    }
+
+    void addFuncArg(std::shared_ptr<Value> v){
+        currentBlock->args_.push_back(v);
+    }
+
+    void switchToGlobal() {
+        
+        currentBlock = module->global;
+    }
+
+    IRBuilder() {
+        module = std::make_shared<Module>();
+        module->global = std::make_shared<CodeBlock>();
+        switchToGlobal();
+    }
+
+    
 };
 
 #endif

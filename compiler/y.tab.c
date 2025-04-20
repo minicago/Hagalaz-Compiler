@@ -253,37 +253,35 @@ enum yysymbol_kind_t
   YYSYMBOL_CompUnit = 44,                  /* CompUnit  */
   YYSYMBOL_Decl = 45,                      /* Decl  */
   YYSYMBOL_ConstDecl = 46,                 /* ConstDecl  */
-  YYSYMBOL_47_1 = 47,                      /* $@1  */
-  YYSYMBOL_BType = 48,                     /* BType  */
-  YYSYMBOL_ConstDef = 49,                  /* ConstDef  */
-  YYSYMBOL_InitVal = 50,                   /* InitVal  */
-  YYSYMBOL_InitValGroup = 51,              /* InitValGroup  */
-  YYSYMBOL_VarDecl = 52,                   /* VarDecl  */
-  YYSYMBOL_53_2 = 53,                      /* $@2  */
-  YYSYMBOL_VarDefGroup = 54,               /* VarDefGroup  */
-  YYSYMBOL_VarDef = 55,                    /* VarDef  */
-  YYSYMBOL_ArrayList = 56,                 /* ArrayList  */
-  YYSYMBOL_FuncDef = 57,                   /* FuncDef  */
-  YYSYMBOL_FuncFParams = 58,               /* FuncFParams  */
-  YYSYMBOL_FuncFParam = 59,                /* FuncFParam  */
-  YYSYMBOL_Block = 60,                     /* Block  */
-  YYSYMBOL_BlockGroup = 61,                /* BlockGroup  */
-  YYSYMBOL_BlockItem = 62,                 /* BlockItem  */
-  YYSYMBOL_Stmt = 63,                      /* Stmt  */
-  YYSYMBOL_Exp = 64,                       /* Exp  */
-  YYSYMBOL_Cond = 65,                      /* Cond  */
-  YYSYMBOL_LVal = 66,                      /* LVal  */
-  YYSYMBOL_Number = 67,                    /* Number  */
-  YYSYMBOL_PrimaryExp = 68,                /* PrimaryExp  */
-  YYSYMBOL_UnaryExp = 69,                  /* UnaryExp  */
-  YYSYMBOL_UnaryOp = 70,                   /* UnaryOp  */
-  YYSYMBOL_FuncParamsGroup = 71,           /* FuncParamsGroup  */
-  YYSYMBOL_MulExp = 72,                    /* MulExp  */
-  YYSYMBOL_AddExp = 73,                    /* AddExp  */
-  YYSYMBOL_RelExp = 74,                    /* RelExp  */
-  YYSYMBOL_EqExp = 75,                     /* EqExp  */
-  YYSYMBOL_LAndExp = 76,                   /* LAndExp  */
-  YYSYMBOL_LOrExp = 77                     /* LOrExp  */
+  YYSYMBOL_BType = 47,                     /* BType  */
+  YYSYMBOL_ConstDef = 48,                  /* ConstDef  */
+  YYSYMBOL_InitVal = 49,                   /* InitVal  */
+  YYSYMBOL_InitValGroup = 50,              /* InitValGroup  */
+  YYSYMBOL_VarDecl = 51,                   /* VarDecl  */
+  YYSYMBOL_VarDefGroup = 52,               /* VarDefGroup  */
+  YYSYMBOL_VarDef = 53,                    /* VarDef  */
+  YYSYMBOL_ArrayList = 54,                 /* ArrayList  */
+  YYSYMBOL_FuncDef = 55,                   /* FuncDef  */
+  YYSYMBOL_FuncFParams = 56,               /* FuncFParams  */
+  YYSYMBOL_FuncFParam = 57,                /* FuncFParam  */
+  YYSYMBOL_Block = 58,                     /* Block  */
+  YYSYMBOL_BlockGroup = 59,                /* BlockGroup  */
+  YYSYMBOL_BlockItem = 60,                 /* BlockItem  */
+  YYSYMBOL_Stmt = 61,                      /* Stmt  */
+  YYSYMBOL_Exp = 62,                       /* Exp  */
+  YYSYMBOL_Cond = 63,                      /* Cond  */
+  YYSYMBOL_LVal = 64,                      /* LVal  */
+  YYSYMBOL_Number = 65,                    /* Number  */
+  YYSYMBOL_PrimaryExp = 66,                /* PrimaryExp  */
+  YYSYMBOL_UnaryExp = 67,                  /* UnaryExp  */
+  YYSYMBOL_UnaryOp = 68,                   /* UnaryOp  */
+  YYSYMBOL_FuncParamsGroup = 69,           /* FuncParamsGroup  */
+  YYSYMBOL_MulExp = 70,                    /* MulExp  */
+  YYSYMBOL_AddExp = 71,                    /* AddExp  */
+  YYSYMBOL_RelExp = 72,                    /* RelExp  */
+  YYSYMBOL_EqExp = 73,                     /* EqExp  */
+  YYSYMBOL_LAndExp = 74,                   /* LAndExp  */
+  YYSYMBOL_LOrExp = 75                     /* LOrExp  */
 };
 typedef enum yysymbol_kind_t yysymbol_kind_t;
 
@@ -614,16 +612,16 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  12
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   243
+#define YYLAST   263
 
 /* YYNTOKENS -- Number of terminals.  */
 #define YYNTOKENS  43
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  35
+#define YYNNTS  33
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  91
+#define YYNRULES  89
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  160
+#define YYNSTATES  158
 
 /* YYMAXUTOK -- Last valid token kind.  */
 #define YYMAXUTOK   297
@@ -676,16 +674,15 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int16 yyrline[] =
 {
-       0,    63,    63,    69,    75,    81,    88,    91,    95,    95,
-     103,   109,   112,   115,   119,   123,   128,   131,   135,   140,
-     144,   150,   150,   158,   162,   168,   171,   174,   177,   182,
-     186,   192,   199,   208,   212,   218,   221,   224,   229,   232,
-     237,   241,   247,   249,   253,   257,   261,   265,   269,   273,
-     277,   281,   285,   289,   293,   298,   303,   308,   311,   316,
-     318,   322,   326,   329,   333,   336,   340,   344,   349,   352,
-     355,   359,   364,   370,   373,   377,   381,   386,   389,   393,
-     398,   401,   405,   409,   413,   418,   420,   423,   428,   430,
-     435,   437
+       0,    63,    63,    69,    75,    81,    88,    91,    95,   100,
+     106,   110,   114,   119,   123,   128,   131,   135,   140,   144,
+     150,   155,   159,   165,   168,   171,   174,   179,   183,   189,
+     196,   205,   209,   215,   218,   221,   226,   229,   234,   238,
+     244,   246,   250,   254,   258,   262,   266,   270,   274,   278,
+     282,   286,   290,   295,   300,   305,   308,   313,   315,   319,
+     323,   326,   330,   333,   337,   341,   346,   349,   352,   356,
+     361,   367,   370,   374,   378,   383,   386,   390,   395,   398,
+     402,   406,   410,   415,   417,   420,   425,   427,   432,   434
 };
 #endif
 
@@ -707,8 +704,8 @@ static const char *const yytname[] =
   "\"(\"", "\")\"", "CONST", "IF", "ELSE", "WHILE", "BREAK", "RETURN",
   "CONTINUE", "AND", "OR", "const_String_Val", "Ident", "INT", "FLOAT",
   "VOID", "const_Int_Val", "INTNUM", "const_Float_Val", "FLOATNUM",
-  "$accept", "CompUnit", "Decl", "ConstDecl", "$@1", "BType", "ConstDef",
-  "InitVal", "InitValGroup", "VarDecl", "$@2", "VarDefGroup", "VarDef",
+  "$accept", "CompUnit", "Decl", "ConstDecl", "BType", "ConstDef",
+  "InitVal", "InitValGroup", "VarDecl", "VarDefGroup", "VarDef",
   "ArrayList", "FuncDef", "FuncFParams", "FuncFParam", "Block",
   "BlockGroup", "BlockItem", "Stmt", "Exp", "Cond", "LVal", "Number",
   "PrimaryExp", "UnaryExp", "UnaryOp", "FuncParamsGroup", "MulExp",
@@ -722,7 +719,7 @@ yysymbol_name (yysymbol_kind_t yysymbol)
 }
 #endif
 
-#define YYPACT_NINF (-130)
+#define YYPACT_NINF (-132)
 
 #define yypact_value_is_default(Yyn) \
   ((Yyn) == YYPACT_NINF)
@@ -736,22 +733,22 @@ yysymbol_name (yysymbol_kind_t yysymbol)
    STATE-NUM.  */
 static const yytype_int16 yypact[] =
 {
-     126,     0,  -130,  -130,  -130,     3,  -130,     8,   -26,  -130,
-    -130,  -130,  -130,  -130,  -130,    22,    37,    47,    22,    11,
-    -130,    48,    21,    45,  -130,    72,    64,   201,    49,    77,
-      83,   -11,  -130,    64,    55,  -130,    47,  -130,  -130,  -130,
-    -130,    58,   201,    82,  -130,  -130,  -130,  -130,  -130,  -130,
-    -130,  -130,   201,    78,    56,    99,    64,   201,    97,  -130,
-     103,     0,    77,  -130,    64,  -130,  -130,  -130,    91,   112,
-     173,   117,  -130,   201,   201,   201,   201,   201,  -130,  -130,
-     120,  -130,  -130,   121,   124,   127,   191,   132,  -130,  -130,
-    -130,   130,  -130,  -130,   136,   151,   135,  -130,  -130,  -130,
-      64,  -130,  -130,  -130,  -130,    -8,  -130,  -130,  -130,    78,
-      78,  -130,   201,   201,  -130,  -130,   153,  -130,  -130,  -130,
-    -130,   201,   150,  -130,   201,  -130,   152,    56,   213,    13,
-     143,   144,   156,  -130,   165,   117,  -130,   163,   201,   201,
-     201,   201,   201,   201,   201,   201,   163,  -130,   158,    56,
-      56,    56,    56,   213,   213,    13,   143,  -130,   163,  -130
+      20,    47,  -132,  -132,  -132,     5,  -132,     1,   -11,  -132,
+    -132,    26,  -132,  -132,  -132,    26,    25,    53,  -132,     8,
+      52,  -132,   187,   221,   -15,    14,  -132,    37,   187,    31,
+    -132,  -132,  -132,  -132,    40,   221,    66,  -132,  -132,  -132,
+    -132,  -132,  -132,  -132,  -132,   221,    80,    90,    54,    67,
+      46,    -4,  -132,   187,   221,    41,  -132,  -132,   187,  -132,
+    -132,    77,    72,   193,    69,  -132,   221,   221,   221,   221,
+     221,  -132,    99,  -132,    81,    47,    67,  -132,    76,  -132,
+     187,  -132,  -132,  -132,  -132,    29,  -132,  -132,  -132,    80,
+      80,  -132,  -132,    85,    88,    97,   203,   104,  -132,    37,
+    -132,   132,  -132,  -132,   107,   101,   116,  -132,  -132,  -132,
+    -132,   221,  -132,   221,   221,  -132,  -132,   124,  -132,  -132,
+    -132,  -132,   221,   105,  -132,   120,    90,    60,    98,   113,
+     117,   122,  -132,   133,    69,   165,   221,   221,   221,   221,
+     221,   221,   221,   221,   165,  -132,   126,    90,    90,    90,
+      90,    60,    60,    98,   113,  -132,   165,  -132
 };
 
 /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -759,40 +756,40 @@ static const yytype_int16 yypact[] =
    means the default is an error.  */
 static const yytype_int8 yydefact[] =
 {
-       0,     0,    11,    12,    13,     0,     4,     6,     0,     7,
-       2,     8,     1,     5,     3,     0,     0,     0,     0,     0,
-      10,     0,    25,     0,    23,     0,     0,     0,     0,     0,
-       0,     0,    33,     0,    27,    22,     0,     9,    68,    69,
-      70,     0,     0,    57,    59,    60,    15,    16,    62,    63,
-      64,    73,     0,    77,    55,     0,     0,     0,     0,    31,
-      35,     0,     0,    26,     0,    24,    17,    19,     0,     0,
-       0,    58,    67,     0,     0,     0,     0,     0,    29,    14,
-       0,    45,    38,     0,     0,     0,     0,     0,    42,    21,
-      47,     0,    40,    43,     0,    62,     0,    34,    32,    28,
-       0,    18,    61,    65,    71,     0,    74,    75,    76,    78,
-      79,    30,     0,     0,    51,    53,     0,    52,    39,    41,
-      46,     0,    36,    20,     0,    66,     0,    80,    85,    88,
-      90,    56,     0,    54,     0,    37,    72,     0,     0,     0,
-       0,     0,     0,     0,     0,     0,     0,    44,    48,    81,
-      83,    82,    84,    86,    87,    89,    91,    50,     0,    49
+       0,     0,    10,    11,    12,     0,     4,     6,     0,     7,
+       2,     0,     1,     5,     3,     0,    23,     0,    21,     0,
+       0,     9,     0,     0,     0,    25,    20,     0,     0,     0,
+       8,    66,    67,    68,     0,     0,    55,    57,    58,    24,
+      15,    60,    61,    62,    71,     0,    75,    53,     0,     0,
+       0,     0,    31,     0,     0,    23,    22,    14,     0,    16,
+      18,     0,     0,     0,    56,    65,     0,     0,     0,     0,
+       0,    27,     0,    29,    33,     0,     0,    26,     0,    13,
+       0,    17,    59,    63,    69,     0,    72,    73,    74,    76,
+      77,    43,    36,     0,     0,     0,     0,     0,    40,     0,
+      45,     0,    38,    41,     0,    60,     0,    32,    30,    28,
+      19,     0,    64,     0,     0,    49,    51,     0,    50,    37,
+      39,    44,     0,    34,    70,     0,    78,    83,    86,    88,
+      54,     0,    52,     0,    35,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,    42,    46,    79,    81,    80,
+      82,    84,    85,    87,    89,    48,     0,    47
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int16 yypgoto[] =
 {
-    -130,  -130,     6,  -130,  -130,     4,   169,   -29,  -130,  -130,
-    -130,  -130,   154,   -20,   190,  -130,   138,    -9,  -130,   109,
-    -129,   -27,    96,   -57,  -130,  -130,   -19,  -130,  -130,    38,
-     -94,   -13,    60,    65,  -130
+    -132,  -132,    10,  -132,     2,   139,   -26,  -132,  -132,  -132,
+     129,   -18,   154,  -132,    89,   -43,  -132,    64,  -131,   -23,
+      57,   -65,  -132,  -132,   -29,  -132,  -132,    62,   110,   -24,
+      24,    30,  -132
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_uint8 yydefgoto[] =
 {
-       0,     5,    88,     7,    18,     8,    20,    46,    68,     9,
-      17,    23,    24,    28,    10,    31,    32,    90,    91,    92,
-      93,    47,   126,    48,    49,    50,    51,    52,   105,    53,
-      54,   128,   129,   130,   131
+       0,     5,    98,     7,     8,    20,    39,    61,     9,    17,
+      18,    25,    10,    51,    52,   100,   101,   102,   103,    40,
+     125,    41,    42,    43,    44,    45,    85,    46,    47,   127,
+     128,   129,   130
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -800,59 +797,63 @@ static const yytype_uint8 yydefgoto[] =
    number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_uint8 yytable[] =
 {
-      55,    95,    34,    12,    63,    11,     6,    61,   148,    16,
-     124,    13,    67,    62,    26,    69,   125,   157,   127,   127,
-      59,   142,   143,    71,    33,    30,    15,    79,     1,   159,
-      80,    94,    27,    72,    95,    99,     2,     3,     4,     2,
-       3,     4,    27,   104,   149,   150,   151,   152,   127,   127,
-     127,   127,    56,    98,   106,   107,   108,    19,    64,   116,
-      21,    35,    89,    36,    94,    30,    76,    77,    38,    39,
-      57,   123,    29,    40,    38,    39,    57,    41,    66,    40,
-      95,    42,    22,    41,     2,     3,     4,    42,    37,    95,
-      73,    74,    75,    43,   134,    89,    58,   136,    44,    43,
-      45,    95,   135,    27,    44,    70,    45,    38,    39,   100,
-      94,   101,    40,    81,   109,   110,    58,    82,    60,    94,
-      42,    78,     1,    83,    96,    84,    85,    86,    87,   153,
-     154,    94,    43,     2,     3,     4,   102,    44,    57,    45,
-      38,    39,   111,   114,   112,    40,    81,   113,   117,    58,
-     118,     1,   120,    42,   121,     1,    83,   122,    84,    85,
-      86,    87,     2,     3,     4,    43,     2,     3,     4,   133,
-      44,    27,    45,    38,    39,   144,   137,   145,    40,    81,
-     146,   147,    58,    38,    39,   158,    42,    25,    40,    83,
-      65,    84,    85,    86,    87,    14,    42,   103,    43,    97,
-     119,    38,    39,    44,   155,    45,    40,   115,    43,   132,
-     156,    38,    39,    44,    42,    45,    40,   138,   139,   140,
-     141,     0,     0,     0,    42,     0,    43,     0,     0,     0,
-       0,    44,     0,    45,     0,     0,    43,     0,     0,     0,
-       0,    44,     0,    45
+      48,    29,    57,    11,   146,    12,    73,   105,    60,    49,
+       6,    28,    62,   155,    75,    13,    65,    53,    64,    15,
+      76,     2,     3,     4,    16,   157,    50,    77,    22,    23,
+       1,    78,    79,   108,    58,    54,   105,    86,    87,    88,
+      84,     2,     3,     4,    22,     1,    23,   111,    24,   104,
+      31,    32,    54,   112,   110,    33,     2,     3,     4,    34,
+      59,    19,    23,    35,   136,   137,   138,   139,    30,    26,
+     105,    27,    55,   117,    99,    36,    71,    50,   104,   105,
+      37,    74,    38,     2,     3,     4,    72,    23,   124,    63,
+      54,   105,    66,    67,    68,    80,    82,    81,   109,   133,
+      69,    70,   106,    99,   122,   134,   140,   141,   113,    31,
+      32,   114,   104,   115,    33,    91,   151,   152,    72,    92,
+     118,   104,    35,   121,     1,    93,    23,    94,    95,    96,
+      97,    89,    90,   104,    36,     2,     3,     4,   123,    37,
+     132,    38,    31,    32,   135,   142,   144,    33,    91,   145,
+     143,    72,   119,   156,    21,    35,    56,     1,    93,    14,
+      94,    95,    96,    97,   107,   120,   153,    36,     2,     3,
+       4,   131,    37,   154,    38,    31,    32,     0,     0,     0,
+      33,    91,     0,     0,    72,     0,     0,     0,    35,     0,
+       0,    93,     0,    94,    95,    96,    97,    31,    32,     0,
+      36,     0,    33,    31,    32,    37,    34,    38,    33,     0,
+      35,     0,     0,    31,    32,     0,    35,    83,    33,   116,
+       0,     0,    36,   126,   126,     0,    35,    37,    36,    38,
+       0,    31,    32,    37,     0,    38,    33,     0,    36,     0,
+       0,     0,     0,    37,    35,    38,   147,   148,   149,   150,
+     126,   126,   126,   126,     0,     0,    36,     0,     0,     0,
+       0,    37,     0,    38
 };
 
 static const yytype_int16 yycheck[] =
 {
-      27,    58,    22,     0,    33,     1,     0,    18,   137,    35,
-      18,     5,    41,    24,     3,    42,    24,   146,   112,   113,
-      29,     8,     9,    43,     3,    21,    18,    56,    25,   158,
-      57,    58,    21,    52,    91,    64,    36,    37,    38,    36,
-      37,    38,    21,    70,   138,   139,   140,   141,   142,   143,
-     144,   145,     3,    62,    73,    74,    75,    35,     3,    86,
-      23,    16,    58,    18,    91,    61,    10,    11,    10,    11,
-      21,   100,    24,    15,    10,    11,    21,    19,    20,    15,
-     137,    23,    35,    19,    36,    37,    38,    23,    16,   146,
-      12,    13,    14,    35,   121,    91,    19,   124,    40,    35,
-      42,   158,   122,    21,    40,    23,    42,    10,    11,    18,
-     137,    20,    15,    16,    76,    77,    19,    20,    35,   146,
-      23,    22,    25,    26,    21,    28,    29,    30,    31,   142,
-     143,   158,    35,    36,    37,    38,    24,    40,    21,    42,
-      10,    11,    22,    16,    23,    15,    16,    23,    16,    19,
-      20,    25,    16,    23,     3,    25,    26,    22,    28,    29,
-      30,    31,    36,    37,    38,    35,    36,    37,    38,    16,
-      40,    21,    42,    10,    11,    32,    24,    33,    15,    16,
-      24,    16,    19,    10,    11,    27,    23,    18,    15,    26,
-      36,    28,    29,    30,    31,     5,    23,    24,    35,    61,
-      91,    10,    11,    40,   144,    42,    15,    16,    35,   113,
-     145,    10,    11,    40,    23,    42,    15,     4,     5,     6,
-       7,    -1,    -1,    -1,    23,    -1,    35,    -1,    -1,    -1,
-      -1,    40,    -1,    42,    -1,    -1,    35,    -1,    -1,    -1,
+      23,    19,    28,     1,   135,     0,    49,    72,    34,    24,
+       0,     3,    35,   144,    18,     5,    45,     3,    36,    18,
+      24,    36,    37,    38,    35,   156,    24,    53,     3,    21,
+      25,    54,    58,    76,     3,    21,   101,    66,    67,    68,
+      63,    36,    37,    38,     3,    25,    21,    18,    23,    72,
+      10,    11,    21,    24,    80,    15,    36,    37,    38,    19,
+      20,    35,    21,    23,     4,     5,     6,     7,    16,    16,
+     135,    18,    35,    96,    72,    35,    22,    75,   101,   144,
+      40,    35,    42,    36,    37,    38,    19,    21,   111,    23,
+      21,   156,    12,    13,    14,    18,    24,    20,    22,   122,
+      10,    11,    21,   101,     3,   123,     8,     9,    23,    10,
+      11,    23,   135,    16,    15,    16,   140,   141,    19,    20,
+      16,   144,    23,    16,    25,    26,    21,    28,    29,    30,
+      31,    69,    70,   156,    35,    36,    37,    38,    22,    40,
+      16,    42,    10,    11,    24,    32,    24,    15,    16,    16,
+      33,    19,    20,    27,    15,    23,    27,    25,    26,     5,
+      28,    29,    30,    31,    75,   101,   142,    35,    36,    37,
+      38,   114,    40,   143,    42,    10,    11,    -1,    -1,    -1,
+      15,    16,    -1,    -1,    19,    -1,    -1,    -1,    23,    -1,
+      -1,    26,    -1,    28,    29,    30,    31,    10,    11,    -1,
+      35,    -1,    15,    10,    11,    40,    19,    42,    15,    -1,
+      23,    -1,    -1,    10,    11,    -1,    23,    24,    15,    16,
+      -1,    -1,    35,   113,   114,    -1,    23,    40,    35,    42,
+      -1,    10,    11,    40,    -1,    42,    15,    -1,    35,    -1,
+      -1,    -1,    -1,    40,    23,    42,   136,   137,   138,   139,
+     140,   141,   142,   143,    -1,    -1,    35,    -1,    -1,    -1,
       -1,    40,    -1,    42
 };
 
@@ -860,52 +861,50 @@ static const yytype_int16 yycheck[] =
    state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
-       0,    25,    36,    37,    38,    44,    45,    46,    48,    52,
-      57,    48,     0,    45,    57,    18,    35,    53,    47,    35,
-      49,    23,    35,    54,    55,    49,     3,    21,    56,    24,
-      48,    58,    59,     3,    56,    16,    18,    16,    10,    11,
-      15,    19,    23,    35,    40,    42,    50,    64,    66,    67,
-      68,    69,    70,    72,    73,    64,     3,    21,    19,    60,
-      35,    18,    24,    50,     3,    55,    20,    50,    51,    64,
-      23,    56,    69,    12,    13,    14,    10,    11,    22,    50,
-      64,    16,    20,    26,    28,    29,    30,    31,    45,    48,
-      60,    61,    62,    63,    64,    66,    21,    59,    60,    50,
-      18,    20,    24,    24,    64,    71,    69,    69,    69,    72,
-      72,    22,    23,    23,    16,    16,    64,    16,    20,    62,
-      16,     3,    22,    50,    18,    24,    65,    73,    74,    75,
-      76,    77,    65,    16,    64,    56,    64,    24,     4,     5,
-       6,     7,     8,     9,    32,    33,    24,    16,    63,    73,
-      73,    73,    73,    74,    74,    75,    76,    63,    27,    63
+       0,    25,    36,    37,    38,    44,    45,    46,    47,    51,
+      55,    47,     0,    45,    55,    18,    35,    52,    53,    35,
+      48,    48,     3,    21,    23,    54,    16,    18,     3,    54,
+      16,    10,    11,    15,    19,    23,    35,    40,    42,    49,
+      62,    64,    65,    66,    67,    68,    70,    71,    62,    24,
+      47,    56,    57,     3,    21,    35,    53,    49,     3,    20,
+      49,    50,    62,    23,    54,    67,    12,    13,    14,    10,
+      11,    22,    19,    58,    35,    18,    24,    49,    62,    49,
+      18,    20,    24,    24,    62,    69,    67,    67,    67,    70,
+      70,    16,    20,    26,    28,    29,    30,    31,    45,    47,
+      58,    59,    60,    61,    62,    64,    21,    57,    58,    22,
+      49,    18,    24,    23,    23,    16,    16,    62,    16,    20,
+      60,    16,     3,    22,    62,    63,    71,    72,    73,    74,
+      75,    63,    16,    62,    54,    24,     4,     5,     6,     7,
+       8,     9,    32,    33,    24,    16,    61,    71,    71,    71,
+      71,    72,    72,    73,    74,    61,    27,    61
 };
 
 /* YYR1[RULE-NUM] -- Symbol kind of the left-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr1[] =
 {
-       0,    43,    44,    44,    44,    44,    45,    45,    47,    46,
-      46,    48,    48,    48,    49,    49,    50,    50,    50,    51,
-      51,    53,    52,    54,    54,    55,    55,    55,    55,    56,
-      56,    57,    57,    58,    58,    59,    59,    59,    60,    60,
-      61,    61,    62,    62,    63,    63,    63,    63,    63,    63,
-      63,    63,    63,    63,    63,    64,    65,    66,    66,    67,
-      67,    68,    68,    68,    69,    69,    69,    69,    70,    70,
-      70,    71,    71,    72,    72,    72,    72,    73,    73,    73,
-      74,    74,    74,    74,    74,    75,    75,    75,    76,    76,
-      77,    77
+       0,    43,    44,    44,    44,    44,    45,    45,    46,    46,
+      47,    47,    47,    48,    48,    49,    49,    49,    50,    50,
+      51,    52,    52,    53,    53,    53,    53,    54,    54,    55,
+      55,    56,    56,    57,    57,    57,    58,    58,    59,    59,
+      60,    60,    61,    61,    61,    61,    61,    61,    61,    61,
+      61,    61,    61,    62,    63,    64,    64,    65,    65,    66,
+      66,    66,    67,    67,    67,    67,    68,    68,    68,    69,
+      69,    70,    70,    70,    70,    71,    71,    71,    72,    72,
+      72,    72,    72,    73,    73,    73,    74,    74,    75,    75
 };
 
 /* YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr2[] =
 {
-       0,     2,     1,     2,     1,     2,     1,     1,     0,     5,
-       3,     1,     1,     1,     4,     3,     1,     2,     3,     1,
-       3,     0,     4,     1,     3,     1,     3,     2,     4,     3,
-       4,     5,     6,     1,     3,     2,     4,     5,     2,     3,
-       1,     2,     1,     1,     4,     1,     2,     1,     5,     7,
-       5,     2,     2,     2,     3,     1,     1,     1,     2,     1,
-       1,     3,     1,     1,     1,     3,     4,     2,     1,     1,
-       1,     1,     3,     1,     3,     3,     3,     1,     3,     3,
-       1,     3,     3,     3,     3,     1,     3,     3,     1,     3,
-       1,     3
+       0,     2,     1,     2,     1,     2,     1,     1,     4,     3,
+       1,     1,     1,     4,     3,     1,     2,     3,     1,     3,
+       3,     1,     3,     1,     3,     2,     4,     3,     4,     5,
+       6,     1,     3,     2,     4,     5,     2,     3,     1,     2,
+       1,     1,     4,     1,     2,     1,     5,     7,     5,     2,
+       2,     2,     3,     1,     1,     1,     2,     1,     1,     3,
+       1,     1,     1,     3,     4,     2,     1,     1,     1,     1,
+       3,     1,     3,     3,     3,     1,     3,     3,     1,     3,
+       3,     3,     3,     1,     3,     3,     1,     3,     1,     3
 };
 
 
@@ -1489,7 +1488,7 @@ yyreduce:
             AST_root = yyval;
             std::dynamic_pointer_cast<CompUnitNode>(yyval)->addDef(yyvsp[0]);
         }
-#line 1493 "y.tab.c"
+#line 1492 "y.tab.c"
     break;
 
   case 3: /* CompUnit: CompUnit FuncDef  */
@@ -1500,7 +1499,7 @@ yyreduce:
             AST_root = yyval;
             std::dynamic_pointer_cast<CompUnitNode>(yyval)->addDef(yyvsp[0]);
         }
-#line 1504 "y.tab.c"
+#line 1503 "y.tab.c"
     break;
 
   case 4: /* CompUnit: Decl  */
@@ -1511,7 +1510,7 @@ yyreduce:
             AST_root = yyval;
             std::dynamic_pointer_cast<CompUnitNode>(yyval)->addDef((yyvsp[0]));
         }
-#line 1515 "y.tab.c"
+#line 1514 "y.tab.c"
     break;
 
   case 5: /* CompUnit: CompUnit Decl  */
@@ -1522,7 +1521,7 @@ yyreduce:
             AST_root = yyval;
             std::dynamic_pointer_cast<CompUnitNode>(yyval)->addDef(yyvsp[0]);
         }
-#line 1526 "y.tab.c"
+#line 1525 "y.tab.c"
     break;
 
   case 6: /* Decl: ConstDecl  */
@@ -1530,7 +1529,7 @@ yyreduce:
                 {
         BISON_LOG("Decl -> ConstDecl\n");
      }
-#line 1534 "y.tab.c"
+#line 1533 "y.tab.c"
     break;
 
   case 7: /* Decl: VarDecl  */
@@ -1538,222 +1537,207 @@ yyreduce:
                {
         BISON_LOG("Decl -> VarDecl\n");
      }
-#line 1542 "y.tab.c"
+#line 1541 "y.tab.c"
     break;
 
-  case 8: /* $@1: %empty  */
+  case 8: /* ConstDecl: CONST BType ConstDef ";"  */
 #line 95 "yacc.y"
-                       {
-            BISON_LOG("ConstDecl -> CONST BType\n");
-            decl_type = std::dynamic_pointer_cast<SimpleTokenNode>(yyvsp[0])->getType();
-        }
-#line 1551 "y.tab.c"
-    break;
-
-  case 9: /* ConstDecl: CONST BType $@1 ConstDef ";"  */
-#line 98 "yacc.y"
-                       {
+                                    {
             BISON_LOG("ConstDecl -> CONST BType ConstDef ;\n");
             yyval = std::make_shared<StmtListNode>();
             std::dynamic_pointer_cast<StmtListNode>(yyval)->addStmt(yyvsp[-1]);
         }
-#line 1561 "y.tab.c"
+#line 1551 "y.tab.c"
     break;
 
-  case 10: /* ConstDecl: ConstDecl "," ConstDef  */
-#line 103 "yacc.y"
+  case 9: /* ConstDecl: ConstDecl "," ConstDef  */
+#line 100 "yacc.y"
                                    {
             BISON_LOG("ConstDecl -> ConstDecl , ConstDef\n");
             yyval = yyvsp[-2];
             std::dynamic_pointer_cast<StmtListNode>(yyval)->addStmt(yyvsp[0]);
           }
-#line 1571 "y.tab.c"
+#line 1561 "y.tab.c"
     break;
 
-  case 11: /* BType: INT  */
-#line 109 "yacc.y"
+  case 10: /* BType: INT  */
+#line 106 "yacc.y"
            {
         BISON_LOG("BType -> INT\n");
+        decl_type = INT;
+     }
+#line 1570 "y.tab.c"
+    break;
+
+  case 11: /* BType: FLOAT  */
+#line 110 "yacc.y"
+             {
+        BISON_LOG("BType -> FLOAT\n");
+        decl_type = FLOAT;
      }
 #line 1579 "y.tab.c"
     break;
 
-  case 12: /* BType: FLOAT  */
-#line 112 "yacc.y"
-             {
-        BISON_LOG("BType -> FLOAT\n");
-     }
-#line 1587 "y.tab.c"
-    break;
-
-  case 13: /* BType: VOID  */
-#line 115 "yacc.y"
+  case 12: /* BType: VOID  */
+#line 114 "yacc.y"
             {
         BISON_LOG("BType -> VOID\n");
+        decl_type = VOID;
      }
-#line 1595 "y.tab.c"
+#line 1588 "y.tab.c"
     break;
 
-  case 14: /* ConstDef: Ident ArrayList "=" InitVal  */
+  case 13: /* ConstDef: Ident ArrayList "=" InitVal  */
 #line 119 "yacc.y"
                                          {
             BISON_LOG("ConstDef -> Ident ArrayList ASSIGN InitVal\n");
             yyval = std::make_shared<DeclNode>(true, decl_type, std::dynamic_pointer_cast<IdentifierNode>(yyvsp[-3])->id, yyvsp[-2], yyvsp[0]);
         }
-#line 1604 "y.tab.c"
+#line 1597 "y.tab.c"
     break;
 
-  case 15: /* ConstDef: Ident "=" InitVal  */
+  case 14: /* ConstDef: Ident "=" InitVal  */
 #line 123 "yacc.y"
                                {
             BISON_LOG("ConstDef -> Ident ASSIGN InitVal\n");
             yyval = std::make_shared<DeclNode>(true, decl_type, std::dynamic_pointer_cast<IdentifierNode>(yyvsp[-2])->id, nullptr, yyvsp[0]);
         }
-#line 1613 "y.tab.c"
+#line 1606 "y.tab.c"
     break;
 
-  case 16: /* InitVal: Exp  */
+  case 15: /* InitVal: Exp  */
 #line 128 "yacc.y"
               {
             BISON_LOG("InitVal -> Exp\n");
         }
-#line 1621 "y.tab.c"
+#line 1614 "y.tab.c"
     break;
 
-  case 17: /* InitVal: "{" "}"  */
+  case 16: /* InitVal: "{" "}"  */
 #line 131 "yacc.y"
                   {
             BISON_LOG("InitVal -> { }\n");
             yyval = nullptr;
         }
-#line 1630 "y.tab.c"
+#line 1623 "y.tab.c"
     break;
 
-  case 18: /* InitVal: "{" InitValGroup "}"  */
+  case 17: /* InitVal: "{" InitValGroup "}"  */
 #line 135 "yacc.y"
                                {
             BISON_LOG("InitVal -> { InitValGroup }\n");
             yyval = yyvsp[-1];
         }
-#line 1639 "y.tab.c"
+#line 1632 "y.tab.c"
     break;
 
-  case 19: /* InitValGroup: InitVal  */
+  case 18: /* InitValGroup: InitVal  */
 #line 140 "yacc.y"
                       {
     BISON_LOG("InitValGroup -> InitVal\n");
     yyval = std::make_shared<VectorNode> ();
     std::dynamic_pointer_cast<VectorNode> (yyval)->addNode(yyvsp[0]);
 }
-#line 1649 "y.tab.c"
+#line 1642 "y.tab.c"
     break;
 
-  case 20: /* InitValGroup: InitValGroup "," InitVal  */
+  case 19: /* InitValGroup: InitValGroup "," InitVal  */
 #line 144 "yacc.y"
                             {
     BISON_LOG("InitValGroup -> InitValGroup , InitVal\n");
     yyval = yyvsp[-2];
     std::dynamic_pointer_cast<VectorNode> (yyval)->addNode(yyvsp[0]);    
 }
-#line 1659 "y.tab.c"
+#line 1652 "y.tab.c"
     break;
 
-  case 21: /* $@2: %empty  */
+  case 20: /* VarDecl: BType VarDefGroup ";"  */
 #line 150 "yacc.y"
-                {
-        BISON_LOG("VarDecl -> BType\n");
-        decl_type = std::dynamic_pointer_cast<SimpleTokenNode>(yyvsp[0])->getType();
-    }
-#line 1668 "y.tab.c"
-    break;
-
-  case 22: /* VarDecl: BType $@2 VarDefGroup ";"  */
-#line 153 "yacc.y"
-                      {
+                                {
         BISON_LOG("VarDecl -> BType VarDefGroup ;\n");
         yyval = yyvsp[-1]; 
 }
-#line 1677 "y.tab.c"
+#line 1661 "y.tab.c"
     break;
 
-  case 23: /* VarDefGroup: VarDef  */
-#line 158 "yacc.y"
+  case 21: /* VarDefGroup: VarDef  */
+#line 155 "yacc.y"
                     {
     BISON_LOG("VarDefGroup -> VarDef\n");
     yyval = std::make_shared<StmtListNode>();
     std::dynamic_pointer_cast<StmtListNode>(yyval)->addStmt(yyvsp[0]);
 }
-#line 1687 "y.tab.c"
+#line 1671 "y.tab.c"
     break;
 
-  case 24: /* VarDefGroup: VarDefGroup "," VarDef  */
-#line 162 "yacc.y"
+  case 22: /* VarDefGroup: VarDefGroup "," VarDef  */
+#line 159 "yacc.y"
                           {
     BISON_LOG("VarDefGroup -> VarDefGroup , VarDef\n");
     yyval = yyvsp[-2];
     std::dynamic_pointer_cast<StmtListNode>(yyval)->addStmt(yyvsp[0]);
 }
-#line 1697 "y.tab.c"
+#line 1681 "y.tab.c"
     break;
 
-  case 25: /* VarDef: Ident  */
-#line 168 "yacc.y"
+  case 23: /* VarDef: Ident  */
+#line 165 "yacc.y"
                {
     BISON_LOG("VarDef -> Ident\n");
     yyval = std::make_shared<DeclNode>(false, decl_type, std::dynamic_pointer_cast<IdentifierNode>(yyvsp[0])->id, nullptr, nullptr);
 }
-#line 1706 "y.tab.c"
+#line 1690 "y.tab.c"
     break;
 
-  case 26: /* VarDef: Ident "=" InitVal  */
-#line 171 "yacc.y"
+  case 24: /* VarDef: Ident "=" InitVal  */
+#line 168 "yacc.y"
                         {
     BISON_LOG("VarDef -> Ident ASSIGN InitVal\n");
     yyval = std::make_shared<DeclNode>(false, decl_type, std::dynamic_pointer_cast<IdentifierNode>(yyvsp[-2])->id, nullptr, yyvsp[0]);
 }
-#line 1715 "y.tab.c"
+#line 1699 "y.tab.c"
     break;
 
-  case 27: /* VarDef: Ident ArrayList  */
-#line 174 "yacc.y"
+  case 25: /* VarDef: Ident ArrayList  */
+#line 171 "yacc.y"
                    {
     BISON_LOG("VarDef -> Ident ArrayList\n");
     yyval = std::make_shared<DeclNode>(false, decl_type, std::dynamic_pointer_cast<IdentifierNode>(yyvsp[-1])->id, yyvsp[0], nullptr);
 }
-#line 1724 "y.tab.c"
+#line 1708 "y.tab.c"
     break;
 
-  case 28: /* VarDef: Ident ArrayList "=" InitVal  */
-#line 177 "yacc.y"
+  case 26: /* VarDef: Ident ArrayList "=" InitVal  */
+#line 174 "yacc.y"
                                   {
     BISON_LOG("VarDef -> Ident ArrayList ASSIGN InitVal\n");
     yyval = std::make_shared<DeclNode>(false, decl_type, std::dynamic_pointer_cast<IdentifierNode>(yyvsp[-3])->id, yyvsp[-2], yyvsp[0]);
 }
-#line 1733 "y.tab.c"
+#line 1717 "y.tab.c"
     break;
 
-  case 29: /* ArrayList: "[" Exp "]"  */
-#line 182 "yacc.y"
+  case 27: /* ArrayList: "[" Exp "]"  */
+#line 179 "yacc.y"
                        {
     BISON_LOG("ArrayList -> [ Exp ]\n");
     yyval = std::make_shared<VectorNode> ();
     std::dynamic_pointer_cast<VectorNode> (yyval)->addNode(yyvsp[-1]);
 }
-#line 1743 "y.tab.c"
+#line 1727 "y.tab.c"
     break;
 
-  case 30: /* ArrayList: ArrayList "[" Exp "]"  */
-#line 186 "yacc.y"
+  case 28: /* ArrayList: ArrayList "[" Exp "]"  */
+#line 183 "yacc.y"
                           {
     BISON_LOG("ArrayList -> ArrayList [ Exp ]\n");
     yyval = yyvsp[-3];
     std::dynamic_pointer_cast<VectorNode> (yyval)->addNode(yyvsp[-1]);  
 }
-#line 1753 "y.tab.c"
+#line 1737 "y.tab.c"
     break;
 
-  case 31: /* FuncDef: BType Ident "(" ")" Block  */
-#line 192 "yacc.y"
+  case 29: /* FuncDef: BType Ident "(" ")" Block  */
+#line 189 "yacc.y"
                                     {
     BISON_LOG("FuncDef -> BType Ident ( ) Block\n");
     yyval = std::make_shared<FuncDefNode> (
@@ -1762,11 +1746,11 @@ yyreduce:
         nullptr,
         yyvsp[0] );
 }
-#line 1766 "y.tab.c"
+#line 1750 "y.tab.c"
     break;
 
-  case 32: /* FuncDef: BType Ident "(" FuncFParams ")" Block  */
-#line 199 "yacc.y"
+  case 30: /* FuncDef: BType Ident "(" FuncFParams ")" Block  */
+#line 196 "yacc.y"
                                           {
     BISON_LOG("FuncDef -> BType Ident ( FuncFParams ) Block\n");
     yyval = std::make_shared<FuncDefNode> (
@@ -1775,532 +1759,532 @@ yyreduce:
         yyvsp[-2],
         yyvsp[0] );    
 }
-#line 1779 "y.tab.c"
+#line 1763 "y.tab.c"
     break;
 
-  case 33: /* FuncFParams: FuncFParam  */
-#line 208 "yacc.y"
+  case 31: /* FuncFParams: FuncFParam  */
+#line 205 "yacc.y"
                          {
     BISON_LOG("FuncFParams -> FuncFParam\n");
     yyval = std::make_shared<ParamListNode> ();
     std::dynamic_pointer_cast<ParamListNode> (yyval)->addParam(yyvsp[0]);
 }
-#line 1789 "y.tab.c"
+#line 1773 "y.tab.c"
     break;
 
-  case 34: /* FuncFParams: FuncFParams "," FuncFParam  */
-#line 212 "yacc.y"
+  case 32: /* FuncFParams: FuncFParams "," FuncFParam  */
+#line 209 "yacc.y"
                                {
     BISON_LOG("FuncFParams -> FuncFParams , FuncFParam\n");
     yyval = yyvsp[-2];
     std::dynamic_pointer_cast<ParamListNode> (yyval)->addParam(yyvsp[0]);
 }
-#line 1799 "y.tab.c"
+#line 1783 "y.tab.c"
     break;
 
-  case 35: /* FuncFParam: BType Ident  */
-#line 218 "yacc.y"
+  case 33: /* FuncFParam: BType Ident  */
+#line 215 "yacc.y"
                         {
     BISON_LOG("FuncFParam -> BType Ident\n");
     yyval = std::make_shared<ParamNode> (std::dynamic_pointer_cast<SimpleTokenNode>(yyvsp[-1])->type, std::dynamic_pointer_cast<IdentifierNode>(yyvsp[0])->id, false, nullptr);
 }
-#line 1808 "y.tab.c"
+#line 1792 "y.tab.c"
     break;
 
-  case 36: /* FuncFParam: BType Ident "[" "]"  */
-#line 221 "yacc.y"
+  case 34: /* FuncFParam: BType Ident "[" "]"  */
+#line 218 "yacc.y"
                         {
     BISON_LOG("FuncFParam -> BType Ident [ ]\n");
     yyval = std::make_shared<ParamNode> ( std::dynamic_pointer_cast<SimpleTokenNode>(yyvsp[-3])->type, std::dynamic_pointer_cast<IdentifierNode>(yyvsp[-2])->id, true, nullptr);
 }
-#line 1817 "y.tab.c"
+#line 1801 "y.tab.c"
     break;
 
-  case 37: /* FuncFParam: BType Ident "[" "]" ArrayList  */
-#line 224 "yacc.y"
+  case 35: /* FuncFParam: BType Ident "[" "]" ArrayList  */
+#line 221 "yacc.y"
                                   {
     BISON_LOG("FuncFParam -> BType Ident [ ] ArrayList\n");
     yyval = std::make_shared<ParamNode> (std::dynamic_pointer_cast<SimpleTokenNode>(yyvsp[-4])->type, std::dynamic_pointer_cast<IdentifierNode>(yyvsp[-3])->id, true, yyvsp[0]);
 }
-#line 1826 "y.tab.c"
+#line 1810 "y.tab.c"
     break;
 
-  case 38: /* Block: "{" "}"  */
-#line 229 "yacc.y"
+  case 36: /* Block: "{" "}"  */
+#line 226 "yacc.y"
                 {
     BISON_LOG("Block -> { }\n");
     yyval = nullptr;
 }
-#line 1835 "y.tab.c"
+#line 1819 "y.tab.c"
     break;
 
-  case 39: /* Block: "{" BlockGroup "}"  */
-#line 232 "yacc.y"
+  case 37: /* Block: "{" BlockGroup "}"  */
+#line 229 "yacc.y"
                        {
     BISON_LOG("Block -> { BlockGroup }\n");
     yyval = yyvsp[-1];
 }
-#line 1844 "y.tab.c"
+#line 1828 "y.tab.c"
     break;
 
-  case 40: /* BlockGroup: BlockItem  */
-#line 237 "yacc.y"
+  case 38: /* BlockGroup: BlockItem  */
+#line 234 "yacc.y"
                       {
     BISON_LOG("BlockGroup -> BlockItem\n");
     yyval = std::make_shared<BlockGroupNode> ();
     std::dynamic_pointer_cast<BlockGroupNode> (yyval)->addBlock(yyvsp[0]);
 }
-#line 1854 "y.tab.c"
+#line 1838 "y.tab.c"
     break;
 
-  case 41: /* BlockGroup: BlockGroup BlockItem  */
-#line 241 "yacc.y"
+  case 39: /* BlockGroup: BlockGroup BlockItem  */
+#line 238 "yacc.y"
                         {
     BISON_LOG("BlockGroup -> BlockGroup BlockItem\n");
     yyval = yyvsp[-1];
     std::dynamic_pointer_cast<BlockGroupNode> (yyval)->addBlock(yyvsp[0]);
 }
-#line 1864 "y.tab.c"
+#line 1848 "y.tab.c"
     break;
 
-  case 42: /* BlockItem: Decl  */
-#line 247 "yacc.y"
+  case 40: /* BlockItem: Decl  */
+#line 244 "yacc.y"
                  {
     BISON_LOG("BlockItem -> Decl\n");
 }
-#line 1872 "y.tab.c"
+#line 1856 "y.tab.c"
     break;
 
-  case 43: /* BlockItem: Stmt  */
-#line 249 "yacc.y"
+  case 41: /* BlockItem: Stmt  */
+#line 246 "yacc.y"
          {
     BISON_LOG("BlockItem -> Stmt\n");
 }
-#line 1880 "y.tab.c"
+#line 1864 "y.tab.c"
     break;
 
-  case 44: /* Stmt: LVal "=" Exp ";"  */
-#line 253 "yacc.y"
+  case 42: /* Stmt: LVal "=" Exp ";"  */
+#line 250 "yacc.y"
                          {
     BISON_LOG("Stmt -> LVal = Exp ;\n");
     yyval = std::make_shared<AssignNode> (yyvsp[-3], yyvsp[-1]);
 }
-#line 1889 "y.tab.c"
+#line 1873 "y.tab.c"
     break;
 
-  case 45: /* Stmt: ";"  */
-#line 257 "yacc.y"
+  case 43: /* Stmt: ";"  */
+#line 254 "yacc.y"
           {
         BISON_LOG("Stmt -> ;\n");
         yyval = nullptr;
     }
-#line 1898 "y.tab.c"
+#line 1882 "y.tab.c"
     break;
 
-  case 46: /* Stmt: Exp ";"  */
-#line 261 "yacc.y"
+  case 44: /* Stmt: Exp ";"  */
+#line 258 "yacc.y"
               {
         BISON_LOG("Stmt -> Exp ;\n");
         yyval = yyvsp[-1];
     }
-#line 1907 "y.tab.c"
+#line 1891 "y.tab.c"
     break;
 
-  case 47: /* Stmt: Block  */
-#line 265 "yacc.y"
+  case 45: /* Stmt: Block  */
+#line 262 "yacc.y"
             {
         BISON_LOG("Stmt -> Block\n");
         yyval = yyvsp[0];
     }
-#line 1916 "y.tab.c"
+#line 1900 "y.tab.c"
     break;
 
-  case 48: /* Stmt: IF "(" Cond ")" Stmt  */
-#line 269 "yacc.y"
+  case 46: /* Stmt: IF "(" Cond ")" Stmt  */
+#line 266 "yacc.y"
                            {
         BISON_LOG("Stmt -> IF ( Cond ) Stmt\n");
         yyval = std::make_shared<IfElseNode> (yyvsp[-2], yyvsp[0], nullptr);
     }
-#line 1925 "y.tab.c"
+#line 1909 "y.tab.c"
     break;
 
-  case 49: /* Stmt: IF "(" Cond ")" Stmt ELSE Stmt  */
-#line 273 "yacc.y"
+  case 47: /* Stmt: IF "(" Cond ")" Stmt ELSE Stmt  */
+#line 270 "yacc.y"
                                      {
         BISON_LOG("Stmt -> IF ( Cond ) Stmt ELSE Stmt\n");
         yyval = std::make_shared<IfElseNode> (yyvsp[-4], yyvsp[-2], yyvsp[0]);
     }
-#line 1934 "y.tab.c"
+#line 1918 "y.tab.c"
     break;
 
-  case 50: /* Stmt: WHILE "(" Cond ")" Stmt  */
-#line 277 "yacc.y"
+  case 48: /* Stmt: WHILE "(" Cond ")" Stmt  */
+#line 274 "yacc.y"
                               {
         BISON_LOG("Stmt -> WHILE ( Cond ) Stmt\n");
         yyval = std::make_shared<WhileNode>(yyvsp[-2], yyvsp[0]);
     }
-#line 1943 "y.tab.c"
+#line 1927 "y.tab.c"
     break;
 
-  case 51: /* Stmt: BREAK ";"  */
-#line 281 "yacc.y"
+  case 49: /* Stmt: BREAK ";"  */
+#line 278 "yacc.y"
                 {
         BISON_LOG("Stmt -> BREAK ;\n");
         yyval = std::make_shared<BreakNode>();
     }
-#line 1952 "y.tab.c"
+#line 1936 "y.tab.c"
     break;
 
-  case 52: /* Stmt: CONTINUE ";"  */
-#line 285 "yacc.y"
+  case 50: /* Stmt: CONTINUE ";"  */
+#line 282 "yacc.y"
                    {
         BISON_LOG("Stmt -> CONTINUE ;\n");
         yyval = std::make_shared<ContinueNode>();
     }
-#line 1961 "y.tab.c"
+#line 1945 "y.tab.c"
     break;
 
-  case 53: /* Stmt: RETURN ";"  */
-#line 289 "yacc.y"
+  case 51: /* Stmt: RETURN ";"  */
+#line 286 "yacc.y"
                  {
         BISON_LOG("Stmt -> RETURN ;\n");
         yyval = std::make_shared<ReturnNode>(nullptr);
     }
-#line 1970 "y.tab.c"
+#line 1954 "y.tab.c"
     break;
 
-  case 54: /* Stmt: RETURN Exp ";"  */
-#line 293 "yacc.y"
+  case 52: /* Stmt: RETURN Exp ";"  */
+#line 290 "yacc.y"
                      {
         BISON_LOG("Stmt -> RETURN Exp ;\n");
         yyval = std::make_shared<ReturnNode>(yyvsp[-1]);
     }
-#line 1979 "y.tab.c"
+#line 1963 "y.tab.c"
     break;
 
-  case 55: /* Exp: AddExp  */
-#line 298 "yacc.y"
+  case 53: /* Exp: AddExp  */
+#line 295 "yacc.y"
              {
     BISON_LOG("Exp -> AddExp\n");
     yyval = yyvsp[0];
 }
-#line 1988 "y.tab.c"
+#line 1972 "y.tab.c"
     break;
 
-  case 56: /* Cond: LOrExp  */
-#line 303 "yacc.y"
+  case 54: /* Cond: LOrExp  */
+#line 300 "yacc.y"
               {
     BISON_LOG("Cond -> LOrExp\n");
     yyval = yyvsp[0];
 }
-#line 1997 "y.tab.c"
+#line 1981 "y.tab.c"
     break;
 
-  case 57: /* LVal: Ident  */
-#line 308 "yacc.y"
+  case 55: /* LVal: Ident  */
+#line 305 "yacc.y"
              {
     BISON_LOG("LVal -> Ident\n");
     yyval = std::make_shared<LvalNode> (std::dynamic_pointer_cast<IdentifierNode> (yyvsp[0])->id, nullptr);
 }
-#line 2006 "y.tab.c"
+#line 1990 "y.tab.c"
     break;
 
-  case 58: /* LVal: Ident ArrayList  */
-#line 311 "yacc.y"
+  case 56: /* LVal: Ident ArrayList  */
+#line 308 "yacc.y"
                     {
     BISON_LOG("LVal -> Ident ArrayList\n");
     yyval = std::make_shared<LvalNode> (std::dynamic_pointer_cast<IdentifierNode> (yyvsp[-1])->id, yyvsp[0]);
 }
-#line 2015 "y.tab.c"
+#line 1999 "y.tab.c"
     break;
 
-  case 59: /* Number: INTNUM  */
-#line 316 "yacc.y"
+  case 57: /* Number: INTNUM  */
+#line 313 "yacc.y"
                 {
     BISON_LOG("Number -> INTNUM\n");
 }
-#line 2023 "y.tab.c"
+#line 2007 "y.tab.c"
     break;
 
-  case 60: /* Number: FLOATNUM  */
-#line 318 "yacc.y"
+  case 58: /* Number: FLOATNUM  */
+#line 315 "yacc.y"
              {
     BISON_LOG("Number -> FLOATNUM\n");
 }
-#line 2031 "y.tab.c"
+#line 2015 "y.tab.c"
     break;
 
-  case 61: /* PrimaryExp: "(" Exp ")"  */
-#line 322 "yacc.y"
+  case 59: /* PrimaryExp: "(" Exp ")"  */
+#line 319 "yacc.y"
                          {
     BISON_LOG("PrimaryExp -> ( Exp )\n");
     yyval = yyvsp[-1];
 }
+#line 2024 "y.tab.c"
+    break;
+
+  case 60: /* PrimaryExp: LVal  */
+#line 323 "yacc.y"
+                  {
+    BISON_LOG("PrimaryExp -> LVal\n");
+}
+#line 2032 "y.tab.c"
+    break;
+
+  case 61: /* PrimaryExp: Number  */
+#line 326 "yacc.y"
+                    {
+    BISON_LOG("PrimaryExp -> Number\n");
+}
 #line 2040 "y.tab.c"
     break;
 
-  case 62: /* PrimaryExp: LVal  */
-#line 326 "yacc.y"
-                  {
-    BISON_LOG("PrimaryExp -> LVal\n");
+  case 62: /* UnaryExp: PrimaryExp  */
+#line 330 "yacc.y"
+                      {
+    BISON_LOG("UnaryExp -> PrimaryExp\n");
 }
 #line 2048 "y.tab.c"
     break;
 
-  case 63: /* PrimaryExp: Number  */
-#line 329 "yacc.y"
-                    {
-    BISON_LOG("PrimaryExp -> Number\n");
-}
-#line 2056 "y.tab.c"
-    break;
-
-  case 64: /* UnaryExp: PrimaryExp  */
+  case 63: /* UnaryExp: Ident "(" ")"  */
 #line 333 "yacc.y"
-                      {
-    BISON_LOG("UnaryExp -> PrimaryExp\n");
-}
-#line 2064 "y.tab.c"
-    break;
-
-  case 65: /* UnaryExp: Ident "(" ")"  */
-#line 336 "yacc.y"
                          {
     BISON_LOG("UnaryExp -> Ident ( )\n");
-    yyval = std::make_shared<FuncCallNode> (std::dynamic_pointer_cast<IdentifierNode>(yyvsp[-2])->id, nullptr);
+    yyval = std::make_shared<FuncCallNode> (std::dynamic_pointer_cast<IdentifierNode>(yyvsp[-2])->id, std::make_shared<FuncCallParamNode> ());
 }
-#line 2073 "y.tab.c"
+#line 2057 "y.tab.c"
     break;
 
-  case 66: /* UnaryExp: Ident "(" FuncParamsGroup ")"  */
-#line 340 "yacc.y"
+  case 64: /* UnaryExp: Ident "(" FuncParamsGroup ")"  */
+#line 337 "yacc.y"
                                          {
     BISON_LOG("UnaryExp -> Ident ( FuncParamsGroup )\n");
     yyval = std::make_shared<FuncCallNode> (std::dynamic_pointer_cast<IdentifierNode>(yyvsp[-3])->id, yyvsp[-1]);
 }
-#line 2082 "y.tab.c"
+#line 2066 "y.tab.c"
     break;
 
-  case 67: /* UnaryExp: UnaryOp UnaryExp  */
-#line 344 "yacc.y"
+  case 65: /* UnaryExp: UnaryOp UnaryExp  */
+#line 341 "yacc.y"
                             {
     BISON_LOG("UnaryExp -> UnaryOp UnaryExp\n");
     yyval =  std::make_shared<ExprNode> (std::dynamic_pointer_cast<SimpleTokenNode>(yyvsp[-1])->type, nullptr, yyvsp[0]);
 }
+#line 2075 "y.tab.c"
+    break;
+
+  case 66: /* UnaryOp: "+"  */
+#line 346 "yacc.y"
+              {
+    BISON_LOG("UnaryOp -> ADD\n");
+}
+#line 2083 "y.tab.c"
+    break;
+
+  case 67: /* UnaryOp: "-"  */
+#line 349 "yacc.y"
+              {
+    BISON_LOG("UnaryOp -> SUB\n");
+}
 #line 2091 "y.tab.c"
     break;
 
-  case 68: /* UnaryOp: "+"  */
-#line 349 "yacc.y"
+  case 68: /* UnaryOp: "!"  */
+#line 352 "yacc.y"
               {
-    BISON_LOG("UnaryOp -> ADD\n");
+    BISON_LOG("UnaryOp -> NOT\n");
 }
 #line 2099 "y.tab.c"
     break;
 
-  case 69: /* UnaryOp: "-"  */
-#line 352 "yacc.y"
-              {
-    BISON_LOG("UnaryOp -> SUB\n");
-}
-#line 2107 "y.tab.c"
-    break;
-
-  case 70: /* UnaryOp: "!"  */
-#line 355 "yacc.y"
-              {
-    BISON_LOG("UnaryOp -> NOT\n");
-}
-#line 2115 "y.tab.c"
-    break;
-
-  case 71: /* FuncParamsGroup: Exp  */
-#line 359 "yacc.y"
+  case 69: /* FuncParamsGroup: Exp  */
+#line 356 "yacc.y"
                      {
     BISON_LOG("FuncParamsGroup -> Exp\n");
     yyval = std::make_shared<FuncCallParamNode> ();
     std::dynamic_pointer_cast<FuncCallParamNode> (yyval)->addParam(yyvsp[0]);    
 }
-#line 2125 "y.tab.c"
+#line 2109 "y.tab.c"
     break;
 
-  case 72: /* FuncParamsGroup: FuncParamsGroup "," Exp  */
-#line 364 "yacc.y"
+  case 70: /* FuncParamsGroup: FuncParamsGroup "," Exp  */
+#line 361 "yacc.y"
                           {
     BISON_LOG("FuncParamsGroup -> FuncParamsGroup , Exp\n");
     yyval = yyvsp[-2];
     std::dynamic_pointer_cast<FuncCallParamNode> (yyval)->addParam(yyvsp[-1]);   
 }
-#line 2135 "y.tab.c"
+#line 2119 "y.tab.c"
     break;
 
-  case 73: /* MulExp: UnaryExp  */
-#line 370 "yacc.y"
+  case 71: /* MulExp: UnaryExp  */
+#line 367 "yacc.y"
                   {
     BISON_LOG("MulExp -> UnaryExp\n");
 }
-#line 2143 "y.tab.c"
+#line 2127 "y.tab.c"
     break;
 
-  case 74: /* MulExp: MulExp "*" UnaryExp  */
-#line 373 "yacc.y"
+  case 72: /* MulExp: MulExp "*" UnaryExp  */
+#line 370 "yacc.y"
                              {
             BISON_LOG("MulExp -> MulExp MUL UnaryExp\n");
             yyval =  std::make_shared<ExprNode> (std::dynamic_pointer_cast<SimpleTokenNode>(yyvsp[-1])->type, yyvsp[-2], yyvsp[0]);
        }
-#line 2152 "y.tab.c"
+#line 2136 "y.tab.c"
     break;
 
-  case 75: /* MulExp: MulExp "/" UnaryExp  */
-#line 377 "yacc.y"
+  case 73: /* MulExp: MulExp "/" UnaryExp  */
+#line 374 "yacc.y"
                              {
             BISON_LOG("MulExp -> MulExp DIV UnaryExp\n");
             yyval =  std::make_shared<ExprNode> (std::dynamic_pointer_cast<SimpleTokenNode>(yyvsp[-1])->type, yyvsp[-2], yyvsp[0]);
        }
-#line 2161 "y.tab.c"
+#line 2145 "y.tab.c"
     break;
 
-  case 76: /* MulExp: MulExp "%" UnaryExp  */
-#line 381 "yacc.y"
+  case 74: /* MulExp: MulExp "%" UnaryExp  */
+#line 378 "yacc.y"
                              {
             BISON_LOG("MulExp -> MulExp MOD UnaryExp\n");
             yyval =  std::make_shared<ExprNode> (std::dynamic_pointer_cast<SimpleTokenNode>(yyvsp[-1])->type, yyvsp[-2], yyvsp[0]);
        }
-#line 2170 "y.tab.c"
+#line 2154 "y.tab.c"
     break;
 
-  case 77: /* AddExp: MulExp  */
-#line 386 "yacc.y"
+  case 75: /* AddExp: MulExp  */
+#line 383 "yacc.y"
                 {
     BISON_LOG("AddExp -> MulExp\n");
 }
-#line 2178 "y.tab.c"
+#line 2162 "y.tab.c"
     break;
 
-  case 78: /* AddExp: AddExp "+" MulExp  */
-#line 389 "yacc.y"
+  case 76: /* AddExp: AddExp "+" MulExp  */
+#line 386 "yacc.y"
                            {
             BISON_LOG("AddExp -> AddExp ADD MulExp\n");
             yyval =  std::make_shared<ExprNode> (std::dynamic_pointer_cast<SimpleTokenNode>(yyvsp[-1])->type, yyvsp[-2], yyvsp[0]);
        }
-#line 2187 "y.tab.c"
+#line 2171 "y.tab.c"
     break;
 
-  case 79: /* AddExp: AddExp "-" MulExp  */
-#line 393 "yacc.y"
+  case 77: /* AddExp: AddExp "-" MulExp  */
+#line 390 "yacc.y"
                            {
             BISON_LOG("AddExp -> AddExp SUB MulExp\n");
             yyval =  std::make_shared<ExprNode> (std::dynamic_pointer_cast<SimpleTokenNode>(yyvsp[-1])->type, yyvsp[-2], yyvsp[0]);
        }
-#line 2196 "y.tab.c"
+#line 2180 "y.tab.c"
     break;
 
-  case 80: /* RelExp: AddExp  */
-#line 398 "yacc.y"
+  case 78: /* RelExp: AddExp  */
+#line 395 "yacc.y"
                 {
     BISON_LOG("RelExp -> AddExp\n");
 }
-#line 2204 "y.tab.c"
+#line 2188 "y.tab.c"
     break;
 
-  case 81: /* RelExp: RelExp LT AddExp  */
-#line 401 "yacc.y"
+  case 79: /* RelExp: RelExp LT AddExp  */
+#line 398 "yacc.y"
                           {
             BISON_LOG("RelExp -> RelExp LT AddExp\n");
             yyval =  std::make_shared<ExprNode> (std::dynamic_pointer_cast<SimpleTokenNode>(yyvsp[-1])->type, yyvsp[-2], yyvsp[0]);
        }
-#line 2213 "y.tab.c"
+#line 2197 "y.tab.c"
     break;
 
-  case 82: /* RelExp: RelExp GT AddExp  */
-#line 405 "yacc.y"
+  case 80: /* RelExp: RelExp GT AddExp  */
+#line 402 "yacc.y"
                           {
             BISON_LOG("RelExp -> RelExp GT AddExp\n");
             yyval =  std::make_shared<ExprNode> (std::dynamic_pointer_cast<SimpleTokenNode>(yyvsp[-1])->type, yyvsp[-2], yyvsp[0]);
        }
-#line 2222 "y.tab.c"
+#line 2206 "y.tab.c"
     break;
 
-  case 83: /* RelExp: RelExp LE AddExp  */
-#line 409 "yacc.y"
+  case 81: /* RelExp: RelExp LE AddExp  */
+#line 406 "yacc.y"
                           {
             BISON_LOG("RelExp -> RelExp LE AddExp\n");
             yyval =  std::make_shared<ExprNode> (std::dynamic_pointer_cast<SimpleTokenNode>(yyvsp[-1])->type, yyvsp[-2], yyvsp[0]);
        }
-#line 2231 "y.tab.c"
+#line 2215 "y.tab.c"
     break;
 
-  case 84: /* RelExp: RelExp GE AddExp  */
-#line 413 "yacc.y"
+  case 82: /* RelExp: RelExp GE AddExp  */
+#line 410 "yacc.y"
                           {
             BISON_LOG("RelExp -> RelExp GE AddExp\n");
             yyval =  std::make_shared<ExprNode> (std::dynamic_pointer_cast<SimpleTokenNode>(yyvsp[-1])->type, yyvsp[-2], yyvsp[0]);
        }
-#line 2240 "y.tab.c"
+#line 2224 "y.tab.c"
     break;
 
-  case 85: /* EqExp: RelExp  */
-#line 418 "yacc.y"
+  case 83: /* EqExp: RelExp  */
+#line 415 "yacc.y"
                {
     BISON_LOG("EqExp -> RelExp\n");
 }
-#line 2248 "y.tab.c"
+#line 2232 "y.tab.c"
     break;
 
-  case 86: /* EqExp: EqExp EQ RelExp  */
-#line 420 "yacc.y"
+  case 84: /* EqExp: EqExp EQ RelExp  */
+#line 417 "yacc.y"
                     {
             BISON_LOG("EqExp -> EqExp EQ RelExp\n");
             yyval =  std::make_shared<ExprNode> (std::dynamic_pointer_cast<SimpleTokenNode>(yyvsp[-1])->type, yyvsp[-2], yyvsp[0]);
        }
-#line 2257 "y.tab.c"
+#line 2241 "y.tab.c"
     break;
 
-  case 87: /* EqExp: EqExp NE RelExp  */
-#line 423 "yacc.y"
+  case 85: /* EqExp: EqExp NE RelExp  */
+#line 420 "yacc.y"
                           {
             BISON_LOG("EqExp -> EqExp NE RelExp\n");
             yyval =  std::make_shared<ExprNode> (std::dynamic_pointer_cast<SimpleTokenNode>(yyvsp[-1])->type, yyvsp[-2], yyvsp[0]);
        }
-#line 2266 "y.tab.c"
+#line 2250 "y.tab.c"
     break;
 
-  case 88: /* LAndExp: EqExp  */
-#line 428 "yacc.y"
+  case 86: /* LAndExp: EqExp  */
+#line 425 "yacc.y"
                 {
     BISON_LOG("LAndExp -> EqExp\n");
 }
-#line 2274 "y.tab.c"
+#line 2258 "y.tab.c"
     break;
 
-  case 89: /* LAndExp: LAndExp AND EqExp  */
-#line 430 "yacc.y"
+  case 87: /* LAndExp: LAndExp AND EqExp  */
+#line 427 "yacc.y"
                       {
             BISON_LOG("LAndExp -> LAndExp AND EqExp\n");
             yyval =  std::make_shared<ExprNode> (std::dynamic_pointer_cast<SimpleTokenNode>(yyvsp[-1])->type, yyvsp[-2], yyvsp[0]);
        }
-#line 2283 "y.tab.c"
+#line 2267 "y.tab.c"
     break;
 
-  case 90: /* LOrExp: LAndExp  */
-#line 435 "yacc.y"
+  case 88: /* LOrExp: LAndExp  */
+#line 432 "yacc.y"
                  {
     BISON_LOG("LOrExp -> LAndExp\n");
 }
-#line 2291 "y.tab.c"
+#line 2275 "y.tab.c"
     break;
 
-  case 91: /* LOrExp: LOrExp OR LAndExp  */
-#line 437 "yacc.y"
+  case 89: /* LOrExp: LOrExp OR LAndExp  */
+#line 434 "yacc.y"
                       {
             BISON_LOG("LOrExp -> LOrExp OR LAndExp\n");
             yyval =  std::make_shared<ExprNode> (std::dynamic_pointer_cast<SimpleTokenNode>(yyvsp[-1])->type, yyvsp[-2], yyvsp[0]);
        }
-#line 2300 "y.tab.c"
+#line 2284 "y.tab.c"
     break;
 
 
-#line 2304 "y.tab.c"
+#line 2288 "y.tab.c"
 
       default: break;
     }
@@ -2498,7 +2482,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 442 "yacc.y"
+#line 439 "yacc.y"
 
 
 int main(int argc, char** argv){

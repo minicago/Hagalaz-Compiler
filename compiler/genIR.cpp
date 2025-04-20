@@ -212,12 +212,18 @@ void GenIR::visit(ReturnNode &node) {
         return;
     }
 
+
     if (node.expr) {
         node.expr->accept(*this);
         auto exprResult = result[node.expr];// Access function ID from Node
+        if (!exprResult.value->type->matchType(*result[currentFunction].value->type)){
+            REPORT_ERROR("return type mismatched");
+        }
     }
+    
 
     result[std::make_shared<ReturnNode>(node)] = CheckerResult();
+    builder.addReturnInstruction(result[node.expr].value->getOperand());
     result[std::make_shared<ReturnNode>(node)].jumpTarget = currentFunction; // Use shared_ptr<Node>
     *output.log << "Finished visiting ReturnNode" << std::endl;
 }
@@ -229,15 +235,20 @@ void GenIR::visit(FuncDefNode &node) {
     auto funcDecl = std::make_shared<FuncDecl>(node.type, node.id, node);
     
     scope.enterBlock();
-
+    builder.newBlock(node.id);
     if (node.param) {
         node.param->accept(*this);
         funcDecl->paramList = std::make_shared<std::vector<std::shared_ptr<VarDecl>>>();
         for (auto &param : std::dynamic_pointer_cast<ParamListNode> (node.param) ->paramlist) {
             auto paramResult = result[param];
+
             funcDecl->paramList->push_back(scope.findVar(std::dynamic_pointer_cast<ParamNode> (param)->id));
+            builder.addFuncArg(scope.findVar(std::dynamic_pointer_cast<ParamNode> (param)->id)->typeValue.value);
         }
     }
+    
+    
+    
 
     scope.addFunc(node.id, funcDecl);
     result[std::make_shared<FuncDefNode>(node)] = CheckerResult(funcDecl);
@@ -250,7 +261,9 @@ void GenIR::visit(FuncDefNode &node) {
 
     scope.exitBlock();
     currentFunction.reset(); // Clear current function
+    builder.switchToGlobal();
     *output.log << "Finished visiting FuncDefNode" << std::endl;
+
 }
 
 void GenIR::visit(FuncCallNode &node) {
@@ -268,6 +281,8 @@ void GenIR::visit(FuncCallNode &node) {
         REPORT_ERROR("Function " + node.id + " parameter count mismatch.");
         return;
     }
+    
+    std::vector<Operand> args;
     for (size_t i = 0; i < func->paramList->size(); ++i) {
         auto paramDecl = func->paramList->at(i);
         auto argResult = params->paramlist[i];
@@ -280,8 +295,10 @@ void GenIR::visit(FuncCallNode &node) {
             REPORT_ERROR("Function " + node.id + " parameter type mismatch.");
             return;
         }
+        args.push_back(argType->getOperand());
     }
     result[std::make_shared<FuncCallNode>(node)] = CheckerResult(func);
+    builder.addFuncCallInstruction(node.id, args, result[std::make_shared<FuncCallNode>(node)].value->value);
     *output.log << "Finished visiting FuncCallNode" << std::endl;
 }
 
