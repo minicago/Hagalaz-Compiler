@@ -21,3 +21,44 @@ std::map<Instruction::OpType, std::string> Instruction::opTypeToString = {
     {I2F_OP, "i2f"},
     {ASSIGN_OP, "assign"},
 };
+
+void BinaryInstruction::build(Builder &builder) {
+    builder.build(*this);
+}
+
+void UnaryInstruction::build(Builder &builder) {
+    builder.build(*this);
+}
+
+void BranchInstruction::build(Builder &builder) {
+    builder.build(*this);
+}
+
+void FuncCallInstruction::build(Builder &builder) {
+    builder.build(*this);
+}
+
+void GotoInstruction::build(Builder &builder) {
+    builder.build(*this);
+}
+
+void MallocInstruction::build(Builder &builder) {
+    builder.build(*this);
+}
+
+void LoadInstruction::build(Builder &builder) {
+    builder.build(*this);
+}
+
+void StoreInstruction::build(Builder &builder) {
+    builder.build(*this);
+}
+
+void LabelInstruction::build(Builder &builder) {
+    builder.build(*this);
+}
+
+void ReturnInstruction::build(Builder &builder) {
+    builder.build(*this);
+}
+

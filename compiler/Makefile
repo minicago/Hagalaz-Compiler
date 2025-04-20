@@ -12,7 +12,7 @@ lex.yy.c: lex.l
 y.tab.c: yacc.y
 	$(YACC) -o $@ -d $<
 
-hagalaz: y.tab.c lex.yy.c AST.cpp displayAST.cpp output.cpp main.cpp genIR.cpp tool.cpp scope.cpp type.cpp ir.cpp
+hagalaz: y.tab.c lex.yy.c AST.cpp displayAST.cpp output.cpp main.cpp genIR.cpp tool.cpp scope.cpp type.cpp ir.cpp lir.cpp
 	$(CC) -o $@ $^ -lfl
 
 test.c : test.sy

@@ -3,6 +3,7 @@
 #include "genIR.h"
 #include "AST.h"
 #include "output.h"
+#include "lir.h"
 
 int __main(){
     if (AST_root == nullptr) {
@@ -16,6 +17,9 @@ int __main(){
     GenIR genIR;
     AST_root->accept(genIR);
     *output.output<< genIR.builder.toString() << std::endl;
+    LIRBuilder lirBuilder(*genIR.builder.module);
+    lirBuilder.buildLIR();
+    *output.output << lirBuilder.lirModule.toString() << std::endl;
     return 0;
 
 }

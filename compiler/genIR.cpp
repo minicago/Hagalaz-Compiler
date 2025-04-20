@@ -236,14 +236,18 @@ void GenIR::visit(FuncDefNode &node) {
     
     scope.enterBlock();
     builder.newBlock(node.id);
+
+    std::stack<Operand> argOperand;
+
     if (node.param) {
         node.param->accept(*this);
+        
         funcDecl->paramList = std::make_shared<std::vector<std::shared_ptr<VarDecl>>>();
         for (auto &param : std::dynamic_pointer_cast<ParamListNode> (node.param) ->paramlist) {
             auto paramResult = result[param];
-
             funcDecl->paramList->push_back(scope.findVar(std::dynamic_pointer_cast<ParamNode> (param)->id));
             builder.addFuncArg(scope.findVar(std::dynamic_pointer_cast<ParamNode> (param)->id)->typeValue.value);
+            argOperand.push(paramResult.value->getOperand());
         }
     }
     
@@ -257,6 +261,11 @@ void GenIR::visit(FuncDefNode &node) {
     if (node.stmt) {
         node.stmt->accept(*this);
         funcDecl->stmt = node.stmt;
+    }
+    while(!argOperand.empty()) {
+        auto arg = argOperand.top();
+        argOperand.pop();
+        builder.addMallocInstruction(4, arg);
     }
 
     scope.exitBlock();
@@ -445,8 +454,10 @@ void GenIR::visit(VectorNode &node) {
                 builder.addBinaryInstruction(constructingValue->getOperand(), Instruction::constInt(constructingIndex), ptr, ADD);
                 if(simpleType == SysyType::IntegerTyID){
                     builder.addStoreInstruction(builder.getIntOperand(*result[element].value) ,ptr);
+                    constructingIndex += sizeof(int);
                 } else {
                     builder.addStoreInstruction(builder.getFloatOperand(*result[element].value) ,ptr);
+                    constructingIndex += sizeof(float);
                 }
                 if(result[element].value->isConst() && isConst){
                     if(simpleType == SysyType::IntegerTyID){

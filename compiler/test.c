@@ -1,10 +1,9 @@
 
-int array[100] = {1,2,3};
-
 int f(int a){
-
+    return f(a-1);
 }
-
 int main(){
- int a = array[1];
+ int a = 1;
+ int b = 11;
+ f(1);
 }

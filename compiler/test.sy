@@ -1,4 +1,9 @@
- int main(){
-    int a[2] = {1,2};
- }
-   int a[2] = {};
+
+int f(int a){
+    return f(a-1);
+}
+int main(){
+ int a = 1;
+ int b = 11;
+ f(1);
+}

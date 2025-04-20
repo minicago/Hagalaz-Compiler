@@ -12,17 +12,6 @@
 	.eabi_attribute 18, 4
 	.file	"test.c"
 	.text
-	.global	array
-	.data
-	.align	2
-	.type	array, %object
-	.size	array, 400
-array:
-	.word	1
-	.word	2
-	.word	3
-	.space	388
-	.text
 	.align	1
 	.global	f
 	.syntax unified
@@ -32,18 +21,20 @@ array:
 f:
 	@ args = 0, pretend = 0, frame = 8
 	@ frame_needed = 1, uses_anonymous_args = 0
-	@ link register save eliminated.
-	push	{r7}
-	sub	sp, sp, #12
+	push	{r7, lr}
+	sub	sp, sp, #8
 	add	r7, sp, #0
 	str	r0, [r7, #4]
-	nop
+	ldr	r3, [r7, #4]
+	subs	r3, r3, #1
 	mov	r0, r3
-	adds	r7, r7, #12
+	bl	f(PLT)
+	mov	r3, r0
+	mov	r0, r3
+	adds	r7, r7, #8
 	mov	sp, r7
 	@ sp needed
-	ldr	r7, [sp], #4
-	bx	lr
+	pop	{r7, pc}
 	.size	f, .-f
 	.align	1
 	.global	main
@@ -54,26 +45,21 @@ f:
 main:
 	@ args = 0, pretend = 0, frame = 8
 	@ frame_needed = 1, uses_anonymous_args = 0
-	@ link register save eliminated.
-	push	{r7}
-	sub	sp, sp, #12
+	push	{r7, lr}
+	sub	sp, sp, #8
 	add	r7, sp, #0
-	ldr	r3, .L4
-.LPIC0:
-	add	r3, pc
-	ldr	r3, [r3, #4]
+	movs	r3, #1
+	str	r3, [r7]
+	movs	r3, #11
 	str	r3, [r7, #4]
+	movs	r0, #1
+	bl	f(PLT)
 	movs	r3, #0
 	mov	r0, r3
-	adds	r7, r7, #12
+	adds	r7, r7, #8
 	mov	sp, r7
 	@ sp needed
-	ldr	r7, [sp], #4
-	bx	lr
-.L5:
-	.align	2
-.L4:
-	.word	array-(.LPIC0+4)
+	pop	{r7, pc}
 	.size	main, .-main
 	.ident	"GCC: (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0"
 	.section	.note.GNU-stack,"",%progbits

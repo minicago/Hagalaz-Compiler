@@ -5,6 +5,18 @@
 #include <variant>
 #include <map>
 
+class BinaryInstruction;
+class UnaryInstruction;
+class BranchInstruction;
+class FuncCallInstruction;
+class GotoInstruction;
+class MallocInstruction;
+class LoadInstruction;
+class StoreInstruction;
+
+
+class Builder;
+
 class Instruction {
 public:
     enum OpType {
@@ -30,7 +42,7 @@ public:
         if (op == EQ_OP) {
             return NE_OP;
         } else if (op == NE_OP) {
-            return LE_OP;
+            return EQ_OP;
         } else if (op == GE_OP) {
             return LT_OP;
         } else if (op == GT_OP) {
@@ -58,7 +70,9 @@ public:
         return "";
     }
     virtual std::string toString() const = 0;
+    virtual void build(Builder &builder) = 0;
     Instruction() = default;
+
 };
 
 class BinaryInstruction : public Instruction {
@@ -96,6 +110,7 @@ public:
     std::string toString() const override {
         return opTypeToString[op] + " " + operandToString(operand1) + ", " + operandToString(operand2) + " -> " + operandToString(result);
     }
+    virtual void build(Builder &builder) override;
 };
 
 class UnaryInstruction : public Instruction {
@@ -118,6 +133,7 @@ public:
     std::string toString() const override {
         return opTypeToString[op] + " " + operandToString(operand) + " -> " + operandToString(result);
     }
+    virtual void build(Builder &builder) override;
 };
 
 
@@ -131,6 +147,7 @@ public:
     std::string toString() const override {
         return "if " + operandToString(condition) + " goto " + operandToString(target);
     }
+    virtual void build(Builder &builder) override;
 };
 
 class FuncCallInstruction : public Instruction {
@@ -149,6 +166,7 @@ public:
         }
         return "call " + funcName + "(" + paramStr + ") -> " + operandToString(result);
     }
+    virtual void build(Builder &builder) override;
 };
 
 class GotoInstruction : public Instruction {
@@ -161,6 +179,7 @@ public:
     std::string toString() const override {
         return "goto " + operandToString(target);
     }
+    virtual void build(Builder &builder) override;
 };
 
 class LabelInstruction : public Instruction {
@@ -173,6 +192,7 @@ public:
     std::string toString() const override {
         return "label " + operandToString(label);
     }
+    virtual void build(Builder &builder) override;
 };
 
 class StoreInstruction : public Instruction {
@@ -186,6 +206,7 @@ public:
     std::string toString() const override {
         return "store " + operandToString(value) + " -> " + operandToString(address);
     }
+    virtual void build(Builder &builder) override;
 };
 
 class LoadInstruction : public Instruction {
@@ -199,6 +220,7 @@ public:
     std::string toString() const override {
         return "load " + operandToString(address) + " -> " + operandToString(result);
     }
+    virtual void build(Builder &builder) override;
 };
 
 class ReturnInstruction : public Instruction {
@@ -211,23 +233,7 @@ public:
     std::string toString() const override {
         return "return " + operandToString(value);
     }
-};
-
-class FuncDefInstruction : public Instruction {
-public:
-    std::string funcName;
-    std::vector<std::string> params;
-    Operand label;
-
-    FuncDefInstruction(std::string funcName, std::vector<std::string> params, Operand label)
-        : funcName(funcName), params(params), label(label) {}
-    std::string toString() const override {
-        std::string paramStr = "";
-        for (auto &param : params) {
-            paramStr += param + ", ";
-        }
-        return "func " + funcName + "(" + paramStr + ") -> " + operandToString(label);
-    }
+    virtual void build(Builder &builder) override;
 };
 
 class MallocInstruction : public Instruction {
@@ -241,6 +247,7 @@ public:
     std::string toString() const override {
         return "malloc " + operandToString(size) + " -> " + operandToString(result);
     }
+    virtual void build(Builder &builder) override;
 };
 
 class CodeBlock {
@@ -261,6 +268,7 @@ public:
         }
         return result;
     }
+    
 };
 
 class Module {
@@ -342,10 +350,6 @@ public:
         addInstruction(std::make_shared<ReturnInstruction>(value));
     }
 
-    void addFuncDefInstruction(std::string funcName, std::vector<std::string> params, Operand label) {
-        addInstruction(std::make_shared<FuncDefInstruction>(funcName, params, label));
-    }
-
     void addMallocInstruction(Operand size, Operand result) {
         addInstruction(std::make_shared<MallocInstruction>(size, result));
     }
@@ -416,6 +420,21 @@ public:
     }
 
     
+};
+
+class Builder{
+public:
+    virtual void build(BinaryInstruction& Instruction) = 0;
+    virtual void build(UnaryInstruction& Instruction) = 0;
+    virtual void build(BranchInstruction& Instruction) = 0;
+    virtual void build(FuncCallInstruction& Instruction) = 0;
+    virtual void build(GotoInstruction& Instruction) = 0;
+    virtual void build(MallocInstruction& Instruction) = 0;
+    virtual void build(LoadInstruction& Instruction) = 0;
+    virtual void build(StoreInstruction& Instruction) = 0;
+    virtual void build(LabelInstruction& Instruction) = 0;
+    virtual void build(ReturnInstruction& Instruction) = 0;
+
 };
 
 #endif
