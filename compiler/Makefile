@@ -21,6 +21,12 @@ test.c : test.sy
 test.ans.S : test.c
 	$(ANSC) -S -o $@ $<
 
+test.S : test.sy hagalaz
+	./hagalaz test.sy
+
+test: test.S
+	$(ANSC) -o test $<
+
 
 clean:
 	@echo "Cleaning up..."

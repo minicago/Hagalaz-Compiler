@@ -16,16 +16,16 @@ class LIRAddress;
 
 class LIROperand {
 public :
-    bool isLabel() {
+    virtual bool isLabel(){
         return false;
     }
-    bool isImm() {
+    virtual bool isImm(){
         return false;
     }
-    bool isReg() {
+    virtual bool isReg(){
         return false;
     }
-    bool isAddr() {
+    virtual bool isAddr(){
         return false;
     }
     virtual std::string toString() = 0;
@@ -37,7 +37,7 @@ class LIRLabel : public LIROperand {
 public:
     std::string label;
     LIRLabel(std::string label) : label(label) {}
-    bool isLabel() {
+    bool isLabel() override{
         return true;
     }
     std::string toString() {
@@ -49,7 +49,7 @@ class LIRImmediate : public LIROperand {
 public:
     int value;
     LIRImmediate(int value) : value(value) {}
-    bool isImm() {
+    bool isImm() override{
         return true;
     }
     std::string toString() {
@@ -61,7 +61,7 @@ class LIRRegister : public LIROperand {
 public:
     int reg;
     LIRRegister(int reg) : reg(reg) {}
-    bool isReg() {
+    bool isReg() override{
         return true;
     }
     std::string toString() {
@@ -73,7 +73,7 @@ class LIRAddress : public LIROperand {
 public:
     int reg;
     int offset;
-    bool isAddr() {
+    bool isAddr() override{
         return true;
     }
     LIRAddress() = default;
@@ -184,7 +184,7 @@ public:
         } else {
             
             if(op == Instruction::ADD_OP || op == Instruction::SUB_OP || op == Instruction::MUL_OP || op == Instruction::DIV_OP || op == Instruction::MOD_OP) {
-                result += Instruction::opTypeToString[op] + "s " + dest->toString() + ", " + src1->toString() + ", " + src2->toString() + "\n";
+                result += Instruction::opTypeToString[op] + " " + dest->toString() + ", " + src1->toString() + ", " + src2->toString() + "\n";
             }
             if (op == Instruction::EQ_OP || op == Instruction::NE_OP || op == Instruction::GE_OP || op == Instruction::LE_OP || op == Instruction::GT_OP || op == Instruction::LT_OP) {
                 result += "cmp " + src1->toString() + ", " + src2->toString() + "\n";
@@ -262,8 +262,9 @@ public:
         for (size_t i = 0; i < params.size(); ++i) {
             resultStr += "push {" + params[i]->toString() + "}\n";
         }
-        resultStr += "add sp, sp, #" + std::to_string(params.size() * 4) + "\n";
         resultStr +=  "bl " + funcName + "(PLT)" + "\n";
+        resultStr += "add sp, sp, #" + std::to_string(params.size() * 4) + "\n";
+        
         if (result) {
             resultStr += "mov " + result->toString() + ", r0\n";
         }
@@ -365,7 +366,7 @@ public:
 
         result += "push {" + rm.allUsedRegister() + "lr}\n";
 
-        result += "add	r7, sp, #"+std::to_string(4 * rm.getUsedRegisterCount() + 1)+"\n";
+        result += "add	r7, sp, #"+std::to_string(4 * rm.getUsedRegisterCount() + 4)+"\n";
         
 
         for (const auto& instruction : instructions) {
@@ -596,13 +597,13 @@ public:
         currentBlock->rm.return_r(size);
     }
     void build(LoadInstruction& instruction) override{
-        auto dest = OperandToLIR(instruction.result);
+        auto dest = toRegister(OperandToLIR(instruction.result));
         auto src = OperandToLIR(instruction.address);
         addLoadInstruction(src, dest);
         currentBlock->rm.return_r(src);
     }
     void build(StoreInstruction& instruction) override{
-        auto src = OperandToLIR(instruction.value);
+        auto src = toRegister( OperandToLIR(instruction.value));
         auto dest = OperandToLIR(instruction.address);
         addStoreInstruction(src, dest);
         currentBlock->rm.return_r(src);
@@ -610,7 +611,7 @@ public:
     void build(FuncCallInstruction & instruction) override{
         std::vector<std::shared_ptr<LIROperand>> params;
         for (const auto& param : instruction.params) {
-            params.push_back(OperandToLIR(param));
+            params.push_back(toRegister(OperandToLIR(param)));
         }
         auto result = OperandToLIR(instruction.result);
         addFuncCallInstruction(instruction.funcName, params, result);

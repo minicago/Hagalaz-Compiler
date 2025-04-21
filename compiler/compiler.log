@@ -1,0 +1,103 @@
+2
+Starting the compiler?
+CompUnitNode
+FuncDefNode: type=291, id=f
+Parameters:
+ParamListNode
+ParamNode: type=291, id=a, isptr=0
+Body:
+BlockGroupNode
+ReturnNode
+FuncCallNode: id=f
+FuncCallParamNode
+ExprNode: op=266
+LvalNode: id=a
+ConstIntNode: val=1
+FuncDefNode: type=291, id=main
+Body:
+BlockGroupNode
+DeclNode: isConst=0, type=291, id=a
+Initial value:
+ConstIntNode: val=1
+DeclNode: isConst=0, type=291, id=b
+Initial value:
+ConstIntNode: val=11
+FuncCallNode: id=f
+FuncCallParamNode
+ConstIntNode: val=1
+Visiting CompUnitNode
+Visiting FuncDefNode
+Function definition: f
+Visiting ParamListNode
+Visiting ParamNode
+Finished visiting ParamNode
+Finished visiting ParamListNode
+Visiting BlockGroupNode
+Visiting ReturnNode
+Visiting FuncCallNode
+Visiting FuncCallParamNode
+Visiting LvalNode
+int
+Finished visiting LvalNode
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Finished visiting ExprNode
+Finished visiting FuncCallParamNode
+Matching types: int and int
+Finished visiting FuncCallNode
+Matching types: int and int
+Finished visiting ReturnNode
+Finished visiting BlockGroupNode
+Finished visiting FuncDefNode
+Visiting FuncDefNode
+Function definition: main
+Visiting BlockGroupNode
+Visiting DeclNode
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Matching types: int and const int
+Finished visiting DeclNode
+Visiting DeclNode
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Matching types: int and const int
+Finished visiting DeclNode
+Visiting FuncCallNode
+Visiting FuncCallParamNode
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Finished visiting FuncCallParamNode
+Matching types: int and const int
+Finished visiting FuncCallNode
+Finished visiting BlockGroupNode
+Finished visiting FuncDefNode
+Finished visiting CompUnitNode
+IRBuilder toString
+()
+f
+($0,)
+load $0 -> $2
+sub $2, 1 -> $3
+call f($3, ) -> $4
+return $4
+malloc 4 -> $0
+
+main
+()
+malloc 4 -> $6
+store 1 -> $6
+malloc 4 -> $7
+store 11 -> $7
+call f(1, ) -> $8
+
+
+Building LIR
+Finished building global variables
+Building2: load $0 -> $2
+Building2: sub $2, 1 -> $3
+Building2: call f($3, ) -> $4
+Building2: return $4
+Building2: store 1 -> $6
+Building2: store 11 -> $7
+Building2: call f(1, ) -> $8
+Finished building LIR

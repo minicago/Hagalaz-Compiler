@@ -7,8 +7,9 @@
 
 class Output{
 public:
-    std::shared_ptr<std::ostream> log, err, output;
+    std::shared_ptr<std::ofstream> log, err, output;
     Output() ;
+    void setOutput(std::string filename);
 };
 
 extern Output output;

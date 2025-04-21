@@ -16,9 +16,10 @@ int __main(){
     AST_root->accept(display);
     GenIR genIR;
     AST_root->accept(genIR);
-    *output.output<< genIR.builder.toString() << std::endl;
+    *output.log<< genIR.builder.toString() << std::endl;
     LIRBuilder lirBuilder(*genIR.builder.module);
     lirBuilder.buildLIR();
+    output.setOutput("test.S");
     *output.output << lirBuilder.lirModule.toString() << std::endl;
     return 0;
 
