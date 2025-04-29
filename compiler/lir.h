@@ -49,6 +49,7 @@ class LIRImmediate : public LIROperand {
 public:
     int value;
     LIRImmediate(int value) : value(value) {}
+    LIRImmediate(float value) : value(*(int*)&value) {}
     bool isImm() override{
         return true;
     }
@@ -97,18 +98,22 @@ public:
             used[i] = false;
         }
         available[7] = false;
-        available[0] = false;
+        // available[0] = false;
         used[7] = true;
     }
 
     std::shared_ptr<LIROperand> get_r(){
-        for (int i = 3; i < 16; i++) {
+        for (int i = 4; i < 16; i++) {
             if (available[i]) {
                 available[i] = false;
                 used[i] = true;
                 return std::make_shared<LIRRegister>(i);
             }
         }        
+    }
+
+    std::shared_ptr<LIROperand> get_r(int i){
+        return std::make_shared<LIRRegister>(i);
     }
 
     void return_r(std::shared_ptr<LIROperand> r){
@@ -260,6 +265,9 @@ public:
     std::string toString() const override {
         std::string resultStr;
         for (size_t i = 0; i < params.size(); ++i) {
+            if (i < 4) {
+                resultStr += "mov r" + std::to_string(i) + ", " + params[i]->toString() + "\n";
+            }
             resultStr += "push {" + params[i]->toString() + "}\n";
         }
         resultStr +=  "bl " + funcName + "(PLT)" + "\n";
@@ -332,7 +340,17 @@ public:
     std::shared_ptr<LIROperand> src;
     LIRMovInstruction(std::shared_ptr<LIROperand> dest, std::shared_ptr<LIROperand> src) : dest(dest), src(src) {}
     std::string toString() const override {
-        return "mov " + dest->toString() + ", " + src->toString() + "\n";
+        if (src ->isImm()) {
+            if (auto x = std::dynamic_pointer_cast<LIRImmediate>(src)->value){
+                int high = (x >> 16) & 0xFFFF;
+                int low = x & 0xFFFF;
+                if (high != 0) {
+                    return "movw " + dest->toString() + ", #" + std::to_string(low) + "\n" +
+                           "movt " + dest->toString() + ", #" + std::to_string(high) + "\n";
+                }
+                else return "mov " + dest->toString() + ", #" + std::to_string(low) + "\n";
+            }
+        } else return "mov " + dest->toString() + ", " + src->toString() + "\n";
     }
 };
 
@@ -344,6 +362,7 @@ public:
     RegisterManager rm;
     std::vector<std::shared_ptr<LIRInstruction>> instructions;
     int size;
+    int argNum;
 
     std::string onlyInstructions() const {
         std::string result;
@@ -362,7 +381,7 @@ public:
         result += ".type " + name + ", %function\n";
         result += name + ":\n";
 
-        result += "sub sp, sp, #" + std::to_string(size) + "\n";
+        result += "sub sp, sp, #" + std::to_string(size - 4 * argNum) + "\n";
 
         result += "push {" + rm.allUsedRegister() + "lr}\n";
 
@@ -561,7 +580,7 @@ public:
             if (std::holds_alternative<int>(f)) {
                 return std::make_shared<LIRImmediate>(std::get<int>(f));
             } else if (std::holds_alternative<float>(f)) {
-                return std::make_shared<LIRImmediate>(static_cast<int>(std::get<float>(f)));
+                return std::make_shared<LIRImmediate>(std::get<float>(f));
             }
         } else if (std::holds_alternative<std::shared_ptr<Value>>(op)) {
             if (vm.count(std::get<std::shared_ptr<Value>>(op))) {
@@ -659,6 +678,7 @@ public:
             lirModule.codeBlocks.push_back(block);
             currentBlock = block;
             currentBlock->size = prepareMalloc(*func.second);
+            currentBlock->argNum = func.second->args_.size();
             returnLabel = std::make_shared<LIRLabel>("."+func.first + ".ret");
             currentBlock->name = func.first;
 

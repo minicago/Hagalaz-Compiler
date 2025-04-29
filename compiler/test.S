@@ -14,49 +14,25 @@
 
 .text
 .align 1
-.global f
-.thumb
-.thumb_func
-.type f, %function
-f:
-sub sp, sp, #4
-push {r3, r4, r7, lr}
-add	r7, sp, #16
-ldr r3, [r7, #0]
-sub r4, r3, #1
-push {r4}
-bl f(PLT)
-add sp, sp, #4
-mov r3, r0
-mov r0, r3
-b .f.ret
-.f.ret:
-pop {r3, r4, r7, pc}
-add sp, sp, #4
-bx lr
-.size f, .-f
-
-.align 1
 .global main
 .thumb
 .thumb_func
 .type main, %function
 main:
-sub sp, sp, #8
-push {r3, r4, r7, lr}
-add	r7, sp, #16
-mov r3, #1
-str r3, [r7, #0]
-mov r3, #11
-str r3, [r7, #4]
-mov r3, #1
-push {r3}
-bl f(PLT)
-add sp, sp, #4
-mov r4, r0
+sub sp, sp, #4
+push {r4, r7, lr}
+add	r7, sp, #12
+movw r4, #0
+movt r4, #17096
+str r4, [r7, #0]
+movw r4, #0
+movt r4, #17096
+str r4, [r7, #0]
+mov r0, #1
+b .main.ret
 .main.ret:
-pop {r3, r4, r7, pc}
-add sp, sp, #8
+pop {r4, r7, pc}
+add sp, sp, #4
 bx lr
 .size main, .-main
 

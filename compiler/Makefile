@@ -1,10 +1,12 @@
 CC = g++
 CFLAGS = -g -Wall -std=c++17
 ANSC = arm-linux-gnueabihf-gcc
-
+QEMU = qemu-arm-static
 
 LEX = flex
 YACC = bison
+
+.PHONY: all clean run
 
 lex.yy.c: lex.l
 	$(LEX) -o $@ $<
@@ -26,6 +28,21 @@ test.S : test.sy hagalaz
 
 test: test.S
 	$(ANSC) -o test $<
+
+test.ans : test.ans.S
+	$(ANSC) -o test.ans $<
+
+run: test
+	@echo "Running test..."
+	@-$(QEMU) test; \
+		echo $$?
+	@echo "Test completed."
+
+run-ans: test.ans
+	@echo "Running test.ans..."
+	@-$(QEMU) test; \
+		echo $$?
+	@echo "Test.ans completed."
 
 
 clean:

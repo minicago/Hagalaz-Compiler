@@ -375,7 +375,7 @@ void GenIR::visit(AssignNode &node) {
     isAssign = true;
     node.left->accept(*this);
     node.expr->accept(*this);
-    builder.addStoreInstruction(result[node.expr].value->getOperand(), result[node.expr].value->getOperand());
+    builder.addStoreInstruction(result[node.expr].value->getOperand(), result[node.left].value->getOperand());
     // ...existing code for assignment validation...
     *output.log << "Finished visiting AssignNode" << std::endl;
 }
