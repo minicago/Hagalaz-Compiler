@@ -249,7 +249,7 @@ public:
     LIRBranchInstruction(std::shared_ptr<LIROperand> condition, std::shared_ptr<LIROperand> target) : condition(condition), target(target) {}
     std::string toString() const override {
         return "cmp " + condition->toString() + ", #0\n" +
-               "beq " + target->toString() + "\n";
+               "bne " + target->toString() + "\n";
     }
 };
 
@@ -376,6 +376,7 @@ public:
         std::string result;
         result += ".align 1\n";
         result += ".global " + name + "\n";
+        result += ".syntax unified \n";
         result += ".thumb\n";
         result += ".thumb_func\n";
         result += ".type " + name + ", %function\n";
@@ -574,7 +575,10 @@ public:
         throw std::bad_variant_access();
     }
 
-    std::shared_ptr<LIROperand> OperandToLIR(Operand op){
+    std::shared_ptr<LIROperand> OperandToLIR(Operand op, bool isLabel = false){
+        if (isLabel) {
+            return getLabel(op);
+        }
         if (std::holds_alternative<ConstType>(op)) {
             auto f = std::get<ConstType>(op);
             if (std::holds_alternative<int>(f)) {
@@ -640,19 +644,19 @@ public:
     }
 
     void build(GotoInstruction& instruction) override{
-        auto target = OperandToLIR(instruction.target);
+        auto target = OperandToLIR(instruction.target, true);
         addGotoInstruction(target);
     }
 
     void build(BranchInstruction& instruction) override{
         auto condition = OperandToLIR(instruction.condition);
-        auto target = OperandToLIR(instruction.target);
+        auto target = OperandToLIR(instruction.target, true);
         addBranchInstruction(condition, target);
         currentBlock->rm.return_r(condition);
     }
 
     void build(LabelInstruction& instruction) override{
-        auto label = OperandToLIR(instruction.label);
+        auto label = OperandToLIR(instruction.label, true);
         addLabelInstruction(label);
     }
     void build(ReturnInstruction& instruction) override{

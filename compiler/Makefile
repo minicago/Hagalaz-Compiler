@@ -40,7 +40,7 @@ run: test
 
 run-ans: test.ans
 	@echo "Running test.ans..."
-	@-$(QEMU) test; \
+	@-$(QEMU) test.ans; \
 		echo $$?
 	@echo "Test.ans completed."
 

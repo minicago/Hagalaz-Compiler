@@ -1,5 +1,10 @@
+int f(int a){
+    if(a==1) return 1;
+    if(a==2) return 1;
+    return f(a-1) + f(a-2);
+}
+
 int main(){
-    float a = 1e2 ;
-    a = 1e2;
-    return 1;
+    return f(5);
+    
 }
