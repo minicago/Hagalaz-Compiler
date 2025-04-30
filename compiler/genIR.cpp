@@ -451,15 +451,16 @@ void GenIR::visit(VectorNode &node) {
                 }
 
                 auto ptr = builder.newValue();
-                builder.addBinaryInstruction(constructingValue->getOperand(), Instruction::constInt(constructingIndex), ptr, ADD);
-                if(simpleType == SysyType::IntegerTyID){
-                    builder.addStoreInstruction(builder.getIntOperand(*result[element].value) ,ptr);
-                    constructingIndex += sizeof(int);
-                } else {
-                    builder.addStoreInstruction(builder.getFloatOperand(*result[element].value) ,ptr);
-                    constructingIndex += sizeof(float);
-                }
-                if(result[element].value->isConst() && isConst){
+                if(!isConst){
+                    builder.addBinaryInstruction(constructingValue->getOperand(), Instruction::constInt(constructingIndex), ptr, ADD);
+                    if(simpleType == SysyType::IntegerTyID){
+                        builder.addStoreInstruction(builder.getIntOperand(*result[element].value) ,ptr);
+                        constructingIndex += sizeof(int);
+                    } else {
+                        builder.addStoreInstruction(builder.getFloatOperand(*result[element].value) ,ptr);
+                        constructingIndex += sizeof(float);
+                    }
+                } else if(result[element].value->isConst() && isConst){
                     if(simpleType == SysyType::IntegerTyID){
                         auto val = result[element].value->getInt();                        
                         memcpy(std::get<void*> (constructingValue->const_) + constructingIndex, &val, sizeof(int));
@@ -610,6 +611,7 @@ void GenIR::visit(BlockGroupNode &node) {
 }
 
 void GenIR::visit(LvalNode &node) {
+    *output.log << isAssign << std::endl;
     bool isAssign_ = isAssign;
     isAssign = false;
     
@@ -620,6 +622,7 @@ void GenIR::visit(LvalNode &node) {
         return;
     }
     bool allConst = var->typeValue.type->isConst();
+    bool indexConst = true;
 
     if (node.arrayIndex) {
         auto typeValue = var->typeValue;
@@ -653,8 +656,9 @@ void GenIR::visit(LvalNode &node) {
             }
 
             allConst = allConst && indexResult.value->type->isConst(); 
+            indexConst = indexConst && indexResult.value->type->isConst();
 
-            if(allConst){
+            if(indexConst){
                 *output.log << "Array is constant." << std::endl;
                 auto indexValue = indexResult.value->getInt();
                 *output.log << typeValue.type->toString() << std::endl;
@@ -665,14 +669,13 @@ void GenIR::visit(LvalNode &node) {
                 *output.log << "Array is not constant." << std::endl;
                 if (offset) {
                     std::shared_ptr<Value>  tmp = std::make_shared<Value> ();
-                    
                     builder.addBinaryInstruction(Instruction::constInt(offset), value, tmp, ADD);
                     value = tmp;
                 }
                 typeValue = typeValue.get_index(0);
 
                 std::shared_ptr<Value>  tmp1 = std::make_shared<Value> (), tmp2 = std::make_shared<Value> ();
-                builder.addBinaryInstruction(Instruction::constInt(typeValue.type->size), indexResult.value->value, tmp1, MUL);
+                builder.addBinaryInstruction(Instruction::constInt(typeValue.type->size), indexResult.value->getOperand(), tmp1, MUL);
                 builder.addBinaryInstruction(value, tmp1, tmp2, ADD);
                 value = tmp2;               
 
@@ -683,16 +686,21 @@ void GenIR::visit(LvalNode &node) {
              
 
         }
+        if(indexConst&&!allConst){
+            auto tmp = std::make_shared<Value> ();
+            builder.addBinaryInstruction(Instruction::constInt(offset), value, tmp, ADD);
+            value = tmp;
+        } 
         if(allConst) {
             result[std::make_shared<LvalNode>(node)] = CheckerResult(typeValue);
         } else {
-                result[std::make_shared<LvalNode>(node)] = CheckerResult(TypeValue(value ,typeValue.type));
+            result[std::make_shared<LvalNode>(node)] = CheckerResult(TypeValue(value ,typeValue.type));
         }
-        return ;
     }
     else result[std::make_shared<LvalNode>(node)] = CheckerResult( var->typeValue);
+    *output.log << allConst << " " << isAssign_ << std::endl;
     if (allConst) {
-        if(isAssign) {
+        if(isAssign_) {
             REPORT_ERROR("assign a constant");
         } else {
             result[std::make_shared<LvalNode>(node)].value->value = nullptr;

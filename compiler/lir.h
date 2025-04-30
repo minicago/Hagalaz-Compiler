@@ -305,7 +305,11 @@ public:
     std::shared_ptr<LIROperand> dest;
     LIRStoreInstruction(std::shared_ptr<LIROperand> src, std::shared_ptr<LIROperand> dest) : src(src), dest(dest) {}
     std::string toString() const override {
-        return "str " + src->toString() + ", " + dest->toString() + "\n";
+        std::string destStr = dest->toString();
+        if (dest->isReg()) {
+            destStr = "[" + destStr + "]";
+        }
+        return "str " + src->toString() + ", " + destStr + "\n";
     }
 };
 
@@ -315,7 +319,11 @@ public:
     std::shared_ptr<LIROperand> dest;
     LIRLoadInstruction(std::shared_ptr<LIROperand> src, std::shared_ptr<LIROperand> dest) : src(src), dest(dest) {}
     std::string toString() const override {
-        return "ldr " + dest->toString() + ", " + src->toString() + "\n";
+        std::string srcStr = src->toString();
+        if (src->isReg()) {
+            srcStr = "[" + srcStr + "]";
+        }        
+        return "ldr " + dest->toString() + ", " + srcStr + "\n";
     }
 };
 
@@ -354,6 +362,15 @@ public:
     }
 };
 
+class LIRLDRPseudoInstruction : public LIRInstruction {
+public:
+    std::shared_ptr<LIROperand> dest;
+    std::shared_ptr<LIROperand> src;
+    LIRLDRPseudoInstruction(std::shared_ptr<LIROperand> dest, std::shared_ptr<LIROperand> src) : dest(dest), src(src) {}
+    std::string toString() const override {
+        return "ldr " + dest->toString() + ", =" + src->toString() + "\n";
+    }
+};
 
 
 class LIRCodeBlock {
@@ -466,6 +483,9 @@ public:
     }
 
     void addBinaryInstruction(std::shared_ptr<LIROperand> dest, std::shared_ptr<LIROperand> src1, std::shared_ptr<LIROperand> src2, Instruction::OpType op, bool isFloat = false) {
+        if(src1->isImm()) {
+            std::swap(src1, src2);
+        }
         auto instruction = std::make_shared<LIRBinaryInstruction>(dest, src1, src2, op, isFloat);
         addInstruction(instruction);
    
@@ -516,6 +536,14 @@ public:
         addInstruction(instruction);
     }
 
+    void addLDRPseudoInstruction(std::shared_ptr<LIROperand> dest, std::shared_ptr<LIROperand> src) {
+        auto instruction = std::make_shared<LIRLDRPseudoInstruction>(dest, src);
+        addInstruction(instruction);
+    }
+
+    
+
+
     std::shared_ptr<LIROperand>  toRegister(std::shared_ptr<LIROperand> op ){
         if (op->isReg()) {
             return op;
@@ -536,6 +564,43 @@ public:
             return r;
         } else {
             REPORT_ERROR("toRegister Error");
+        }
+    }
+
+    std::shared_ptr<LIROperand> noLabel(std::shared_ptr<LIROperand> op) {
+        if (op->isReg()) {
+            return op;
+        } else if (op->isLabel()) {
+            auto label = std::dynamic_pointer_cast<LIRLabel>(op);
+            auto reg = currentBlock->rm.get_r();
+            addLDRPseudoInstruction(reg, label);
+            return reg;
+        } else if (op->isImm()) {
+            return op;
+        } else if (op->isAddr()){
+            return op;
+        } else {
+            REPORT_ERROR("noLabel Error");
+        }
+    }
+
+    std::shared_ptr<LIROperand> AddressToNum(std::shared_ptr<LIROperand> op) {
+        if (op->isAddr()) {
+            auto addr = std::dynamic_pointer_cast<LIRAddress>(op);
+            auto reg = currentBlock->rm.get_r();
+            addBinaryInstruction(reg, std::make_shared<LIRImmediate>(addr->offset), std::make_shared<LIRRegister>(addr->reg), Instruction::ADD_OP);
+            return reg;
+        } else if (op->isReg()) {
+            return op;
+        } else if (op->isLabel()) {
+            auto label = std::dynamic_pointer_cast<LIRLabel>(op);
+            auto reg = currentBlock->rm.get_r();
+            addLDRPseudoInstruction(reg, label);
+            return reg;
+        } else if (op->isImm()) {
+            return op;
+        } else {
+            REPORT_ERROR("AddressToNum Error");
         }
     }
 
@@ -575,10 +640,7 @@ public:
         throw std::bad_variant_access();
     }
 
-    std::shared_ptr<LIROperand> OperandToLIR(Operand op, bool isLabel = false){
-        if (isLabel) {
-            return getLabel(op);
-        }
+    std::shared_ptr<LIROperand> OperandToLIR(Operand op){
         if (std::holds_alternative<ConstType>(op)) {
             auto f = std::get<ConstType>(op);
             if (std::holds_alternative<int>(f)) {
@@ -600,8 +662,14 @@ public:
 
     void build(BinaryInstruction& instruction) override{
         auto dest = OperandToLIR(instruction.result);
-        auto src1 = OperandToLIR(instruction.operand1);
-        auto src2 = OperandToLIR(instruction.operand2);
+        auto src1 = AddressToNum(OperandToLIR(instruction.operand1));
+        auto src2 = AddressToNum(OperandToLIR(instruction.operand2));
+        
+        if(src1->isImm() && src2->isImm()){
+            src1 = toRegister(src1);
+        }  
+        
+
         addBinaryInstruction(dest, src1, src2, instruction.op, instruction.isFloat);
         currentBlock->rm.return_r(src1);
         currentBlock->rm.return_r(src2);
@@ -621,13 +689,13 @@ public:
     }
     void build(LoadInstruction& instruction) override{
         auto dest = toRegister(OperandToLIR(instruction.result));
-        auto src = OperandToLIR(instruction.address);
+        auto src = noLabel( OperandToLIR(instruction.address));
         addLoadInstruction(src, dest);
         currentBlock->rm.return_r(src);
     }
     void build(StoreInstruction& instruction) override{
         auto src = toRegister( OperandToLIR(instruction.value));
-        auto dest = OperandToLIR(instruction.address);
+        auto dest = noLabel( OperandToLIR(instruction.address) );
         addStoreInstruction(src, dest);
         currentBlock->rm.return_r(src);
     }
@@ -644,19 +712,19 @@ public:
     }
 
     void build(GotoInstruction& instruction) override{
-        auto target = OperandToLIR(instruction.target, true);
+        auto target = getLabel(instruction.target);
         addGotoInstruction(target);
     }
 
     void build(BranchInstruction& instruction) override{
         auto condition = OperandToLIR(instruction.condition);
-        auto target = OperandToLIR(instruction.target, true);
+        auto target = getLabel(instruction.target);
         addBranchInstruction(condition, target);
         currentBlock->rm.return_r(condition);
     }
 
     void build(LabelInstruction& instruction) override{
-        auto label = OperandToLIR(instruction.label, true);
+        auto label = getLabel(instruction.label);
         addLabelInstruction(label);
     }
     void build(ReturnInstruction& instruction) override{

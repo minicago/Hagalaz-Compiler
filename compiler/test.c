@@ -4,7 +4,9 @@ int f(int a){
     return f(a-1) + f(a-2);
 }
 
+int a = 2;
+
 int main(){
-    return f(5);
+    return f(a);
     
 }

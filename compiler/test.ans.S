@@ -55,6 +55,14 @@ f:
 	@ sp needed
 	pop	{r4, r7, pc}
 	.size	f, .-f
+	.global	a
+	.data
+	.align	2
+	.type	a, %object
+	.size	a, 4
+a:
+	.word	2
+	.text
 	.align	1
 	.global	main
 	.syntax unified
@@ -66,11 +74,19 @@ main:
 	@ frame_needed = 1, uses_anonymous_args = 0
 	push	{r7, lr}
 	add	r7, sp, #0
-	movs	r0, #5
+	ldr	r3, .L7
+.LPIC0:
+	add	r3, pc
+	ldr	r3, [r3]
+	mov	r0, r3
 	bl	f(PLT)
 	mov	r3, r0
 	mov	r0, r3
 	pop	{r7, pc}
+.L8:
+	.align	2
+.L7:
+	.word	a-(.LPIC0+4)
 	.size	main, .-main
 	.ident	"GCC: (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0"
 	.section	.note.GNU-stack,"",%progbits

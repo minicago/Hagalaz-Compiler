@@ -261,8 +261,9 @@ public:
             result += Instruction::operandToString(arg) + ",";
         }
         result += ")\n";
+        
         for (const auto &instruction : instructions) {
-            
+            *output.log << instruction->toString() <<std::endl;
             result += instruction->toString() + "\n";
 
         }
@@ -281,6 +282,7 @@ public:
         
         result += global->toString();
         for (const auto &pair : func) {
+            // *output.log << (pair.first + "\n" + pair.second->toString() + '\n') <<std::endl;
             result += pair.first + "\n" + pair.second->toString() + '\n';
             
         }
@@ -299,6 +301,7 @@ public:
     }
 
     void addInstruction(std::shared_ptr<Instruction> instruction) {
+        // *output.log << "add" << instruction->toString() << std::endl;
         currentBlock->instructions.push_back(instruction);
     }
 
@@ -315,6 +318,9 @@ public:
     }
 
     void addBinaryInstruction(Operand operand1, Operand operand2, Operand result, yytokentype op, bool isFloat = false) {
+        
+        // *output.log << "addBinaryInstruction1" << Instruction::operandToString(operand1) << std::endl;
+        // *output.log << "addBinaryInstruction2" << Instruction::operandToString(operand2) << std::endl;
         addInstruction(std::make_shared<BinaryInstruction>(operand1, operand2, result, op, isFloat));
     }
 

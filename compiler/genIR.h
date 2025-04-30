@@ -65,7 +65,11 @@ public:
     void visit(BlockGroupNode &node) override;
     void visit(LvalNode &node) override;
 
-    GenIR() = default;
+    GenIR() {
+        constructingValue = nullptr;
+        constructingType = nullptr;
+        isAssign = false;
+    }
 };
 
 #endif
