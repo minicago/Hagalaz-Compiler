@@ -31,13 +31,19 @@ void Scope::addGlobalVar(std::string id, std::shared_ptr<VarDecl> var) {
     globalTable[id] = var;
 }
 
-void Scope::addVar(std::string id, std::shared_ptr<VarDecl> var) {
+void Scope::addVar(std::string id, std::shared_ptr<VarDecl> var, bool replace) {
     if (localTable.find(id) != localTable.end()) {
-        *output.err << "Error: Variable " << id << " already declared in this scope." << std::endl;
-        return;
+        if(!replace){
+            *output.err << "Error: Variable " << id << " already declared in this scope." << std::endl;
+            return;
+        } else {
+            localTable[id] = var;
+        }
+    } else {
+        currentTable.top().insert(id);
+        localTable[id] = var;        
     }
-    currentTable.top().insert(id);
-    localTable[id] = var;
+
 }
 
 void Scope::addFunc(std::string id, std::shared_ptr<FuncDecl> func) {

@@ -245,7 +245,18 @@ void GenIR::visit(FuncDefNode &node) {
         funcDecl->paramList = std::make_shared<std::vector<std::shared_ptr<VarDecl>>>();
         for (auto &param : std::dynamic_pointer_cast<ParamListNode> (node.param) ->paramlist) {
             auto paramResult = result[param];
-            funcDecl->paramList->push_back(scope.findVar(std::dynamic_pointer_cast<ParamNode> (param)->id));
+            auto arg = scope.findVar(std::dynamic_pointer_cast<ParamNode> (param)->id);
+            funcDecl->paramList->push_back(arg);
+            if (arg->typeValue.type->isArrayType()) {
+                // auto newValue = builder.newValue();
+                // builder.addLoadInstruction(arg->typeValue.getOperand(), newValue);
+                // scope.addVar(arg->id, 
+                //     std::make_shared<VarDecl>(arg->id, 
+                //         TypeValue(std::get<std::shared_ptr<Value> >(newValue),
+                //             arg->typeValue.type)
+                //         ),
+                //     true);
+            }
             builder.addFuncArg(scope.findVar(std::dynamic_pointer_cast<ParamNode> (param)->id)->typeValue.value);
             argOperand.push(paramResult.value->getOperand());
         }
@@ -266,6 +277,7 @@ void GenIR::visit(FuncDefNode &node) {
         auto arg = argOperand.top();
         argOperand.pop();
         builder.addMallocInstruction(4, arg);
+        
     }
 
     scope.exitBlock();
@@ -621,11 +633,18 @@ void GenIR::visit(LvalNode &node) {
         REPORT_ERROR("Variable " + node.id + " not declared.");
         return;
     }
+    auto typeValue = var->typeValue;
+    if(var->typeValue.type->isArrayType() 
+        && std::dynamic_pointer_cast<ArrayType> (var->typeValue.type)->length == type::VARIANT_SIZE){
+            auto value = builder.newValue();
+            builder.addLoadInstruction(var->typeValue.getOperand(), value);
+            typeValue.value = std::get<std::shared_ptr<Value> > (value);
+    }   
     bool allConst = var->typeValue.type->isConst();
     bool indexConst = true;
 
     if (node.arrayIndex) {
-        auto typeValue = var->typeValue;
+        
         size_t offset = 0;
         std::shared_ptr<Value> value = typeValue.value;
         for(auto &index : std::dynamic_pointer_cast<VectorNode> (node.arrayIndex)->list) {
@@ -705,7 +724,7 @@ void GenIR::visit(LvalNode &node) {
         } else {
             result[std::make_shared<LvalNode>(node)].value->value = nullptr;
         }
-    } else if (!isAssign_) {
+    } else if (!isAssign_ && result[std::make_shared<LvalNode>(node)].value->type->isSimpleType()) {
         std::shared_ptr<Value>  tmp = std::make_shared<Value> ();
         builder.addLoadInstruction(result[std::make_shared<LvalNode>(node)].value->value, tmp);
         result[std::make_shared<LvalNode>(node)].value->value = tmp;

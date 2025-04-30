@@ -28,7 +28,8 @@ public:
     VarDecl(std::string id, TypeValue typeValue, ParamNode& node)
         : id(id), node(std::make_shared<ParamNode> (node)), typeValue(typeValue) {}
 
-
+    VarDecl(std::string id, TypeValue typeValue)
+        : id(id), node(nullptr), typeValue(typeValue) {}
 };
 
 class FuncDecl{
@@ -54,7 +55,7 @@ public:
     void enterBlock();
     void exitBlock();
     void addGlobalVar(std::string id, std::shared_ptr<VarDecl> var);
-    void addVar(std::string id, std::shared_ptr<VarDecl> var);
+    void addVar(std::string id, std::shared_ptr<VarDecl> var, bool replace = false);
     void addFunc(std::string id, std::shared_ptr<FuncDecl> func);
     std::shared_ptr<VarDecl> findVar(std::string id);
     std::shared_ptr<FuncDecl> findFunc(std::string id);

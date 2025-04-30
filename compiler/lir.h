@@ -414,7 +414,7 @@ public:
         result += "."+name+".ret:\n";
 
         result += "pop {" + rm.allUsedRegister() + "pc}\n";
-        result += "add sp, sp, #" + std::to_string(size) + "\n";
+        result += "add sp, sp, #" + std::to_string(size - 4 * argNum) + "\n";
         result += "bx lr\n";
         result += ".size " + name + ", .-" + name + "\n";
 
@@ -559,9 +559,9 @@ public:
 
         } else if (op->isAddr()) {
             auto addr = std::dynamic_pointer_cast<LIRAddress>(op);
-            auto r = currentBlock->rm.get_r();
-            addMovInstruction(r, addr);
-            return r;
+            auto reg = currentBlock->rm.get_r();
+            addBinaryInstruction(reg, std::make_shared<LIRImmediate>(addr->offset), std::make_shared<LIRRegister>(addr->reg), Instruction::ADD_OP);
+            return reg;
         } else {
             REPORT_ERROR("toRegister Error");
         }
@@ -702,7 +702,7 @@ public:
     void build(FuncCallInstruction & instruction) override{
         std::vector<std::shared_ptr<LIROperand>> params;
         for (const auto& param : instruction.params) {
-            params.push_back(toRegister(OperandToLIR(param)));
+            params.push_back(toRegister(AddressToNum(OperandToLIR(param))));
         }
         auto result = OperandToLIR(instruction.result);
         addFuncCallInstruction(instruction.funcName, params, result);
