@@ -48,14 +48,18 @@ ConstIntNode: val=1
 FuncDefNode: type=291, id=main
 Body:
 BlockGroupNode
-FuncCallNode: id=ff
+DeclNode: isConst=0, type=291, id=a
+Initial value:
+FuncCallNode: id=getint
 FuncCallParamNode
-LvalNode: id=a
+DeclNode: isConst=0, type=291, id=b
+Initial value:
+FuncCallNode: id=getint
+FuncCallParamNode
 ReturnNode
+ExprNode: op=265
 LvalNode: id=a
-VectorNode
-ConstIntNode: val=1
-ConstIntNode: val=1
+LvalNode: id=b
 Visiting CompUnitNode
 Visiting DeclNode
 Visiting vectorNode
@@ -179,141 +183,149 @@ Finished visiting FuncDefNode
 Visiting FuncDefNode
 Function definition: main
 Visiting BlockGroupNode
+Visiting DeclNode
 Visiting FuncCallNode
 Visiting FuncCallParamNode
-0
-Visiting LvalNode
-0 0
-[2][2]int
-Finished visiting LvalNode
 Finished visiting FuncCallParamNode
-Matching types: [2147483647][2]int and [2][2]int
-Matching types: [2]int and [2]int
-Matching types: int and int
 Finished visiting FuncCallNode
+Matching types: int and int
+Finished visiting DeclNode
+Visiting DeclNode
+Visiting FuncCallNode
+Visiting FuncCallParamNode
+Finished visiting FuncCallParamNode
+Finished visiting FuncCallNode
+Matching types: int and int
+Finished visiting DeclNode
 Visiting ReturnNode
 0
 Visiting LvalNode
-Visiting ConstIntNode
-Finished visiting ConstIntNode
-Array is constant.
-[2][2]int
-get_index
-index: 1
-type: 0
-[2]int
-Visiting ConstIntNode
-Finished visiting ConstIntNode
-Array is constant.
-[2]int
-get_index
-index: 1
-type: 0
-int
 0 0
 int
 Finished visiting LvalNode
+0
+Visiting LvalNode
+0 0
+int
+Finished visiting LvalNode
+Finished visiting ExprNode
 Matching types: int and int
 Finished visiting ReturnNode
 Finished visiting BlockGroupNode
 Finished visiting FuncDefNode
 Finished visiting CompUnitNode
 IRBuilder toString
-malloc 16 -> $0
-add $0, 0 -> $1
-store 10 -> $1
-add $0, 4 -> $2
-store 2 -> $2
-add $0, 8 -> $3
-store 2 -> $3
-add $0, 12 -> $4
-store 4 -> $4
-load $5 -> $7
-add 4, $7 -> $9
-load $5 -> $10
-add 4, $10 -> $12
-load $12 -> $13
-add $13, 1 -> $14
-store $14 -> $9
-load $5 -> $15
-add 0, $15 -> $17
-load $17 -> $18
-return $18
-malloc 4 -> $5
-load $19 -> $21
-add 8, $21 -> $23
-call f($23, ) -> $24
-malloc 4 -> $19
-call ff($0, ) -> $26
-add 12, $0 -> $29
-load $29 -> $30
-return $30
+malloc 16 -> $4
+add $4, 0 -> $5
+store 10 -> $5
+add $4, 4 -> $6
+store 2 -> $6
+add $4, 8 -> $7
+store 2 -> $7
+add $4, 12 -> $8
+store 4 -> $8
+load $9 -> $11
+add 4, $11 -> $13
+load $9 -> $14
+add 4, $14 -> $16
+load $16 -> $17
+add $17, 1 -> $18
+store $18 -> $13
+load $9 -> $19
+add 0, $19 -> $21
+load $21 -> $22
+return $22
+malloc 4 -> $9
+load $23 -> $25
+add 8, $25 -> $27
+call f($27, ) -> $28
+malloc 4 -> $23
+malloc 4 -> $30
+call getint() -> $31
+store $31 -> $30
+malloc 4 -> $32
+call getint() -> $33
+store $33 -> $32
+load $30 -> $34
+load $32 -> $35
+add $34, $35 -> $36
+return $36
 ()
-malloc 16 -> $0
-add $0, 0 -> $1
-store 10 -> $1
-add $0, 4 -> $2
-store 2 -> $2
-add $0, 8 -> $3
-store 2 -> $3
-add $0, 12 -> $4
-store 4 -> $4
+malloc 16 -> $4
+add $4, 0 -> $5
+store 10 -> $5
+add $4, 4 -> $6
+store 2 -> $6
+add $4, 8 -> $7
+store 2 -> $7
+add $4, 12 -> $8
+store 4 -> $8
 f
-($5,)
-load $5 -> $7
-add 4, $7 -> $9
-load $5 -> $10
-add 4, $10 -> $12
-load $12 -> $13
-add $13, 1 -> $14
-store $14 -> $9
-load $5 -> $15
-add 0, $15 -> $17
-load $17 -> $18
-return $18
-malloc 4 -> $5
+($9,)
+load $9 -> $11
+add 4, $11 -> $13
+load $9 -> $14
+add 4, $14 -> $16
+load $16 -> $17
+add $17, 1 -> $18
+store $18 -> $13
+load $9 -> $19
+add 0, $19 -> $21
+load $21 -> $22
+return $22
+malloc 4 -> $9
 
 ff
-($19,)
-load $19 -> $21
-add 8, $21 -> $23
-call f($23, ) -> $24
-malloc 4 -> $19
+($23,)
+load $23 -> $25
+add 8, $25 -> $27
+call f($27, ) -> $28
+malloc 4 -> $23
 
 main
 ()
-call ff($0, ) -> $26
-add 12, $0 -> $29
-load $29 -> $30
-return $30
+malloc 4 -> $30
+call getint() -> $31
+store $31 -> $30
+malloc 4 -> $32
+call getint() -> $33
+store $33 -> $32
+load $30 -> $34
+load $32 -> $35
+add $34, $35 -> $36
+return $36
 
 
 Building LIR
 Finished building global variables
-Building2: load $5 -> $7
-Building2: add 4, $7 -> $9
-Building2: load $5 -> $10
-Building2: add 4, $10 -> $12
-Building2: load $12 -> $13
-Building2: add $13, 1 -> $14
-Building2: store $14 -> $9
-Building2: load $5 -> $15
-Building2: add 0, $15 -> $17
-Building2: load $17 -> $18
-Building2: return $18
-Building2: load $19 -> $21
-Building2: add 8, $21 -> $23
-Building2: call f($23, ) -> $24
-Building1: add $0, 0 -> $1
-Building1: store 10 -> $1
-Building1: add $0, 4 -> $2
-Building1: store 2 -> $2
-Building1: add $0, 8 -> $3
-Building1: store 2 -> $3
-Building1: add $0, 12 -> $4
-Building1: store 4 -> $4
-Building2: call ff($0, ) -> $26
-Building2: add 12, $0 -> $29
-Building2: load $29 -> $30
-Building2: return $30
+Building2: load $9 -> $11
+Building2: add 4, $11 -> $13
+Building2: load $9 -> $14
+Building2: add 4, $14 -> $16
+Building2: load $16 -> $17
+Building2: add $17, 1 -> $18
+Building2: store $18 -> $13
+Building2: load $9 -> $19
+Building2: add 0, $19 -> $21
+Building2: load $21 -> $22
+Building2: return $22
+Building2: load $23 -> $25
+Building2: add 8, $25 -> $27
+Building2: call f($27, ) -> $28
+Building1: add $4, 0 -> $5
+Building1: store 10 -> $5
+Building1: add $4, 4 -> $6
+Building1: store 2 -> $6
+Building1: add $4, 8 -> $7
+Building1: store 2 -> $7
+Building1: add $4, 12 -> $8
+Building1: store 4 -> $8
+Building2: call getint() -> $31
+Building2: store $31 -> $30
+Building2: call getint() -> $33
+Building2: store $33 -> $32
+Building2: load $30 -> $34
+Building2: load $32 -> $35
+Building2: add $34, $35 -> $36
+Building2: return $36
 Finished building LIR

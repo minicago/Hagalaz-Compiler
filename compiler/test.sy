@@ -16,9 +16,11 @@ int ff(int b[][2]){
 
 
 int main(){
+    int a = getint();
+    int b = getint();
     // f(a);
     // return a[1];
     // a[0] = 2;
-    ff(a);
-    return a[1][1];
+    // ff(a);
+    return a + b;
 }

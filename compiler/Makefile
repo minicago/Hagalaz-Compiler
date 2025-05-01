@@ -2,7 +2,9 @@ CC = g++
 CFLAGS = -g -Wall -std=c++17
 ANSC = arm-linux-gnueabihf-gcc
 QEMU = qemu-arm-static
-
+LIB_DIR = .
+LIB = $(LIB_DIR)/libsysy.a
+LD_OPT = -I$(LIB_DIR) -L$(LIB_DIR) -static -lsysy
 LEX = flex
 YACC = bison
 
@@ -27,10 +29,10 @@ test.S : test.sy hagalaz
 	./hagalaz test.sy
 
 test: test.S
-	$(ANSC) -o test $<
+	$(ANSC) -o test $< $(LD_OPT)
 
 test.ans : test.ans.S
-	$(ANSC) -o test.ans $<
+	$(ANSC) -o test.ans $< $(LD_OPT)
 
 run: test
 	@echo "Running test..."
