@@ -130,7 +130,7 @@ InitVal : Exp {
         }
         | "{" "}" {
             BISON_LOG("InitVal -> { }\n");
-            $$ = nullptr;
+            $$ = std::make_shared<VectorNode> ();
         }
         | "{" InitValGroup "}" {
             BISON_LOG("InitVal -> { InitValGroup }\n");
@@ -438,20 +438,10 @@ LOrExp : LAndExp {
 
 %%
 
+
 int main(int argc, char** argv){
     
-    extern FILE* yyin;
-    if(argc == 2){
-	if((yyin = fopen(argv[1], "r")) == NULL){
-	    printf("Can't open file %s\n", argv[1]);
-	    return 1;
-	}
-    }
-    yyparse();
-    
-	fclose(yyin);
-
-    __main();
+    __main(argc, argv);
 
     
     return 0;

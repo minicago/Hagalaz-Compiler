@@ -157,7 +157,7 @@ public:
     std::string toString () const override{
         std::string result;
         result = label->toString() + ":\n";
-        result += "\t.space " + std::to_string(size);
+        result += "\t.space " + std::to_string(size) + "\n";
         return result;
     }
 };
@@ -692,12 +692,14 @@ public:
         auto src = noLabel( OperandToLIR(instruction.address));
         addLoadInstruction(src, dest);
         currentBlock->rm.return_r(src);
+        currentBlock->rm.return_r(dest);
     }
     void build(StoreInstruction& instruction) override{
         auto src = toRegister( OperandToLIR(instruction.value));
         auto dest = noLabel( OperandToLIR(instruction.address) );
         addStoreInstruction(src, dest);
         currentBlock->rm.return_r(src);
+        currentBlock->rm.return_r(dest);
     }
     void build(FuncCallInstruction & instruction) override{
         std::vector<std::shared_ptr<LIROperand>> params;

@@ -447,6 +447,7 @@ void GenIR::visit(VectorNode &node) {
         auto simpleType = constructingValue->type->getSimpleType();
         
         for (auto &element : node.list) {
+            // *output.log << "Constructing index1: " << constructingIndex << std::endl;
             auto tmpType = constructingValue->type;
             constructingValue->type = std::dynamic_pointer_cast<ArrayType>(constructingValue->type)->innerType;
             element->accept(*this);
@@ -496,12 +497,14 @@ void GenIR::visit(VectorNode &node) {
             // constructingValue = nullptr;            
             
         } else {
+            
             if (constructingIndex == initIndex) {
                 constructingIndex += constructingValue->type->size;
             }
             if (constructingIndex % constructingValue->type->size != 0) {
                 constructingIndex += constructingValue->type->size - constructingIndex % constructingValue->type->size;
             } 
+            
         }
     }
 

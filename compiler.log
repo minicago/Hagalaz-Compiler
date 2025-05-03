@@ -1,0 +1,1793 @@
+5
+Starting the compiler?
+CompUnitNode
+DeclNode: isConst=0, type=291, id=M
+DeclNode: isConst=0, type=291, id=L
+DeclNode: isConst=0, type=291, id=N
+FuncDefNode: type=291, id=tran
+Parameters:
+ParamListNode
+ParamNode: type=292, id=a0, isptr=1
+ParamNode: type=292, id=a1, isptr=1
+ParamNode: type=292, id=a2, isptr=1
+ParamNode: type=292, id=b0, isptr=1
+ParamNode: type=292, id=b1, isptr=1
+ParamNode: type=292, id=b2, isptr=1
+ParamNode: type=292, id=c0, isptr=1
+ParamNode: type=292, id=c1, isptr=1
+ParamNode: type=292, id=c2, isptr=1
+Body:
+BlockGroupNode
+DeclNode: isConst=0, type=291, id=i
+AssignNode
+LvalNode: id=i
+Expression:
+ConstIntNode: val=0
+AssignNode
+LvalNode: id=c1
+VectorNode
+ConstIntNode: val=2
+Expression:
+LvalNode: id=a2
+VectorNode
+ConstIntNode: val=1
+AssignNode
+LvalNode: id=c2
+VectorNode
+ConstIntNode: val=1
+Expression:
+LvalNode: id=a1
+VectorNode
+ConstIntNode: val=2
+AssignNode
+LvalNode: id=c0
+VectorNode
+ConstIntNode: val=1
+Expression:
+LvalNode: id=a1
+VectorNode
+ConstIntNode: val=0
+AssignNode
+LvalNode: id=c0
+VectorNode
+ConstIntNode: val=2
+Expression:
+LvalNode: id=a2
+VectorNode
+ConstIntNode: val=0
+AssignNode
+LvalNode: id=c1
+VectorNode
+ConstIntNode: val=0
+Expression:
+LvalNode: id=a0
+VectorNode
+ConstIntNode: val=1
+AssignNode
+LvalNode: id=c2
+VectorNode
+ConstIntNode: val=0
+Expression:
+LvalNode: id=a0
+VectorNode
+ConstIntNode: val=2
+AssignNode
+LvalNode: id=c1
+VectorNode
+ConstIntNode: val=1
+Expression:
+LvalNode: id=a1
+VectorNode
+ConstIntNode: val=1
+AssignNode
+LvalNode: id=c2
+VectorNode
+ConstIntNode: val=2
+Expression:
+LvalNode: id=a2
+VectorNode
+ConstIntNode: val=2
+AssignNode
+LvalNode: id=c0
+VectorNode
+ConstIntNode: val=0
+Expression:
+LvalNode: id=a0
+VectorNode
+ConstIntNode: val=0
+ReturnNode
+ConstIntNode: val=0
+FuncDefNode: type=291, id=main
+Body:
+BlockGroupNode
+AssignNode
+LvalNode: id=N
+Expression:
+ConstIntNode: val=3
+AssignNode
+LvalNode: id=M
+Expression:
+ConstIntNode: val=3
+AssignNode
+LvalNode: id=L
+Expression:
+ConstIntNode: val=3
+DeclNode: isConst=0, type=292, id=a0
+Array size:
+VectorNode
+ConstIntNode: val=3
+DeclNode: isConst=0, type=292, id=a1
+Array size:
+VectorNode
+ConstIntNode: val=3
+DeclNode: isConst=0, type=292, id=a2
+Array size:
+VectorNode
+ConstIntNode: val=3
+DeclNode: isConst=0, type=292, id=b0
+Array size:
+VectorNode
+ConstIntNode: val=3
+DeclNode: isConst=0, type=292, id=b1
+Array size:
+VectorNode
+ConstIntNode: val=3
+DeclNode: isConst=0, type=292, id=b2
+Array size:
+VectorNode
+ConstIntNode: val=3
+DeclNode: isConst=0, type=292, id=c0
+Array size:
+VectorNode
+ConstIntNode: val=6
+DeclNode: isConst=0, type=292, id=c1
+Array size:
+VectorNode
+ConstIntNode: val=3
+DeclNode: isConst=0, type=292, id=c2
+Array size:
+VectorNode
+ConstIntNode: val=3
+DeclNode: isConst=0, type=291, id=i
+AssignNode
+LvalNode: id=i
+Expression:
+ConstIntNode: val=0
+WhileNode
+ExprNode: op=259
+LvalNode: id=i
+LvalNode: id=M
+Body:
+BlockGroupNode
+AssignNode
+LvalNode: id=a0
+VectorNode
+LvalNode: id=i
+Expression:
+LvalNode: id=i
+AssignNode
+LvalNode: id=a1
+VectorNode
+LvalNode: id=i
+Expression:
+LvalNode: id=i
+AssignNode
+LvalNode: id=a2
+VectorNode
+LvalNode: id=i
+Expression:
+LvalNode: id=i
+AssignNode
+LvalNode: id=b0
+VectorNode
+LvalNode: id=i
+Expression:
+LvalNode: id=i
+AssignNode
+LvalNode: id=b1
+VectorNode
+LvalNode: id=i
+Expression:
+LvalNode: id=i
+AssignNode
+LvalNode: id=b2
+VectorNode
+LvalNode: id=i
+Expression:
+LvalNode: id=i
+AssignNode
+LvalNode: id=i
+Expression:
+ExprNode: op=265
+LvalNode: id=i
+ConstIntNode: val=1
+AssignNode
+LvalNode: id=i
+Expression:
+FuncCallNode: id=tran
+FuncCallParamNode
+LvalNode: id=a0
+IdentifierNode: id=a0
+IdentifierNode: id=a1
+IdentifierNode: id=a2
+IdentifierNode: id=b0
+IdentifierNode: id=b1
+IdentifierNode: id=b2
+IdentifierNode: id=c0
+IdentifierNode: id=c1
+DeclNode: isConst=0, type=291, id=x
+WhileNode
+ExprNode: op=259
+LvalNode: id=i
+LvalNode: id=N
+Body:
+BlockGroupNode
+AssignNode
+LvalNode: id=x
+Expression:
+LvalNode: id=c0
+VectorNode
+LvalNode: id=i
+FuncCallNode: id=putint
+FuncCallParamNode
+LvalNode: id=x
+AssignNode
+LvalNode: id=i
+Expression:
+ExprNode: op=265
+LvalNode: id=i
+ConstIntNode: val=1
+AssignNode
+LvalNode: id=x
+Expression:
+ConstIntNode: val=10
+FuncCallNode: id=putch
+FuncCallParamNode
+LvalNode: id=x
+AssignNode
+LvalNode: id=i
+Expression:
+ConstIntNode: val=0
+WhileNode
+ExprNode: op=259
+LvalNode: id=i
+LvalNode: id=N
+Body:
+BlockGroupNode
+AssignNode
+LvalNode: id=x
+Expression:
+LvalNode: id=c1
+VectorNode
+LvalNode: id=i
+FuncCallNode: id=putint
+FuncCallParamNode
+LvalNode: id=x
+AssignNode
+LvalNode: id=i
+Expression:
+ExprNode: op=265
+LvalNode: id=i
+ConstIntNode: val=1
+AssignNode
+LvalNode: id=x
+Expression:
+ConstIntNode: val=10
+AssignNode
+LvalNode: id=i
+Expression:
+ConstIntNode: val=0
+FuncCallNode: id=putch
+FuncCallParamNode
+LvalNode: id=x
+WhileNode
+ExprNode: op=259
+LvalNode: id=i
+LvalNode: id=N
+Body:
+BlockGroupNode
+AssignNode
+LvalNode: id=x
+Expression:
+LvalNode: id=c2
+VectorNode
+LvalNode: id=i
+FuncCallNode: id=putint
+FuncCallParamNode
+LvalNode: id=x
+AssignNode
+LvalNode: id=i
+Expression:
+ExprNode: op=265
+LvalNode: id=i
+ConstIntNode: val=1
+AssignNode
+LvalNode: id=x
+Expression:
+ConstIntNode: val=10
+FuncCallNode: id=putch
+FuncCallParamNode
+LvalNode: id=x
+ReturnNode
+ConstIntNode: val=0
+Visiting CompUnitNode
+Visiting DeclNode
+Finished visiting DeclNode
+Visiting DeclNode
+Finished visiting DeclNode
+Visiting DeclNode
+Finished visiting DeclNode
+Visiting FuncDefNode
+Function definition: tran
+Visiting ParamListNode
+Visiting ParamNode
+Finished visiting ParamNode
+Visiting ParamNode
+Finished visiting ParamNode
+Visiting ParamNode
+Finished visiting ParamNode
+Visiting ParamNode
+Finished visiting ParamNode
+Visiting ParamNode
+Finished visiting ParamNode
+Visiting ParamNode
+Finished visiting ParamNode
+Visiting ParamNode
+Finished visiting ParamNode
+Visiting ParamNode
+Finished visiting ParamNode
+Visiting ParamNode
+Finished visiting ParamNode
+Finished visiting ParamListNode
+Visiting BlockGroupNode
+Visiting DeclNode
+Finished visiting DeclNode
+Visiting AssignNode
+1
+Visiting LvalNode
+0 1
+int
+Finished visiting LvalNode
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Finished visiting AssignNode
+Visiting AssignNode
+1
+Visiting LvalNode
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Array is constant.
+[2147483647]float
+get_index
+index: 2
+type: 0
+float
+0 1
+float
+Finished visiting LvalNode
+0
+Visiting LvalNode
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Array is constant.
+[2147483647]float
+get_index
+index: 1
+type: 0
+float
+0 0
+float
+Finished visiting LvalNode
+Finished visiting AssignNode
+Visiting AssignNode
+1
+Visiting LvalNode
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Array is constant.
+[2147483647]float
+get_index
+index: 1
+type: 0
+float
+0 1
+float
+Finished visiting LvalNode
+0
+Visiting LvalNode
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Array is constant.
+[2147483647]float
+get_index
+index: 2
+type: 0
+float
+0 0
+float
+Finished visiting LvalNode
+Finished visiting AssignNode
+Visiting AssignNode
+1
+Visiting LvalNode
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Array is constant.
+[2147483647]float
+get_index
+index: 1
+type: 0
+float
+0 1
+float
+Finished visiting LvalNode
+0
+Visiting LvalNode
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Array is constant.
+[2147483647]float
+get_index
+index: 0
+type: 0
+float
+0 0
+float
+Finished visiting LvalNode
+Finished visiting AssignNode
+Visiting AssignNode
+1
+Visiting LvalNode
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Array is constant.
+[2147483647]float
+get_index
+index: 2
+type: 0
+float
+0 1
+float
+Finished visiting LvalNode
+0
+Visiting LvalNode
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Array is constant.
+[2147483647]float
+get_index
+index: 0
+type: 0
+float
+0 0
+float
+Finished visiting LvalNode
+Finished visiting AssignNode
+Visiting AssignNode
+1
+Visiting LvalNode
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Array is constant.
+[2147483647]float
+get_index
+index: 0
+type: 0
+float
+0 1
+float
+Finished visiting LvalNode
+0
+Visiting LvalNode
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Array is constant.
+[2147483647]float
+get_index
+index: 1
+type: 0
+float
+0 0
+float
+Finished visiting LvalNode
+Finished visiting AssignNode
+Visiting AssignNode
+1
+Visiting LvalNode
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Array is constant.
+[2147483647]float
+get_index
+index: 0
+type: 0
+float
+0 1
+float
+Finished visiting LvalNode
+0
+Visiting LvalNode
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Array is constant.
+[2147483647]float
+get_index
+index: 2
+type: 0
+float
+0 0
+float
+Finished visiting LvalNode
+Finished visiting AssignNode
+Visiting AssignNode
+1
+Visiting LvalNode
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Array is constant.
+[2147483647]float
+get_index
+index: 1
+type: 0
+float
+0 1
+float
+Finished visiting LvalNode
+0
+Visiting LvalNode
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Array is constant.
+[2147483647]float
+get_index
+index: 1
+type: 0
+float
+0 0
+float
+Finished visiting LvalNode
+Finished visiting AssignNode
+Visiting AssignNode
+1
+Visiting LvalNode
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Array is constant.
+[2147483647]float
+get_index
+index: 2
+type: 0
+float
+0 1
+float
+Finished visiting LvalNode
+0
+Visiting LvalNode
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Array is constant.
+[2147483647]float
+get_index
+index: 2
+type: 0
+float
+0 0
+float
+Finished visiting LvalNode
+Finished visiting AssignNode
+Visiting AssignNode
+1
+Visiting LvalNode
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Array is constant.
+[2147483647]float
+get_index
+index: 0
+type: 0
+float
+0 1
+float
+Finished visiting LvalNode
+0
+Visiting LvalNode
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Array is constant.
+[2147483647]float
+get_index
+index: 0
+type: 0
+float
+0 0
+float
+Finished visiting LvalNode
+Finished visiting AssignNode
+Visiting ReturnNode
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Matching types: const int and int
+Finished visiting ReturnNode
+Finished visiting BlockGroupNode
+Finished visiting FuncDefNode
+Visiting FuncDefNode
+Function definition: main
+Visiting BlockGroupNode
+Visiting AssignNode
+1
+Visiting LvalNode
+0 1
+int
+Finished visiting LvalNode
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Finished visiting AssignNode
+Visiting AssignNode
+1
+Visiting LvalNode
+0 1
+int
+Finished visiting LvalNode
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Finished visiting AssignNode
+Visiting AssignNode
+1
+Visiting LvalNode
+0 1
+int
+Finished visiting LvalNode
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Finished visiting AssignNode
+Visiting DeclNode
+Visiting vectorNode
+Constructing type: float
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Element type: const int
+Constructing type: [3]float
+Finished visiting vectorNode
+type [3]float
+Finished visiting DeclNode
+Visiting DeclNode
+Visiting vectorNode
+Constructing type: float
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Element type: const int
+Constructing type: [3]float
+Finished visiting vectorNode
+type [3]float
+Finished visiting DeclNode
+Visiting DeclNode
+Visiting vectorNode
+Constructing type: float
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Element type: const int
+Constructing type: [3]float
+Finished visiting vectorNode
+type [3]float
+Finished visiting DeclNode
+Visiting DeclNode
+Visiting vectorNode
+Constructing type: float
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Element type: const int
+Constructing type: [3]float
+Finished visiting vectorNode
+type [3]float
+Finished visiting DeclNode
+Visiting DeclNode
+Visiting vectorNode
+Constructing type: float
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Element type: const int
+Constructing type: [3]float
+Finished visiting vectorNode
+type [3]float
+Finished visiting DeclNode
+Visiting DeclNode
+Visiting vectorNode
+Constructing type: float
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Element type: const int
+Constructing type: [3]float
+Finished visiting vectorNode
+type [3]float
+Finished visiting DeclNode
+Visiting DeclNode
+Visiting vectorNode
+Constructing type: float
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Element type: const int
+Constructing type: [6]float
+Finished visiting vectorNode
+type [6]float
+Finished visiting DeclNode
+Visiting DeclNode
+Visiting vectorNode
+Constructing type: float
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Element type: const int
+Constructing type: [3]float
+Finished visiting vectorNode
+type [3]float
+Finished visiting DeclNode
+Visiting DeclNode
+Visiting vectorNode
+Constructing type: float
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Element type: const int
+Constructing type: [3]float
+Finished visiting vectorNode
+type [3]float
+Finished visiting DeclNode
+Visiting DeclNode
+Finished visiting DeclNode
+Visiting AssignNode
+1
+Visiting LvalNode
+0 1
+int
+Finished visiting LvalNode
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Finished visiting AssignNode
+Visiting WhileNode
+0
+Visiting LvalNode
+0 0
+int
+Finished visiting LvalNode
+0
+Visiting LvalNode
+0 0
+int
+Finished visiting LvalNode
+Finished visiting ExprNode
+Visiting BlockGroupNode
+Visiting AssignNode
+1
+Visiting LvalNode
+0
+Visiting LvalNode
+0 0
+int
+Finished visiting LvalNode
+Array is not constant.
+get_index
+index: 0
+type: 0
+float
+0 1
+float
+Finished visiting LvalNode
+0
+Visiting LvalNode
+0 0
+int
+Finished visiting LvalNode
+Finished visiting AssignNode
+Visiting AssignNode
+1
+Visiting LvalNode
+0
+Visiting LvalNode
+0 0
+int
+Finished visiting LvalNode
+Array is not constant.
+get_index
+index: 0
+type: 0
+float
+0 1
+float
+Finished visiting LvalNode
+0
+Visiting LvalNode
+0 0
+int
+Finished visiting LvalNode
+Finished visiting AssignNode
+Visiting AssignNode
+1
+Visiting LvalNode
+0
+Visiting LvalNode
+0 0
+int
+Finished visiting LvalNode
+Array is not constant.
+get_index
+index: 0
+type: 0
+float
+0 1
+float
+Finished visiting LvalNode
+0
+Visiting LvalNode
+0 0
+int
+Finished visiting LvalNode
+Finished visiting AssignNode
+Visiting AssignNode
+1
+Visiting LvalNode
+0
+Visiting LvalNode
+0 0
+int
+Finished visiting LvalNode
+Array is not constant.
+get_index
+index: 0
+type: 0
+float
+0 1
+float
+Finished visiting LvalNode
+0
+Visiting LvalNode
+0 0
+int
+Finished visiting LvalNode
+Finished visiting AssignNode
+Visiting AssignNode
+1
+Visiting LvalNode
+0
+Visiting LvalNode
+0 0
+int
+Finished visiting LvalNode
+Array is not constant.
+get_index
+index: 0
+type: 0
+float
+0 1
+float
+Finished visiting LvalNode
+0
+Visiting LvalNode
+0 0
+int
+Finished visiting LvalNode
+Finished visiting AssignNode
+Visiting AssignNode
+1
+Visiting LvalNode
+0
+Visiting LvalNode
+0 0
+int
+Finished visiting LvalNode
+Array is not constant.
+get_index
+index: 0
+type: 0
+float
+0 1
+float
+Finished visiting LvalNode
+0
+Visiting LvalNode
+0 0
+int
+Finished visiting LvalNode
+Finished visiting AssignNode
+Visiting AssignNode
+1
+Visiting LvalNode
+0 1
+int
+Finished visiting LvalNode
+0
+Visiting LvalNode
+0 0
+int
+Finished visiting LvalNode
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Finished visiting ExprNode
+Finished visiting AssignNode
+Finished visiting BlockGroupNode
+Finished visiting WhileNode
+Visiting AssignNode
+1
+Visiting LvalNode
+0 1
+int
+Finished visiting LvalNode
+Visiting FuncCallNode
+Visiting FuncCallParamNode
+0
+Visiting LvalNode
+0 0
+[3]float
+Finished visiting LvalNode
+Visiting IdentifierNode
+Finished visiting IdentifierNode
+Visiting IdentifierNode
+Finished visiting IdentifierNode
+Visiting IdentifierNode
+Finished visiting IdentifierNode
+Visiting IdentifierNode
+Finished visiting IdentifierNode
+Visiting IdentifierNode
+Finished visiting IdentifierNode
+Visiting IdentifierNode
+Finished visiting IdentifierNode
+Visiting IdentifierNode
+Finished visiting IdentifierNode
+Visiting IdentifierNode
+Finished visiting IdentifierNode
+Finished visiting FuncCallParamNode
+Matching types: [2147483647]float and [3]float
+Matching types: float and float
+Matching types: [2147483647]float and [3]float
+Matching types: float and float
+Matching types: [2147483647]float and [3]float
+Matching types: float and float
+Matching types: [2147483647]float and [3]float
+Matching types: float and float
+Matching types: [2147483647]float and [3]float
+Matching types: float and float
+Matching types: [2147483647]float and [3]float
+Matching types: float and float
+Matching types: [2147483647]float and [3]float
+Matching types: float and float
+Matching types: [2147483647]float and [6]float
+Matching types: float and float
+Matching types: [2147483647]float and [3]float
+Matching types: float and float
+Finished visiting FuncCallNode
+Finished visiting AssignNode
+Visiting DeclNode
+Finished visiting DeclNode
+Visiting WhileNode
+0
+Visiting LvalNode
+0 0
+int
+Finished visiting LvalNode
+0
+Visiting LvalNode
+0 0
+int
+Finished visiting LvalNode
+Finished visiting ExprNode
+Visiting BlockGroupNode
+Visiting AssignNode
+1
+Visiting LvalNode
+0 1
+int
+Finished visiting LvalNode
+0
+Visiting LvalNode
+0
+Visiting LvalNode
+0 0
+int
+Finished visiting LvalNode
+Array is not constant.
+get_index
+index: 0
+type: 0
+float
+0 0
+float
+Finished visiting LvalNode
+Finished visiting AssignNode
+Visiting FuncCallNode
+Visiting FuncCallParamNode
+0
+Visiting LvalNode
+0 0
+int
+Finished visiting LvalNode
+Finished visiting FuncCallParamNode
+Matching types: int and int
+Finished visiting FuncCallNode
+Visiting AssignNode
+1
+Visiting LvalNode
+0 1
+int
+Finished visiting LvalNode
+0
+Visiting LvalNode
+0 0
+int
+Finished visiting LvalNode
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Finished visiting ExprNode
+Finished visiting AssignNode
+Finished visiting BlockGroupNode
+Finished visiting WhileNode
+Visiting AssignNode
+1
+Visiting LvalNode
+0 1
+int
+Finished visiting LvalNode
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Finished visiting AssignNode
+Visiting FuncCallNode
+Visiting FuncCallParamNode
+0
+Visiting LvalNode
+0 0
+int
+Finished visiting LvalNode
+Finished visiting FuncCallParamNode
+Matching types: int and int
+Finished visiting FuncCallNode
+Visiting AssignNode
+1
+Visiting LvalNode
+0 1
+int
+Finished visiting LvalNode
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Finished visiting AssignNode
+Visiting WhileNode
+0
+Visiting LvalNode
+0 0
+int
+Finished visiting LvalNode
+0
+Visiting LvalNode
+0 0
+int
+Finished visiting LvalNode
+Finished visiting ExprNode
+Visiting BlockGroupNode
+Visiting AssignNode
+1
+Visiting LvalNode
+0 1
+int
+Finished visiting LvalNode
+0
+Visiting LvalNode
+0
+Visiting LvalNode
+0 0
+int
+Finished visiting LvalNode
+Array is not constant.
+get_index
+index: 0
+type: 0
+float
+0 0
+float
+Finished visiting LvalNode
+Finished visiting AssignNode
+Visiting FuncCallNode
+Visiting FuncCallParamNode
+0
+Visiting LvalNode
+0 0
+int
+Finished visiting LvalNode
+Finished visiting FuncCallParamNode
+Matching types: int and int
+Finished visiting FuncCallNode
+Visiting AssignNode
+1
+Visiting LvalNode
+0 1
+int
+Finished visiting LvalNode
+0
+Visiting LvalNode
+0 0
+int
+Finished visiting LvalNode
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Finished visiting ExprNode
+Finished visiting AssignNode
+Finished visiting BlockGroupNode
+Finished visiting WhileNode
+Visiting AssignNode
+1
+Visiting LvalNode
+0 1
+int
+Finished visiting LvalNode
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Finished visiting AssignNode
+Visiting AssignNode
+1
+Visiting LvalNode
+0 1
+int
+Finished visiting LvalNode
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Finished visiting AssignNode
+Visiting FuncCallNode
+Visiting FuncCallParamNode
+0
+Visiting LvalNode
+0 0
+int
+Finished visiting LvalNode
+Finished visiting FuncCallParamNode
+Matching types: int and int
+Finished visiting FuncCallNode
+Visiting WhileNode
+0
+Visiting LvalNode
+0 0
+int
+Finished visiting LvalNode
+0
+Visiting LvalNode
+0 0
+int
+Finished visiting LvalNode
+Finished visiting ExprNode
+Visiting BlockGroupNode
+Visiting AssignNode
+1
+Visiting LvalNode
+0 1
+int
+Finished visiting LvalNode
+0
+Visiting LvalNode
+0
+Visiting LvalNode
+0 0
+int
+Finished visiting LvalNode
+Array is not constant.
+get_index
+index: 0
+type: 0
+float
+0 0
+float
+Finished visiting LvalNode
+Finished visiting AssignNode
+Visiting FuncCallNode
+Visiting FuncCallParamNode
+0
+Visiting LvalNode
+0 0
+int
+Finished visiting LvalNode
+Finished visiting FuncCallParamNode
+Matching types: int and int
+Finished visiting FuncCallNode
+Visiting AssignNode
+1
+Visiting LvalNode
+0 1
+int
+Finished visiting LvalNode
+0
+Visiting LvalNode
+0 0
+int
+Finished visiting LvalNode
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Finished visiting ExprNode
+Finished visiting AssignNode
+Finished visiting BlockGroupNode
+Finished visiting WhileNode
+Visiting AssignNode
+1
+Visiting LvalNode
+0 1
+int
+Finished visiting LvalNode
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Finished visiting AssignNode
+Visiting FuncCallNode
+Visiting FuncCallParamNode
+0
+Visiting LvalNode
+0 0
+int
+Finished visiting LvalNode
+Finished visiting FuncCallParamNode
+Matching types: int and int
+Finished visiting FuncCallNode
+Visiting ReturnNode
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Matching types: const int and int
+Finished visiting ReturnNode
+Finished visiting BlockGroupNode
+Finished visiting FuncDefNode
+Finished visiting CompUnitNode
+IRBuilder toString
+malloc 4 -> $4
+malloc 4 -> $5
+malloc 4 -> $6
+store 3 -> $6
+store 3 -> $4
+store 3 -> $5
+malloc 12 -> $82
+malloc 12 -> $83
+malloc 12 -> $84
+malloc 12 -> $85
+malloc 12 -> $86
+malloc 12 -> $87
+malloc 24 -> $88
+malloc 12 -> $89
+malloc 12 -> $90
+malloc 4 -> $91
+store 0 -> $91
+label $92
+load $91 -> $94
+load $4 -> $95
+le $94, $95 -> $96
+not $96 -> $97
+if $97 goto $93
+load $91 -> $98
+mul 4, $98 -> $100
+add $82, $100 -> $101
+load $91 -> $102
+store $102 -> $101
+load $91 -> $103
+mul 4, $103 -> $105
+add $83, $105 -> $106
+load $91 -> $107
+store $107 -> $106
+load $91 -> $108
+mul 4, $108 -> $110
+add $84, $110 -> $111
+load $91 -> $112
+store $112 -> $111
+load $91 -> $113
+mul 4, $113 -> $115
+add $85, $115 -> $116
+load $91 -> $117
+store $117 -> $116
+load $91 -> $118
+mul 4, $118 -> $120
+add $86, $120 -> $121
+load $91 -> $122
+store $122 -> $121
+load $91 -> $123
+mul 4, $123 -> $125
+add $87, $125 -> $126
+load $91 -> $127
+store $127 -> $126
+load $91 -> $128
+add $128, 1 -> $129
+store $129 -> $91
+goto $92
+label $93
+call tran($82, $82, $83, $84, $85, $86, $87, $88, $89, ) -> $130
+store $130 -> $91
+malloc 4 -> $131
+label $132
+load $91 -> $134
+load $6 -> $135
+le $134, $135 -> $136
+not $136 -> $137
+if $137 goto $133
+load $91 -> $138
+mul 4, $138 -> $140
+add $88, $140 -> $141
+load $141 -> $142
+store $142 -> $131
+load $131 -> $143
+call putint($143, ) -> $144
+load $91 -> $145
+add $145, 1 -> $146
+store $146 -> $91
+goto $132
+label $133
+store 10 -> $131
+load $131 -> $147
+call putch($147, ) -> $148
+store 0 -> $91
+label $149
+load $91 -> $151
+load $6 -> $152
+le $151, $152 -> $153
+not $153 -> $154
+if $154 goto $150
+load $91 -> $155
+mul 4, $155 -> $157
+add $89, $157 -> $158
+load $158 -> $159
+store $159 -> $131
+load $131 -> $160
+call putint($160, ) -> $161
+load $91 -> $162
+add $162, 1 -> $163
+store $163 -> $91
+goto $149
+label $150
+store 10 -> $131
+store 0 -> $91
+load $131 -> $164
+call putch($164, ) -> $165
+label $166
+load $91 -> $168
+load $6 -> $169
+le $168, $169 -> $170
+not $170 -> $171
+if $171 goto $167
+load $91 -> $172
+mul 4, $172 -> $174
+add $90, $174 -> $175
+load $175 -> $176
+store $176 -> $131
+load $131 -> $177
+call putint($177, ) -> $178
+load $91 -> $179
+add $179, 1 -> $180
+store $180 -> $91
+goto $166
+label $167
+store 10 -> $131
+load $131 -> $181
+call putch($181, ) -> $182
+return 0
+malloc 4 -> $17
+store 0 -> $17
+load $14 -> $18
+add 8, $18 -> $20
+load $9 -> $21
+add 4, $21 -> $23
+load $23 -> $24
+store $24 -> $20
+load $15 -> $25
+add 4, $25 -> $27
+load $8 -> $28
+add 8, $28 -> $30
+load $30 -> $31
+store $31 -> $27
+load $13 -> $32
+add 4, $32 -> $34
+load $8 -> $35
+add 0, $35 -> $37
+load $37 -> $38
+store $38 -> $34
+load $13 -> $39
+add 8, $39 -> $41
+load $9 -> $42
+add 0, $42 -> $44
+load $44 -> $45
+store $45 -> $41
+load $14 -> $46
+add 0, $46 -> $48
+load $7 -> $49
+add 4, $49 -> $51
+load $51 -> $52
+store $52 -> $48
+load $15 -> $53
+add 0, $53 -> $55
+load $7 -> $56
+add 8, $56 -> $58
+load $58 -> $59
+store $59 -> $55
+load $14 -> $60
+add 4, $60 -> $62
+load $8 -> $63
+add 4, $63 -> $65
+load $65 -> $66
+store $66 -> $62
+load $15 -> $67
+add 8, $67 -> $69
+load $9 -> $70
+add 8, $70 -> $72
+load $72 -> $73
+store $73 -> $69
+load $13 -> $74
+add 0, $74 -> $76
+load $7 -> $77
+add 0, $77 -> $79
+load $79 -> $80
+store $80 -> $76
+return 0
+malloc 4 -> $15
+malloc 4 -> $14
+malloc 4 -> $13
+malloc 4 -> $12
+malloc 4 -> $11
+malloc 4 -> $10
+malloc 4 -> $9
+malloc 4 -> $8
+malloc 4 -> $7
+()
+malloc 4 -> $4
+malloc 4 -> $5
+malloc 4 -> $6
+main
+()
+store 3 -> $6
+store 3 -> $4
+store 3 -> $5
+malloc 12 -> $82
+malloc 12 -> $83
+malloc 12 -> $84
+malloc 12 -> $85
+malloc 12 -> $86
+malloc 12 -> $87
+malloc 24 -> $88
+malloc 12 -> $89
+malloc 12 -> $90
+malloc 4 -> $91
+store 0 -> $91
+label $92
+load $91 -> $94
+load $4 -> $95
+le $94, $95 -> $96
+not $96 -> $97
+if $97 goto $93
+load $91 -> $98
+mul 4, $98 -> $100
+add $82, $100 -> $101
+load $91 -> $102
+store $102 -> $101
+load $91 -> $103
+mul 4, $103 -> $105
+add $83, $105 -> $106
+load $91 -> $107
+store $107 -> $106
+load $91 -> $108
+mul 4, $108 -> $110
+add $84, $110 -> $111
+load $91 -> $112
+store $112 -> $111
+load $91 -> $113
+mul 4, $113 -> $115
+add $85, $115 -> $116
+load $91 -> $117
+store $117 -> $116
+load $91 -> $118
+mul 4, $118 -> $120
+add $86, $120 -> $121
+load $91 -> $122
+store $122 -> $121
+load $91 -> $123
+mul 4, $123 -> $125
+add $87, $125 -> $126
+load $91 -> $127
+store $127 -> $126
+load $91 -> $128
+add $128, 1 -> $129
+store $129 -> $91
+goto $92
+label $93
+call tran($82, $82, $83, $84, $85, $86, $87, $88, $89, ) -> $130
+store $130 -> $91
+malloc 4 -> $131
+label $132
+load $91 -> $134
+load $6 -> $135
+le $134, $135 -> $136
+not $136 -> $137
+if $137 goto $133
+load $91 -> $138
+mul 4, $138 -> $140
+add $88, $140 -> $141
+load $141 -> $142
+store $142 -> $131
+load $131 -> $143
+call putint($143, ) -> $144
+load $91 -> $145
+add $145, 1 -> $146
+store $146 -> $91
+goto $132
+label $133
+store 10 -> $131
+load $131 -> $147
+call putch($147, ) -> $148
+store 0 -> $91
+label $149
+load $91 -> $151
+load $6 -> $152
+le $151, $152 -> $153
+not $153 -> $154
+if $154 goto $150
+load $91 -> $155
+mul 4, $155 -> $157
+add $89, $157 -> $158
+load $158 -> $159
+store $159 -> $131
+load $131 -> $160
+call putint($160, ) -> $161
+load $91 -> $162
+add $162, 1 -> $163
+store $163 -> $91
+goto $149
+label $150
+store 10 -> $131
+store 0 -> $91
+load $131 -> $164
+call putch($164, ) -> $165
+label $166
+load $91 -> $168
+load $6 -> $169
+le $168, $169 -> $170
+not $170 -> $171
+if $171 goto $167
+load $91 -> $172
+mul 4, $172 -> $174
+add $90, $174 -> $175
+load $175 -> $176
+store $176 -> $131
+load $131 -> $177
+call putint($177, ) -> $178
+load $91 -> $179
+add $179, 1 -> $180
+store $180 -> $91
+goto $166
+label $167
+store 10 -> $131
+load $131 -> $181
+call putch($181, ) -> $182
+return 0
+
+tran
+($7,$8,$9,$10,$11,$12,$13,$14,$15,)
+malloc 4 -> $17
+store 0 -> $17
+load $14 -> $18
+add 8, $18 -> $20
+load $9 -> $21
+add 4, $21 -> $23
+load $23 -> $24
+store $24 -> $20
+load $15 -> $25
+add 4, $25 -> $27
+load $8 -> $28
+add 8, $28 -> $30
+load $30 -> $31
+store $31 -> $27
+load $13 -> $32
+add 4, $32 -> $34
+load $8 -> $35
+add 0, $35 -> $37
+load $37 -> $38
+store $38 -> $34
+load $13 -> $39
+add 8, $39 -> $41
+load $9 -> $42
+add 0, $42 -> $44
+load $44 -> $45
+store $45 -> $41
+load $14 -> $46
+add 0, $46 -> $48
+load $7 -> $49
+add 4, $49 -> $51
+load $51 -> $52
+store $52 -> $48
+load $15 -> $53
+add 0, $53 -> $55
+load $7 -> $56
+add 8, $56 -> $58
+load $58 -> $59
+store $59 -> $55
+load $14 -> $60
+add 4, $60 -> $62
+load $8 -> $63
+add 4, $63 -> $65
+load $65 -> $66
+store $66 -> $62
+load $15 -> $67
+add 8, $67 -> $69
+load $9 -> $70
+add 8, $70 -> $72
+load $72 -> $73
+store $73 -> $69
+load $13 -> $74
+add 0, $74 -> $76
+load $7 -> $77
+add 0, $77 -> $79
+load $79 -> $80
+store $80 -> $76
+return 0
+malloc 4 -> $15
+malloc 4 -> $14
+malloc 4 -> $13
+malloc 4 -> $12
+malloc 4 -> $11
+malloc 4 -> $10
+malloc 4 -> $9
+malloc 4 -> $8
+malloc 4 -> $7
+
+
+Building LIR
+Finished building global variables
+Building2: store 3 -> $6
+Building2: store 3 -> $4
+Building2: store 3 -> $5
+Building2: store 0 -> $91
+Building2: label $92
+Building2: load $91 -> $94
+Building2: load $4 -> $95
+Building2: le $94, $95 -> $96
+Building2: not $96 -> $97
+Building2: if $97 goto $93
+Building2: load $91 -> $98
+Building2: mul 4, $98 -> $100
+Building2: add $82, $100 -> $101
+Building2: load $91 -> $102
+Building2: store $102 -> $101
+Building2: load $91 -> $103
+Building2: mul 4, $103 -> $105
+Building2: add $83, $105 -> $106
+Building2: load $91 -> $107
+Building2: store $107 -> $106
+Building2: load $91 -> $108
+Building2: mul 4, $108 -> $110
+Building2: add $84, $110 -> $111
+Building2: load $91 -> $112
+Building2: store $112 -> $111
+Building2: load $91 -> $113
+Building2: mul 4, $113 -> $115
+Building2: add $85, $115 -> $116
+Building2: load $91 -> $117
+Building2: store $117 -> $116
+Building2: load $91 -> $118
+Building2: mul 4, $118 -> $120
+Building2: add $86, $120 -> $121
+Building2: load $91 -> $122
+Building2: store $122 -> $121
+Building2: load $91 -> $123
+Building2: mul 4, $123 -> $125
+Building2: add $87, $125 -> $126
+Building2: load $91 -> $127
+Building2: store $127 -> $126
+Building2: load $91 -> $128
+Building2: add $128, 1 -> $129
+Building2: store $129 -> $91
+Building2: goto $92
+Building2: label $93
+Building2: call tran($82, $82, $83, $84, $85, $86, $87, $88, $89, ) -> $130
+Building2: store $130 -> $91
+Building2: label $132
+Building2: load $91 -> $134
+Building2: load $6 -> $135
+Building2: le $134, $135 -> $136
+Building2: not $136 -> $137
+Building2: if $137 goto $133
+Building2: load $91 -> $138
+Building2: mul 4, $138 -> $140
+Building2: add $88, $140 -> $141
+Building2: load $141 -> $142
+Building2: store $142 -> $131
+Building2: load $131 -> $143
+Building2: call putint($143, ) -> $144
+Building2: load $91 -> $145
+Building2: add $145, 1 -> $146
+Building2: store $146 -> $91
+Building2: goto $132
+Building2: label $133
+Building2: store 10 -> $131
+Building2: load $131 -> $147
+Building2: call putch($147, ) -> $148
+Building2: store 0 -> $91
+Building2: label $149
+Building2: load $91 -> $151
+Building2: load $6 -> $152
+Building2: le $151, $152 -> $153
+Building2: not $153 -> $154
+Building2: if $154 goto $150
+Building2: load $91 -> $155
+Building2: mul 4, $155 -> $157
+Building2: add $89, $157 -> $158
+Building2: load $158 -> $159
+Building2: store $159 -> $131
+Building2: load $131 -> $160
+Building2: call putint($160, ) -> $161
+Building2: load $91 -> $162
+Building2: add $162, 1 -> $163
+Building2: store $163 -> $91
+Building2: goto $149
+Building2: label $150
+Building2: store 10 -> $131
+Building2: store 0 -> $91
+Building2: load $131 -> $164
+Building2: call putch($164, ) -> $165
+Building2: label $166
+Building2: load $91 -> $168
+Building2: load $6 -> $169
+Building2: le $168, $169 -> $170
+Building2: not $170 -> $171
+Building2: if $171 goto $167
+Building2: load $91 -> $172
+Building2: mul 4, $172 -> $174
+Building2: add $90, $174 -> $175
+Building2: load $175 -> $176
+Building2: store $176 -> $131
+Building2: load $131 -> $177
+Building2: call putint($177, ) -> $178
+Building2: load $91 -> $179
+Building2: add $179, 1 -> $180
+Building2: store $180 -> $91
+Building2: goto $166
+Building2: label $167
+Building2: store 10 -> $131
+Building2: load $131 -> $181
+Building2: call putch($181, ) -> $182
+Building2: return 0
+Building2: store 0 -> $17
+Building2: load $14 -> $18
+Building2: add 8, $18 -> $20
+Building2: load $9 -> $21
+Building2: add 4, $21 -> $23
+Building2: load $23 -> $24
+Building2: store $24 -> $20
+Building2: load $15 -> $25
+Building2: add 4, $25 -> $27
+Building2: load $8 -> $28
+Building2: add 8, $28 -> $30
+Building2: load $30 -> $31
+Building2: store $31 -> $27
+Building2: load $13 -> $32
+Building2: add 4, $32 -> $34
+Building2: load $8 -> $35
+Building2: add 0, $35 -> $37
+Building2: load $37 -> $38
+Building2: store $38 -> $34
+Building2: load $13 -> $39
+Building2: add 8, $39 -> $41
+Building2: load $9 -> $42
+Building2: add 0, $42 -> $44
+Building2: load $44 -> $45
+Building2: store $45 -> $41
+Building2: load $14 -> $46
+Building2: add 0, $46 -> $48
+Building2: load $7 -> $49
+Building2: add 4, $49 -> $51
+Building2: load $51 -> $52
+Building2: store $52 -> $48
+Building2: load $15 -> $53
+Building2: add 0, $53 -> $55
+Building2: load $7 -> $56
+Building2: add 8, $56 -> $58
+Building2: load $58 -> $59
+Building2: store $59 -> $55
+Building2: load $14 -> $60
+Building2: add 4, $60 -> $62
+Building2: load $8 -> $63
+Building2: add 4, $63 -> $65
+Building2: load $65 -> $66
+Building2: store $66 -> $62
+Building2: load $15 -> $67
+Building2: add 8, $67 -> $69
+Building2: load $9 -> $70
+Building2: add 8, $70 -> $72
+Building2: load $72 -> $73
+Building2: store $73 -> $69
+Building2: load $13 -> $74
+Building2: add 0, $74 -> $76
+Building2: load $7 -> $77
+Building2: add 0, $77 -> $79
+Building2: load $79 -> $80
+Building2: store $80 -> $76
+Building2: return 0
+Finished building LIR

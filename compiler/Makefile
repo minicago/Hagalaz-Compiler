@@ -26,7 +26,7 @@ test.ans.S : test.c
 	$(ANSC) -S -o $@ $<
 
 test.S : test.sy hagalaz
-	./hagalaz test.sy
+	./hagalaz -S -o test.S test.sy
 
 test: test.S
 	$(ANSC) -o test $< $(LD_OPT)

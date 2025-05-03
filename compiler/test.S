@@ -11,60 +11,8 @@
 .eabi_attribute 34, 1
 .eabi_attribute 18, 4
 .data
-.L4:
-	.space 16
+
 .text
-.align 1
-.global f
-.syntax unified 
-.thumb
-.thumb_func
-.type f, %function
-f:
-sub sp, sp, #0
-push {r4, r5, r6, r7, lr}
-add	r7, sp, #20
-ldr r4, [r7, #0]
-add r5, r4, #4
-ldr r4, [r7, #0]
-add r6, r4, #4
-ldr r4, [r6]
-add r6, r4, #1
-str r6, [r5]
-ldr r4, [r7, #0]
-add r6, r4, #0
-ldr r4, [r6]
-mov r0, r4
-b .f.ret
-.f.ret:
-pop {r4, r5, r6, r7, pc}
-add sp, sp, #0
-bx lr
-.size f, .-f
-
-.align 1
-.global ff
-.syntax unified 
-.thumb
-.thumb_func
-.type ff, %function
-ff:
-sub sp, sp, #0
-push {r4, r5, r7, lr}
-add	r7, sp, #16
-ldr r4, [r7, #0]
-add r5, r4, #8
-mov r0, r5
-push {r5}
-bl f(PLT)
-add sp, sp, #4
-mov r4, r0
-.ff.ret:
-pop {r4, r5, r7, pc}
-add sp, sp, #0
-bx lr
-.size ff, .-ff
-
 .align 1
 .global main
 .syntax unified 
@@ -72,41 +20,145 @@ bx lr
 .thumb_func
 .type main, %function
 main:
-sub sp, sp, #8
-push {r4, r5, r6, r7, r8, r9, r10, r11, lr}
-add	r7, sp, #36
-ldr r5, =.L4
+sub sp, sp, #164
+push {r4, r5, r6, r7, lr}
+add	r7, sp, #20
+add r5, r7, #0
 add r4, r5, #0
-mov r5, #10
+mov r5, #1
 str r5, [r4]
-ldr r6, =.L4
+add r5, r7, #0
+add r4, r5, #4
+mov r5, #2
+str r5, [r4]
+add r5, r7, #0
+add r4, r5, #0
+mov r5, #3
+str r5, [r4]
+add r5, r7, #0
+add r4, r5, #4
+mov r5, #4
+str r5, [r4]
+add r5, r7, #0
+add r4, r5, #0
+mov r5, #7
+str r5, [r4]
+mov r4, #3
+str r4, [r7, #32]
+add r5, r7, #68
+add r4, r5, #0
+mov r5, #1
+str r5, [r4]
+add r5, r7, #68
+add r4, r5, #4
+mov r5, #2
+str r5, [r4]
+add r5, r7, #68
+add r4, r5, #8
+mov r5, #3
+str r5, [r4]
+add r5, r7, #68
+add r4, r5, #12
+mov r5, #4
+str r5, [r4]
+add r5, r7, #68
+add r4, r5, #16
+mov r5, #5
+str r5, [r4]
+add r5, r7, #68
+add r4, r5, #20
+mov r5, #6
+str r5, [r4]
+add r5, r7, #68
+add r4, r5, #24
+mov r5, #7
+str r5, [r4]
+add r5, r7, #68
+add r4, r5, #28
+mov r5, #8
+str r5, [r4]
+add r5, r7, #100
+add r4, r5, #0
+mov r5, #1
+str r5, [r4]
+add r5, r7, #100
+add r4, r5, #4
+mov r5, #2
+str r5, [r4]
+add r5, r7, #100
+add r4, r5, #0
+mov r5, #3
+str r5, [r4]
+add r5, r7, #100
+add r4, r5, #0
+mov r5, #5
+str r5, [r4]
+add r5, r7, #0
+add r4, r5, #24
+ldr r5, [r4]
+add r5, r7, #100
+add r4, r5, #0
+str r5, [r4]
+add r5, r7, #100
+add r4, r5, #4
+mov r5, #8
+str r5, [r4]
+add r5, r7, #100
+add r4, r5, #20
+ldr r5, [r4]
+add r5, r7, #132
+add r4, r5, #0
+str r5, [r4]
+add r5, r7, #68
+add r4, r5, #20
+ldr r5, [r4]
+add r5, r7, #132
+add r4, r5, #0
+str r5, [r4]
+add r5, r7, #132
+add r4, r5, #0
+mov r5, #3
+str r5, [r4]
+add r5, r7, #132
+add r4, r5, #4
+mov r5, #4
+str r5, [r4]
+add r5, r7, #132
+add r4, r5, #0
+mov r5, #5
+str r5, [r4]
+add r5, r7, #132
+add r4, r5, #4
+mov r5, #6
+str r5, [r4]
+add r5, r7, #132
+add r4, r5, #0
+mov r5, #7
+str r5, [r4]
+add r5, r7, #132
+add r4, r5, #4
+mov r5, #8
+str r5, [r4]
+add r5, r7, #132
+add r4, r5, #28
+ldr r5, [r4]
+add r5, r7, #132
+add r4, r5, #0
+ldr r5, [r4]
+add r4, r5, r5
+add r6, r7, #132
 add r5, r6, #4
-mov r6, #2
-str r6, [r5]
-ldr r8, =.L4
-add r6, r8, #8
-mov r8, #2
-str r8, [r6]
-ldr r9, =.L4
-add r8, r9, #12
-mov r9, #4
-str r9, [r8]
-bl getint(PLT)
-add sp, sp, #0
-mov r9, r0
-str r9, [r7, #0]
-bl getint(PLT)
-add sp, sp, #0
-mov r9, r0
-str r9, [r7, #4]
-ldr r9, [r7, #0]
-ldr r10, [r7, #4]
-add r11, r9, r10
-mov r0, r11
+ldr r6, [r5]
+add r5, r4, r6
+add r6, r7, #100
+add r4, r6, #24
+ldr r6, [r4]
+add r4, r5, r6
+mov r0, r4
 b .main.ret
 .main.ret:
-pop {r4, r5, r6, r7, r8, r9, r10, r11, pc}
-add sp, sp, #8
+pop {r4, r5, r6, r7, pc}
+add sp, sp, #164
 bx lr
 .size main, .-main
 

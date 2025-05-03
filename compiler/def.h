@@ -24,6 +24,6 @@ class Node;
 #define YYSTYPE std::shared_ptr<Node>
 #include "y.tab.h"
 
-int __main();
+int __main(int argc, char** argv);
 
 #endif 

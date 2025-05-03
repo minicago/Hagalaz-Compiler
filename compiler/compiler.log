@@ -1,66 +1,123 @@
-4
+1
 Starting the compiler?
 CompUnitNode
-DeclNode: isConst=0, type=291, id=a
-Array size:
-VectorNode
-ConstIntNode: val=2
-ConstIntNode: val=2
-Initial value:
-VectorNode
-ConstIntNode: val=10
-ConstIntNode: val=2
-ConstIntNode: val=2
-ConstIntNode: val=4
-FuncDefNode: type=291, id=f
-Parameters:
-ParamListNode
-ParamNode: type=291, id=a, isptr=1
-Body:
-BlockGroupNode
-AssignNode
-LvalNode: id=a
-VectorNode
-ConstIntNode: val=1
-Expression:
-ExprNode: op=265
-LvalNode: id=a
-VectorNode
-ConstIntNode: val=1
-ConstIntNode: val=1
-ReturnNode
-LvalNode: id=a
-VectorNode
-ConstIntNode: val=0
-FuncDefNode: type=291, id=ff
-Parameters:
-ParamListNode
-ParamNode: type=291, id=b, isptr=1
-VectorNode
-ConstIntNode: val=2
-Body:
-BlockGroupNode
-FuncCallNode: id=f
-FuncCallParamNode
-LvalNode: id=b
-VectorNode
-ConstIntNode: val=1
 FuncDefNode: type=291, id=main
 Body:
 BlockGroupNode
 DeclNode: isConst=0, type=291, id=a
+Array size:
+VectorNode
+ConstIntNode: val=4
+ConstIntNode: val=2
 Initial value:
-FuncCallNode: id=getint
-FuncCallParamNode
+VectorNode
+VectorNode
+ConstIntNode: val=1
+ConstIntNode: val=2
+VectorNode
+ConstIntNode: val=3
+ConstIntNode: val=4
+VectorNode
+ConstIntNode: val=7
+DeclNode: isConst=1, type=291, id=N
+Initial value:
+ConstIntNode: val=3
 DeclNode: isConst=0, type=291, id=b
+Array size:
+VectorNode
+ConstIntNode: val=4
+ConstIntNode: val=2
 Initial value:
-FuncCallNode: id=getint
-FuncCallParamNode
+VectorNode
+DeclNode: isConst=0, type=291, id=c
+Array size:
+VectorNode
+ConstIntNode: val=4
+ConstIntNode: val=2
+Initial value:
+VectorNode
+ConstIntNode: val=1
+ConstIntNode: val=2
+ConstIntNode: val=3
+ConstIntNode: val=4
+ConstIntNode: val=5
+ConstIntNode: val=6
+ConstIntNode: val=7
+ConstIntNode: val=8
+DeclNode: isConst=0, type=291, id=d
+Array size:
+VectorNode
+ExprNode: op=265
+LvalNode: id=N
+ConstIntNode: val=1
+ConstIntNode: val=2
+Initial value:
+VectorNode
+ConstIntNode: val=1
+ConstIntNode: val=2
+VectorNode
+ConstIntNode: val=3
+VectorNode
+ConstIntNode: val=5
+LvalNode: id=a
+VectorNode
+ConstIntNode: val=3
+ConstIntNode: val=0
+ConstIntNode: val=8
+DeclNode: isConst=0, type=291, id=e
+Array size:
+VectorNode
+ConstIntNode: val=4
+ConstIntNode: val=2
+ConstIntNode: val=1
+Initial value:
+VectorNode
+VectorNode
+LvalNode: id=d
+VectorNode
+ConstIntNode: val=2
+ConstIntNode: val=1
+VectorNode
+LvalNode: id=c
+VectorNode
+ConstIntNode: val=2
+ConstIntNode: val=1
+VectorNode
+ConstIntNode: val=3
+ConstIntNode: val=4
+VectorNode
+ConstIntNode: val=5
+ConstIntNode: val=6
+VectorNode
+ConstIntNode: val=7
+ConstIntNode: val=8
 ReturnNode
 ExprNode: op=265
-LvalNode: id=a
-LvalNode: id=b
+ExprNode: op=265
+ExprNode: op=265
+LvalNode: id=e
+VectorNode
+ConstIntNode: val=3
+ConstIntNode: val=1
+ConstIntNode: val=0
+LvalNode: id=e
+VectorNode
+ConstIntNode: val=0
+ConstIntNode: val=0
+ConstIntNode: val=0
+LvalNode: id=e
+VectorNode
+ConstIntNode: val=0
+ConstIntNode: val=1
+ConstIntNode: val=0
+LvalNode: id=d
+VectorNode
+ConstIntNode: val=3
+ConstIntNode: val=0
 Visiting CompUnitNode
+Visiting FuncDefNode
+Function definition: main
+Visiting BlockGroupNode
 Visiting DeclNode
 Visiting vectorNode
 Constructing type: int
@@ -71,10 +128,80 @@ Constructing type: [2]int
 Visiting ConstIntNode
 Finished visiting ConstIntNode
 Element type: const int
-Constructing type: [2][2]int
+Constructing type: [4][2]int
 Finished visiting vectorNode
-type [2][2]int
+type [4][2]int
 Visiting vectorNode
+Visiting vectorNode
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Element type: const int
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Element type: const int
+Finished visiting vectorNode
+Visiting vectorNode
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Element type: const int
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Element type: const int
+Finished visiting vectorNode
+Visiting vectorNode
+Finished visiting vectorNode
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Element type: const int
+Finished visiting vectorNode
+Finished visiting DeclNode
+Visiting DeclNode
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Matching types: const int and const int
+Finished visiting DeclNode
+Visiting DeclNode
+Visiting vectorNode
+Constructing type: int
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Element type: const int
+Constructing type: [2]int
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Element type: const int
+Constructing type: [4][2]int
+Finished visiting vectorNode
+type [4][2]int
+Visiting vectorNode
+Finished visiting vectorNode
+Finished visiting DeclNode
+Visiting DeclNode
+Visiting vectorNode
+Constructing type: int
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Element type: const int
+Constructing type: [2]int
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Element type: const int
+Constructing type: [4][2]int
+Finished visiting vectorNode
+type [4][2]int
+Visiting vectorNode
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Element type: const int
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Element type: const int
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Element type: const int
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Element type: const int
 Visiting ConstIntNode
 Finished visiting ConstIntNode
 Element type: const int
@@ -89,51 +216,56 @@ Finished visiting ConstIntNode
 Element type: const int
 Finished visiting vectorNode
 Finished visiting DeclNode
-Visiting FuncDefNode
-Function definition: f
-Visiting ParamListNode
-Visiting ParamNode
-Finished visiting ParamNode
-Finished visiting ParamListNode
-Visiting BlockGroupNode
-Visiting AssignNode
-1
-Visiting LvalNode
+Visiting DeclNode
+Visiting vectorNode
+Constructing type: int
 Visiting ConstIntNode
 Finished visiting ConstIntNode
-Array is constant.
-[2147483647]int
-get_index
-index: 1
-type: 0
-int
-0 1
-int
-Finished visiting LvalNode
+Element type: const int
+Constructing type: [2]int
 0
 Visiting LvalNode
-Visiting ConstIntNode
-Finished visiting ConstIntNode
-Array is constant.
-[2147483647]int
-get_index
-index: 1
-type: 0
-int
-0 0
-int
+1 0
+const int = 3
 Finished visiting LvalNode
 Visiting ConstIntNode
 Finished visiting ConstIntNode
 Finished visiting ExprNode
-Finished visiting AssignNode
-Visiting ReturnNode
+Element type: const int
+Constructing type: [4][2]int
+Finished visiting vectorNode
+type [4][2]int
+Visiting vectorNode
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Element type: const int
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Element type: const int
+Visiting vectorNode
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Element type: const int
+Finished visiting vectorNode
+Visiting vectorNode
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Element type: const int
+Finished visiting vectorNode
 0
 Visiting LvalNode
 Visiting ConstIntNode
 Finished visiting ConstIntNode
 Array is constant.
-[2147483647]int
+[4][2]int
+get_index
+index: 3
+type: 0
+[2]int
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Array is constant.
+[2]int
 get_index
 index: 0
 type: 0
@@ -141,70 +273,212 @@ int
 0 0
 int
 Finished visiting LvalNode
-Matching types: int and int
-Finished visiting ReturnNode
-Finished visiting BlockGroupNode
-Finished visiting FuncDefNode
-Visiting FuncDefNode
-Function definition: ff
-Visiting ParamListNode
-Visiting ParamNode
+Element type: int
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Element type: const int
+Finished visiting vectorNode
+Finished visiting DeclNode
+Visiting DeclNode
 Visiting vectorNode
 Constructing type: int
 Visiting ConstIntNode
 Finished visiting ConstIntNode
 Element type: const int
-Constructing type: [2]int
+Constructing type: [1]int
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Element type: const int
+Constructing type: [2][1]int
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Element type: const int
+Constructing type: [4][2][1]int
 Finished visiting vectorNode
-Finished visiting ParamNode
-Finished visiting ParamListNode
-Visiting BlockGroupNode
-Visiting FuncCallNode
-Visiting FuncCallParamNode
+type [4][2][1]int
+Visiting vectorNode
+Visiting vectorNode
 0
 Visiting LvalNode
 Visiting ConstIntNode
 Finished visiting ConstIntNode
 Array is constant.
-[2147483647][2]int
+[4][2]int
+get_index
+index: 2
+type: 0
+[2]int
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Array is constant.
+[2]int
 get_index
 index: 1
 type: 0
-[2]int
+int
 0 0
-[2]int
+int
 Finished visiting LvalNode
-Finished visiting FuncCallParamNode
-Matching types: [2147483647]int and [2]int
-Matching types: int and int
-Finished visiting FuncCallNode
-Finished visiting BlockGroupNode
-Finished visiting FuncDefNode
-Visiting FuncDefNode
-Function definition: main
-Visiting BlockGroupNode
-Visiting DeclNode
-Visiting FuncCallNode
-Visiting FuncCallParamNode
-Finished visiting FuncCallParamNode
-Finished visiting FuncCallNode
-Matching types: int and int
-Finished visiting DeclNode
-Visiting DeclNode
-Visiting FuncCallNode
-Visiting FuncCallParamNode
-Finished visiting FuncCallParamNode
-Finished visiting FuncCallNode
-Matching types: int and int
+Element type: int
+Visiting vectorNode
+0
+Visiting LvalNode
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Array is constant.
+[4][2]int
+get_index
+index: 2
+type: 0
+[2]int
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Array is constant.
+[2]int
+get_index
+index: 1
+type: 0
+int
+0 0
+int
+Finished visiting LvalNode
+Element type: int
+Finished visiting vectorNode
+Finished visiting vectorNode
+Visiting vectorNode
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Element type: const int
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Element type: const int
+Finished visiting vectorNode
+Visiting vectorNode
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Element type: const int
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Element type: const int
+Finished visiting vectorNode
+Visiting vectorNode
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Element type: const int
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Element type: const int
+Finished visiting vectorNode
+Finished visiting vectorNode
 Finished visiting DeclNode
 Visiting ReturnNode
 0
 Visiting LvalNode
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Array is constant.
+[4][2][1]int
+get_index
+index: 3
+type: 0
+[2][1]int
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Array is constant.
+[2][1]int
+get_index
+index: 1
+type: 0
+[1]int
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Array is constant.
+[1]int
+get_index
+index: 0
+type: 0
+int
 0 0
 int
 Finished visiting LvalNode
 0
 Visiting LvalNode
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Array is constant.
+[4][2][1]int
+get_index
+index: 0
+type: 0
+[2][1]int
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Array is constant.
+[2][1]int
+get_index
+index: 0
+type: 0
+[1]int
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Array is constant.
+[1]int
+get_index
+index: 0
+type: 0
+int
+0 0
+int
+Finished visiting LvalNode
+Finished visiting ExprNode
+0
+Visiting LvalNode
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Array is constant.
+[4][2][1]int
+get_index
+index: 0
+type: 0
+[2][1]int
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Array is constant.
+[2][1]int
+get_index
+index: 1
+type: 0
+[1]int
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Array is constant.
+[1]int
+get_index
+index: 0
+type: 0
+int
+0 0
+int
+Finished visiting LvalNode
+Finished visiting ExprNode
+0
+Visiting LvalNode
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Array is constant.
+[4][2]int
+get_index
+index: 3
+type: 0
+[2]int
+Visiting ConstIntNode
+Finished visiting ConstIntNode
+Array is constant.
+[2]int
+get_index
+index: 0
+type: 0
+int
 0 0
 int
 Finished visiting LvalNode
@@ -215,117 +489,242 @@ Finished visiting BlockGroupNode
 Finished visiting FuncDefNode
 Finished visiting CompUnitNode
 IRBuilder toString
-malloc 16 -> $4
-add $4, 0 -> $5
-store 10 -> $5
-add $4, 4 -> $6
-store 2 -> $6
-add $4, 8 -> $7
+malloc 32 -> $5
+add $5, 0 -> $6
+store 1 -> $6
+add $5, 4 -> $7
 store 2 -> $7
-add $4, 12 -> $8
-store 4 -> $8
-load $9 -> $11
-add 4, $11 -> $13
-load $9 -> $14
-add 4, $14 -> $16
-load $16 -> $17
-add $17, 1 -> $18
-store $18 -> $13
-load $9 -> $19
-add 0, $19 -> $21
-load $21 -> $22
-return $22
-malloc 4 -> $9
-load $23 -> $25
-add 8, $25 -> $27
-call f($27, ) -> $28
-malloc 4 -> $23
-malloc 4 -> $30
-call getint() -> $31
-store $31 -> $30
-malloc 4 -> $32
-call getint() -> $33
-store $33 -> $32
-load $30 -> $34
-load $32 -> $35
-add $34, $35 -> $36
-return $36
+add $5, 0 -> $8
+store 3 -> $8
+add $5, 4 -> $9
+store 4 -> $9
+add $5, 0 -> $10
+store 7 -> $10
+malloc 4 -> $11
+store 3 -> $11
+malloc 32 -> $12
+malloc 32 -> $13
+add $13, 0 -> $14
+store 1 -> $14
+add $13, 4 -> $15
+store 2 -> $15
+add $13, 8 -> $16
+store 3 -> $16
+add $13, 12 -> $17
+store 4 -> $17
+add $13, 16 -> $18
+store 5 -> $18
+add $13, 20 -> $19
+store 6 -> $19
+add $13, 24 -> $20
+store 7 -> $20
+add $13, 28 -> $21
+store 8 -> $21
+malloc 32 -> $22
+add $22, 0 -> $23
+store 1 -> $23
+add $22, 4 -> $24
+store 2 -> $24
+add $22, 0 -> $25
+store 3 -> $25
+add $22, 0 -> $26
+store 5 -> $26
+add 24, $5 -> $29
+load $29 -> $30
+add $22, 0 -> $31
+store $30 -> $31
+add $22, 4 -> $32
+store 8 -> $32
+malloc 32 -> $33
+add 20, $22 -> $36
+load $36 -> $37
+add $33, 0 -> $38
+store $37 -> $38
+add 20, $13 -> $41
+load $41 -> $42
+add $33, 0 -> $43
+store $42 -> $43
+add $33, 0 -> $44
+store 3 -> $44
+add $33, 4 -> $45
+store 4 -> $45
+add $33, 0 -> $46
+store 5 -> $46
+add $33, 4 -> $47
+store 6 -> $47
+add $33, 0 -> $48
+store 7 -> $48
+add $33, 4 -> $49
+store 8 -> $49
+add 28, $33 -> $53
+load $53 -> $54
+add 0, $33 -> $58
+load $58 -> $59
+add $54, $59 -> $60
+add 4, $33 -> $64
+load $64 -> $65
+add $60, $65 -> $66
+add 24, $22 -> $69
+load $69 -> $70
+add $66, $70 -> $71
+return $71
 ()
-malloc 16 -> $4
-add $4, 0 -> $5
-store 10 -> $5
-add $4, 4 -> $6
-store 2 -> $6
-add $4, 8 -> $7
-store 2 -> $7
-add $4, 12 -> $8
-store 4 -> $8
-f
-($9,)
-load $9 -> $11
-add 4, $11 -> $13
-load $9 -> $14
-add 4, $14 -> $16
-load $16 -> $17
-add $17, 1 -> $18
-store $18 -> $13
-load $9 -> $19
-add 0, $19 -> $21
-load $21 -> $22
-return $22
-malloc 4 -> $9
-
-ff
-($23,)
-load $23 -> $25
-add 8, $25 -> $27
-call f($27, ) -> $28
-malloc 4 -> $23
-
 main
 ()
-malloc 4 -> $30
-call getint() -> $31
-store $31 -> $30
-malloc 4 -> $32
-call getint() -> $33
-store $33 -> $32
-load $30 -> $34
-load $32 -> $35
-add $34, $35 -> $36
-return $36
+malloc 32 -> $5
+add $5, 0 -> $6
+store 1 -> $6
+add $5, 4 -> $7
+store 2 -> $7
+add $5, 0 -> $8
+store 3 -> $8
+add $5, 4 -> $9
+store 4 -> $9
+add $5, 0 -> $10
+store 7 -> $10
+malloc 4 -> $11
+store 3 -> $11
+malloc 32 -> $12
+malloc 32 -> $13
+add $13, 0 -> $14
+store 1 -> $14
+add $13, 4 -> $15
+store 2 -> $15
+add $13, 8 -> $16
+store 3 -> $16
+add $13, 12 -> $17
+store 4 -> $17
+add $13, 16 -> $18
+store 5 -> $18
+add $13, 20 -> $19
+store 6 -> $19
+add $13, 24 -> $20
+store 7 -> $20
+add $13, 28 -> $21
+store 8 -> $21
+malloc 32 -> $22
+add $22, 0 -> $23
+store 1 -> $23
+add $22, 4 -> $24
+store 2 -> $24
+add $22, 0 -> $25
+store 3 -> $25
+add $22, 0 -> $26
+store 5 -> $26
+add 24, $5 -> $29
+load $29 -> $30
+add $22, 0 -> $31
+store $30 -> $31
+add $22, 4 -> $32
+store 8 -> $32
+malloc 32 -> $33
+add 20, $22 -> $36
+load $36 -> $37
+add $33, 0 -> $38
+store $37 -> $38
+add 20, $13 -> $41
+load $41 -> $42
+add $33, 0 -> $43
+store $42 -> $43
+add $33, 0 -> $44
+store 3 -> $44
+add $33, 4 -> $45
+store 4 -> $45
+add $33, 0 -> $46
+store 5 -> $46
+add $33, 4 -> $47
+store 6 -> $47
+add $33, 0 -> $48
+store 7 -> $48
+add $33, 4 -> $49
+store 8 -> $49
+add 28, $33 -> $53
+load $53 -> $54
+add 0, $33 -> $58
+load $58 -> $59
+add $54, $59 -> $60
+add 4, $33 -> $64
+load $64 -> $65
+add $60, $65 -> $66
+add 24, $22 -> $69
+load $69 -> $70
+add $66, $70 -> $71
+return $71
 
 
 Building LIR
 Finished building global variables
-Building2: load $9 -> $11
-Building2: add 4, $11 -> $13
-Building2: load $9 -> $14
-Building2: add 4, $14 -> $16
-Building2: load $16 -> $17
-Building2: add $17, 1 -> $18
-Building2: store $18 -> $13
-Building2: load $9 -> $19
-Building2: add 0, $19 -> $21
-Building2: load $21 -> $22
-Building2: return $22
-Building2: load $23 -> $25
-Building2: add 8, $25 -> $27
-Building2: call f($27, ) -> $28
-Building1: add $4, 0 -> $5
-Building1: store 10 -> $5
-Building1: add $4, 4 -> $6
-Building1: store 2 -> $6
-Building1: add $4, 8 -> $7
-Building1: store 2 -> $7
-Building1: add $4, 12 -> $8
-Building1: store 4 -> $8
-Building2: call getint() -> $31
-Building2: store $31 -> $30
-Building2: call getint() -> $33
-Building2: store $33 -> $32
-Building2: load $30 -> $34
-Building2: load $32 -> $35
-Building2: add $34, $35 -> $36
-Building2: return $36
+Building2: add $5, 0 -> $6
+Building2: store 1 -> $6
+Building2: add $5, 4 -> $7
+Building2: store 2 -> $7
+Building2: add $5, 0 -> $8
+Building2: store 3 -> $8
+Building2: add $5, 4 -> $9
+Building2: store 4 -> $9
+Building2: add $5, 0 -> $10
+Building2: store 7 -> $10
+Building2: store 3 -> $11
+Building2: add $13, 0 -> $14
+Building2: store 1 -> $14
+Building2: add $13, 4 -> $15
+Building2: store 2 -> $15
+Building2: add $13, 8 -> $16
+Building2: store 3 -> $16
+Building2: add $13, 12 -> $17
+Building2: store 4 -> $17
+Building2: add $13, 16 -> $18
+Building2: store 5 -> $18
+Building2: add $13, 20 -> $19
+Building2: store 6 -> $19
+Building2: add $13, 24 -> $20
+Building2: store 7 -> $20
+Building2: add $13, 28 -> $21
+Building2: store 8 -> $21
+Building2: add $22, 0 -> $23
+Building2: store 1 -> $23
+Building2: add $22, 4 -> $24
+Building2: store 2 -> $24
+Building2: add $22, 0 -> $25
+Building2: store 3 -> $25
+Building2: add $22, 0 -> $26
+Building2: store 5 -> $26
+Building2: add 24, $5 -> $29
+Building2: load $29 -> $30
+Building2: add $22, 0 -> $31
+Building2: store $30 -> $31
+Building2: add $22, 4 -> $32
+Building2: store 8 -> $32
+Building2: add 20, $22 -> $36
+Building2: load $36 -> $37
+Building2: add $33, 0 -> $38
+Building2: store $37 -> $38
+Building2: add 20, $13 -> $41
+Building2: load $41 -> $42
+Building2: add $33, 0 -> $43
+Building2: store $42 -> $43
+Building2: add $33, 0 -> $44
+Building2: store 3 -> $44
+Building2: add $33, 4 -> $45
+Building2: store 4 -> $45
+Building2: add $33, 0 -> $46
+Building2: store 5 -> $46
+Building2: add $33, 4 -> $47
+Building2: store 6 -> $47
+Building2: add $33, 0 -> $48
+Building2: store 7 -> $48
+Building2: add $33, 4 -> $49
+Building2: store 8 -> $49
+Building2: add 28, $33 -> $53
+Building2: load $53 -> $54
+Building2: add 0, $33 -> $58
+Building2: load $58 -> $59
+Building2: add $54, $59 -> $60
+Building2: add 4, $33 -> $64
+Building2: load $64 -> $65
+Building2: add $60, $65 -> $66
+Building2: add 24, $22 -> $69
+Building2: load $69 -> $70
+Building2: add $66, $70 -> $71
+Building2: return $71
 Finished building LIR

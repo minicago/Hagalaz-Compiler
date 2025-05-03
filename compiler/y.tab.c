@@ -1617,7 +1617,7 @@ yyreduce:
 #line 131 "yacc.y"
                   {
             BISON_LOG("InitVal -> { }\n");
-            yyval = nullptr;
+            yyval = std::make_shared<VectorNode> ();
         }
 #line 1623 "y.tab.c"
     break;
@@ -2485,20 +2485,10 @@ yyreturnlab:
 #line 439 "yacc.y"
 
 
+
 int main(int argc, char** argv){
     
-    extern FILE* yyin;
-    if(argc == 2){
-	if((yyin = fopen(argv[1], "r")) == NULL){
-	    printf("Can't open file %s\n", argv[1]);
-	    return 1;
-	}
-    }
-    yyparse();
-    
-	fclose(yyin);
-
-    __main();
+    __main(argc, argv);
 
     
     return 0;

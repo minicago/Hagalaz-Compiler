@@ -1,6 +1,6 @@
 TEST_DIR = test/functional
 SRC_SY = $(wildcard $(TEST_DIR)/*.sy)
-CC = arm-linux-gnueabihf-gcc
+CC = compiler/hagalaz
 LD = arm-linux-gnueabihf-gcc
 BUILD_DIR = build
 LIB_DIR = test
@@ -11,12 +11,16 @@ QEMU = qemu-arm-static
 
 OBJS = $(patsubst $(TEST_DIR)/%.sy, $(BUILD_DIR)/% ,$(SRC_SY) )
 
+$(CC) : 
+	make -C compiler hagalaz
+
 $(BUILD_DIR)/% : $(TEST_DIR)/%.sy
 	@if [ ! -d $(BUILD_DIR) ]; then \
 		mkdir -p $(BUILD_DIR); \
 	fi
 	@echo "Compiling $< to $@"
-	$(CC) -o $@ -xc $< -I$(LIB_DIR) -L$(LIB_DIR) -lsysy -static
+	$(CC) -S -o $@.S $< 
+	$(LD) -o $@ $@.S -I$(LIB_DIR) -L$(LIB_DIR) -lsysy -static
 
 .PHONY: all clean run
 
